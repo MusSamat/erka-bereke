@@ -1,0 +1,15 @@
+.CatBanner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.CatBanner h3{
+    color: #33301E;
+
+}
+
+.GetBanner a  span:hover {
+    opacity: 0.7;
+    color: #ef0c42;
+}

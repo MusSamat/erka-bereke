@@ -1,0 +1,24 @@
+.serviceSection{
+    margin-top: 100px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.serviceSection .serviceItems{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.serviceSection .serviceItems h4{
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.serviceSection .serviceItems span{
+    font-size: 15px;
+    font-weight: bolder;
+}

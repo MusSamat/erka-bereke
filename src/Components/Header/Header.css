@@ -1,0 +1,57 @@
+.menuLinkDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    border: .1rem solid #ebebeb;
+}
+
+.menuLinkDiv:hover{
+    border: 1px solid black;
+}
+
+.menuLink{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: black;
+
+}
+.menuLink a{
+    color: black;
+}
+.menuLinkDiv i {
+    color: black;
+    font-size: 17px;
+    float: left;
+}
+.Bars{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    padding-left: 10px;
+    color: #ccbc30;
+}
+
+.Bars span{
+    padding-top: 7px;
+    font-size: 30px;
+}
+
+.Bars:hover {
+    color: #ccbc30 !important;
+}
+.Bars:focus {
+    color: #ccbc30 !important;
+}
+
+
+.Bars i {
+    font-size: 36px;
+}
+
+.Bars span{
+    font-weight: bold;
+}
+

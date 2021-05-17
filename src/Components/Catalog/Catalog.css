@@ -1,0 +1,22 @@
+.BorderPro{
+    border: 1px solid #d2d0d0;
+}
+
+.prodCategor{
+    padding-left: 20px;
+    overflow-y: scroll;
+}
+
+.prodCategor h6 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.prodCategor ul li span{
+    color: #7b7777;
+}
+
+.brandScroll {
+    overflow-y: scroll;
+}
+
