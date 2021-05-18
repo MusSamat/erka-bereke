@@ -6,7 +6,6 @@ import HotDealProducts from "./Products/HotDealProducts";
 import ServiceSection from "./Slider/ServiceSection";
 import CatBanner from "./Products/CatBanner";
 import CatBanner2 from "./Products/CatBanner2";
-// import Header from "../Header/Header";
 import Catalog from "../Catalog/Catalog";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";

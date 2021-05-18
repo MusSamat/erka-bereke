@@ -1,5 +1,6 @@
 import React from "react";
 import './Header.css'
+import {NavLink} from "react-router-dom";
 
 const HeaderBottom = () => {
     return (
@@ -445,27 +446,27 @@ const HeaderBottom = () => {
                     <div className="header-right">
                         <div className="header-dropdown-link">
 
-                            <a href="wishlist.html" className="wishlist-link">
+                            <NavLink to="/wishlist" className="wishlist-link">
                                 <i className="icon-heart-o" style={{fontSize: '2.8rem'}}></i>
                                 <span className="wishlist-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>3</span>
                                 <span className="wishlist-txt" style={{color: 'white'}}></span>
-                            </a>
+                            </NavLink>
 
                             <div className="dropdown cart-dropdown">
-                                <a href="#" className="dropdown-toggle" role="button" data-toggle="dropdown"
+                                <NavLink to="/cart" className="dropdown-toggle" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i className="icon-shopping-cart" style={{fontSize: '3.2rem'}}></i>
                                     <span className="cart-count"
                                           style={{backgroundColor: "rgb(204, 188, 48)",}}>2</span>
                                     <span className="cart-txt" style={{color: 'white'}}></span>
-                                </a>
+                                </NavLink>
 
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <div className="dropdown-cart-products">
                                         <div className="product">
                                             <div className="product-cart-details">
                                                 <h4 className="product-title">
-                                                    <a href="product.html">Beige knitted elastic runner shoes</a>
+                                                    <NavLink to="/product">Beige knitted elastic runner shoes</NavLink>
                                                 </h4>
 
                                                 <span className="cart-product-info">
@@ -475,9 +476,9 @@ const HeaderBottom = () => {
                                             </div>
 
                                             <figure className="product-image-container">
-                                                <a href="product.html" className="product-image">
-                                                    <img src="assets/images/products/cart/product-1.jpg" alt="product"/>
-                                                </a>
+                                                <NavLink to="/product" className="product-image">
+                                                    <img src="assets/images/demos/demo-13/products/1.jpg" alt="Product image"/>
+                                                </NavLink>
                                             </figure>
                                             <a href="#" className="btn-remove" title="Remove Product"><i
                                                 className="icon-close"></i></a>
@@ -486,7 +487,7 @@ const HeaderBottom = () => {
                                         <div className="product">
                                             <div className="product-cart-details">
                                                 <h4 className="product-title">
-                                                    <a href="product.html">Blue utility pinafore denim dress</a>
+                                                    <NavLink to="/product">Blue utility pinafore denim dress</NavLink>
                                                 </h4>
 
                                                 <span className="cart-product-info">
@@ -496,9 +497,9 @@ const HeaderBottom = () => {
                                             </div>
 
                                             <figure className="product-image-container">
-                                                <a href="product.html" className="product-image">
-                                                    <img src="assets/images/products/cart/product-2.jpg" alt="product"/>
-                                                </a>
+                                                <NavLink to="/product" className="product-image">
+                                                    <img src="assets/images/demos/demo-13/products/2.jpg" alt="Product image"/>
+                                                </NavLink>
                                             </figure>
                                             <a href="#" className="btn-remove" title="Remove Product"><i
                                                 className="icon-close"></i></a>

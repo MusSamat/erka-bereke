@@ -1,0 +1,16 @@
+.NavBan{
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.NavBan span{
+    color: #ccbc30;
+}
+.NavBan  p {
+    font-size: 20px;
+    /*color: black;*/
+}
+.NavBan p span{
+    /*color: #1c7430;*/
+    font-weight: bold;
+}

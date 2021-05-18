@@ -6,21 +6,18 @@ import Nav from "../Nav/Nav";
 const Blog = () => {
 
     const blog = {
-                name: 'Blog',
-                title: 'This is BlogPage',
-                item: 'first blog'
+                name: 'Блог',
+                title: '',
+                item: ''
     }
 
     return (
         <div>
-            <NavBanner
-                title={blog.title}
-                name={blog.name}
-            />
+            <NavBanner/>
 
             <Nav
                 name={blog.name}
-                item={blog.item}
+                // item={blog.item}
             />
 
             <div className="page-content">
@@ -30,82 +27,41 @@ const Blog = () => {
                             <article className="entry entry-grid text-center">
                                 <figure className="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-1.jpg" alt="image desc"/>
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
                                     </a>
                                 </figure>
 
 
                                 <div className="entry-body">
                                     <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
                                         <span className="meta-separator">|</span>
-                                        <a href="#">Nov 22, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">2 Comments</a>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
                                     </div>
 
                                     <h2 className="entry-title">
-                                        <a href="single.html">Cras ornare tristique elit.</a>
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
                                     </h2>
 
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>,
-                                        <a href="#">Shopping</a>
-                                    </div>
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
 
 
                                     <div className="entry-content">
-                                        <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                                            eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas vulputate
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
                                             ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
                                     </div>
 
                                 </div>
 
-                            </article>
-
-                        </div>
-
-
-                        <div className="entry-item lifestyle col-sm-6 col-lg-4">
-                            <article className="entry entry-grid text-center">
-                                <figure className="entry-media entry-video">
-                                    <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-2.jpg" alt="image desc"/>
-                                    </a>
-                                </figure>
-
-
-                                <div className="entry-body">
-                                    <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">Nov 21, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">0 Comments</a>
-                                    </div>
-
-
-                                    <h2 className="entry-title">
-                                        <a href="single.html">Vivamus vestibulum ntulla necante.</a>
-                                    </h2>
-
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>
-                                    </div>
-
-                                    <div className="entry-content">
-                                        <p>Morbi purus libero, faucibus commodo quis, gravida id, est.
-                                            Vestibulumvolutpat, lacus a ultrices sagittis, mi neque euismod dui ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
-                                    </div>
-
-                                </div>
                             </article>
 
                         </div>
@@ -113,81 +69,41 @@ const Blog = () => {
                             <article className="entry entry-grid text-center">
                                 <figure className="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-1.jpg" alt="image desc"/>
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
                                     </a>
                                 </figure>
 
 
                                 <div className="entry-body">
                                     <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
                                         <span className="meta-separator">|</span>
-                                        <a href="#">Nov 22, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">2 Comments</a>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
                                     </div>
 
                                     <h2 className="entry-title">
-                                        <a href="single.html">Cras ornare tristique elit.</a>
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
                                     </h2>
 
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>,
-                                        <a href="#">Shopping</a>
-                                    </div>
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
+
 
                                     <div className="entry-content">
-                                        <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                                            eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas vulputate
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
                                             ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
                                     </div>
 
                                 </div>
 
-                            </article>
-
-                        </div>
-
-
-                        <div className="entry-item lifestyle col-sm-6 col-lg-4">
-                            <article className="entry entry-grid text-center">
-                                <figure className="entry-media entry-video">
-                                    <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-2.jpg" alt="image desc"/>
-                                    </a>
-                                </figure>
-
-
-                                <div className="entry-body">
-                                    <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">Nov 21, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">0 Comments</a>
-                                    </div>
-
-
-                                    <h2 className="entry-title">
-                                        <a href="single.html">Vivamus vestibulum ntulla necante.</a>
-                                    </h2>
-
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>
-                                    </div>
-
-                                    <div className="entry-content">
-                                        <p>Morbi purus libero, faucibus commodo quis, gravida id, est.
-                                            Vestibulumvolutpat, lacus a ultrices sagittis, mi neque euismod dui ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
-                                    </div>
-
-                                </div>
                             </article>
 
                         </div>
@@ -195,82 +111,41 @@ const Blog = () => {
                             <article className="entry entry-grid text-center">
                                 <figure className="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-1.jpg" alt="image desc"/>
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
                                     </a>
                                 </figure>
 
 
                                 <div className="entry-body">
                                     <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
                                         <span className="meta-separator">|</span>
-                                        <a href="#">Nov 22, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">2 Comments</a>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
                                     </div>
 
                                     <h2 className="entry-title">
-                                        <a href="single.html">Cras ornare tristique elit.</a>
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
                                     </h2>
 
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>,
-                                        <a href="#">Shopping</a>
-                                    </div>
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
 
 
                                     <div className="entry-content">
-                                        <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                                            eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas vulputate
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
                                             ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
                                     </div>
 
                                 </div>
 
-                            </article>
-
-                        </div>
-
-
-                        <div className="entry-item lifestyle col-sm-6 col-lg-4">
-                            <article className="entry entry-grid text-center">
-                                <figure className="entry-media entry-video">
-                                    <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-2.jpg" alt="image desc"/>
-                                    </a>
-                                </figure>
-
-
-                                <div className="entry-body">
-                                    <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">Nov 21, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">0 Comments</a>
-                                    </div>
-
-
-                                    <h2 className="entry-title">
-                                        <a href="single.html">Vivamus vestibulum ntulla necante.</a>
-                                    </h2>
-
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>
-                                    </div>
-
-                                    <div className="entry-content">
-                                        <p>Morbi purus libero, faucibus commodo quis, gravida id, est.
-                                            Vestibulumvolutpat, lacus a ultrices sagittis, mi neque euismod dui ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
-                                    </div>
-
-                                </div>
                             </article>
 
                         </div>
@@ -278,37 +153,37 @@ const Blog = () => {
                             <article className="entry entry-grid text-center">
                                 <figure className="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-1.jpg" alt="image desc"/>
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
                                     </a>
                                 </figure>
 
 
                                 <div className="entry-body">
                                     <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
                                         <span className="meta-separator">|</span>
-                                        <a href="#">Nov 22, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">2 Comments</a>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
                                     </div>
 
                                     <h2 className="entry-title">
-                                        <a href="single.html">Cras ornare tristique elit.</a>
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
                                     </h2>
 
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>,
-                                        <a href="#">Shopping</a>
-                                    </div>
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
 
 
                                     <div className="entry-content">
-                                        <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo,
-                                            eget blandit nunc tortor eu nibh. Suspendisse potenti. Sed egestas vulputate
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
                                             ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
                                     </div>
 
                                 </div>
@@ -316,44 +191,87 @@ const Blog = () => {
                             </article>
 
                         </div>
-
-
-                        <div className="entry-item lifestyle col-sm-6 col-lg-4">
+                        <div className="entry-item lifestyle shopping col-sm-6 col-lg-4">
                             <article className="entry entry-grid text-center">
-                                <figure className="entry-media entry-video">
+                                <figure className="entry-media">
                                     <a href="single.html">
-                                        <img src="assets/images/blog/grid/3cols/post-2.jpg" alt="image desc"/>
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
                                     </a>
                                 </figure>
 
 
                                 <div className="entry-body">
                                     <div className="entry-meta">
-                                        <span className="entry-author">
-                                            by <a href="#">John Doe</a>
-                                        </span>
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
                                         <span className="meta-separator">|</span>
-                                        <a href="#">Nov 21, 2018</a>
-                                        <span className="meta-separator">|</span>
-                                        <a href="#">0 Comments</a>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
                                     </div>
-
 
                                     <h2 className="entry-title">
-                                        <a href="single.html">Vivamus vestibulum ntulla necante.</a>
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
                                     </h2>
 
-                                    <div className="entry-cats">
-                                        in <a href="#">Lifestyle</a>
-                                    </div>
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
+
 
                                     <div className="entry-content">
-                                        <p>Morbi purus libero, faucibus commodo quis, gravida id, est.
-                                            Vestibulumvolutpat, lacus a ultrices sagittis, mi neque euismod dui ...</p>
-                                        <a href="single.html" className="read-more">Continue Reading</a>
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
+                                            ...</p>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
                                     </div>
 
                                 </div>
+
+                            </article>
+
+                        </div>
+                        <div className="entry-item lifestyle shopping col-sm-6 col-lg-4">
+                            <article className="entry entry-grid text-center">
+                                <figure className="entry-media">
+                                    <a href="single.html">
+                                        <img src="assets/images/demos/demo-13/products/ka2.jpg" alt="image desc"/>
+                                    </a>
+                                </figure>
+
+
+                                <div className="entry-body">
+                                    <div className="entry-meta">
+                                        {/*<span className="meta-separator">|</span>*/}
+                                        <a href="#" style={{ fontSize: 17}}>Май 17, 2021</a>
+                                        <span className="meta-separator">|</span>
+                                        <a href="#" style={{ fontSize: 17}}>2 Комментарии</a>
+                                    </div>
+
+                                    <h2 className="entry-title">
+                                        <a href="single.html">Как сохранить капусту свежей до весны: 10 способов
+                                        </a>
+                                    </h2>
+
+                                    {/*<div className="entry-cats">*/}
+                                    {/*    in <a href="#">Lifestyle</a>,*/}
+                                    {/*    <a href="#">Shopping</a>*/}
+                                    {/*</div>*/}
+
+
+                                    <div className="entry-content">
+                                        <p>Сохранить белокочанную и краснокочанную
+                                            капусту свежей и сочной до весны совсем не трудно.
+                                            Для этой благой цели нашими огородниками придумано достаточно способов,
+                                            на любой вкус
+                                            ...</p>
+                                        <a href="single.html" className="read-more" style={{fontSize: 17}}>Улантуу</a>
+                                    </div>
+
+                                </div>
+
                             </article>
 
                         </div>

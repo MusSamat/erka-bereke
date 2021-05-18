@@ -1,13 +1,14 @@
 import React from "react";
 import NavBanner from "../Nav/NavBanner";
 import Nav from "../Nav/Nav";
+import {NavLink} from "react-router-dom";
 
 const Cart = () => {
 
     const cart = {
-        name: 'Cart',
+        name: 'Корзинка',
         title: 'This is Cart',
-        item: 'cart'
+        item: 'Корзинка'
     }
 
     return (
@@ -29,10 +30,10 @@ const Cart = () => {
                                 <table className="table table-cart table-mobile">
                                     <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
+                                        <th>Товарлар</th>
+                                        <th>Баасы</th>
+                                        <th>Саны</th>
+                                        <th>Баардыгы</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -43,8 +44,8 @@ const Cart = () => {
                                             <div className="product">
                                                 <figure className="product-media">
                                                     <a href="#">
-                                                        <img src="assets/images/products/table/product-1.jpg"
-                                                             alt="Product image"/>
+                                                        <img src="assets/images/demos/demo-13/products/1.jpg" alt="Product image"/>
+
                                                     </a>
                                                 </figure>
 
@@ -70,8 +71,8 @@ const Cart = () => {
                                             <div className="product">
                                                 <figure className="product-media">
                                                     <a href="#">
-                                                        <img src="assets/images/products/table/product-2.jpg"
-                                                             alt="Product image"/>
+                                                        <img src="assets/images/demos/demo-13/products/2.jpg" alt="Product image"/>
+
                                                     </a>
                                                 </figure>
 
@@ -111,22 +112,22 @@ const Cart = () => {
                                     </div>
 
 
-                                    <a href="#" className="btn btn-outline-dark-2"><span>UPDATE CART</span><i
+                                    <a href="#" className="btn btn-outline-dark-2"><span style={{fontSize: 20}}>Жаңылоо</span><i
                                         className="icon-refresh"></i></a>
                                 </div>
                             </div>
                             <aside className="col-lg-3">
                                 <div className="summary summary-cart">
-                                    <h3 className="summary-title">Cart Total</h3>
+                                    <h3 className="summary-title" style={{fontSize: 20}}>Корзинка</h3>
 
                                     <table className="table table-summary">
                                         <tbody>
                                         <tr className="summary-subtotal">
-                                            <td>Subtotal:</td>
+                                            <td>Баары:</td>
                                             <td>$160.00</td>
                                         </tr>
                                         <tr className="summary-shipping">
-                                            <td>Shipping:</td>
+                                            <td>Жеткирүү:</td>
                                             <td>&nbsp;</td>
                                         </tr>
 
@@ -135,8 +136,7 @@ const Cart = () => {
                                                 <div className="custom-control custom-radio">
                                                     <input type="radio" id="free-shipping" name="shipping"
                                                            className="custom-control-input"/>
-                                                    <label className="custom-control-label" htmlFor="free-shipping">Free
-                                                        Shipping</label>
+                                                    <label className="custom-control-label" htmlFor="free-shipping">Стандарт</label>
                                                 </div>
                                             </td>
                                             <td>$0.00</td>
@@ -149,37 +149,22 @@ const Cart = () => {
                                                     <input type="radio" id="standart-shipping" name="shipping"
                                                            className="custom-control-input"/>
                                                     <label className="custom-control-label"
-                                                           htmlFor="standart-shipping">Standart:</label>
+                                                           htmlFor="standart-shipping">Экспресс:</label>
                                                 </div>
 
                                             </td>
                                             <td>$10.00</td>
                                         </tr>
 
-
-                                        <tr className="summary-shipping-row">
-                                            <td>
-                                                <div className="custom-control custom-radio">
-                                                    <input type="radio" id="express-shipping" name="shipping"
-                                                           className="custom-control-input"/>
-                                                    <label className="custom-control-label"
-                                                           htmlFor="express-shipping">Express:</label>
-                                                </div>
-
-                                            </td>
-                                            <td>$20.00</td>
-                                        </tr>
-
-
-                                        <tr className="summary-shipping-estimate">
-                                            <td>Estimate for Your Country{<br/>}<a href="dashboard.html">Change
-                                                address</a></td>
-                                            <td>&nbsp;</td>
-                                        </tr>
+                                        {/*<tr className="summary-shipping-estimate">*/}
+                                        {/*    <td>Estimate for Your Country{<br/>}<a href="dashboard.html">Change*/}
+                                        {/*        address</a></td>*/}
+                                        {/*    <td>&nbsp;</td>*/}
+                                        {/*</tr>*/}
 
 
                                         <tr className="summary-total">
-                                            <td>Total:</td>
+                                            <td>Баары:</td>
                                             <td>$160.00</td>
                                         </tr>
 
@@ -187,13 +172,12 @@ const Cart = () => {
                                     </table>
 
 
-                                    <a href="checkout.html" className="btn btn-outline-primary-2 btn-order btn-block">PROCEED
-                                        TO CHECKOUT</a>
+                                    <a href="checkout.html" className="btn btn-outline-primary-2 btn-order btn-block">Төлөмдү аткаруу</a>
                                 </div>
 
 
-                                <a href="category.html" className="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
-                                    className="icon-refresh"></i></a>
+                                <NavLink to="/" className="btn btn-outline-dark-2 btn-block mb-3"><span>Башкы бетке өтүү</span><i
+                                    className="icon-refresh"></i></NavLink>
                             </aside>
 
                         </div>

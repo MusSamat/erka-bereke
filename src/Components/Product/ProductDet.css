@@ -1,0 +1,88 @@
+.product_Details {
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.12);
+    margin-left: 40px;
+    padding: .75rem;
+    /*width: 30rem;*/
+}
+
+.product_Details .prod_name{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.product_Details .prod_name h3 {
+    font: 600 20px Inter,sans-serif;
+}
+
+.product_Details .prod_name h5 {
+    font-weight: normal;
+    color: #2e62ee;
+}
+
+.product_Details .prod_name span {
+    color: #fa750e;
+    font-size: 30px;
+}
+
+.product_Details .prod_name .som {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.product_Details .prod_bottom {
+    padding: .75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.product_Details .prod_bottom p{
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 3rem;
+    color: black;
+}
+
+.product_Details .prod_bottom .prod_det_buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.product_Details .prod_bottom .prod_det_buttons .carT{
+    width: 15rem;
+    height: 6rem;
+    font-size: 1.9rem;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: #ccbc30;
+    border: none;
+    color: rgb(88, 88, 88);
+}
+
+.product_Details .prod_bottom .prod_det_buttons .carT:hover{
+    opacity: 0.8;
+}
+
+.product_Details .prod_bottom .prod_det_buttons .wisH {
+    width: 10rem;
+    font-size: 3rem;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+}
+
+.product_Details .prod_bottom .prod_det_buttons .wisH:hover i{
+  color: rgb(88, 88, 88);
+
+}
+
+
+
+
+
+

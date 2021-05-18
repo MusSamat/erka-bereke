@@ -5,9 +5,9 @@ import NavBanner from "../Nav/NavBanner";
 const Wishlist = () => {
 
     const wishlist = {
-        name: 'Wishlist',
+        name: 'Жактырылды',
         title: 'This is Wishlist',
-        item: 'wishlist'
+        // item: 'wish'
     }
 
     return(
@@ -19,7 +19,7 @@ const Wishlist = () => {
             />
             <Nav
                 name={wishlist.name}
-                item={wishlist.item}
+                // item={wishlist.item}
             />
 
             <div className="page-content">
@@ -29,9 +29,9 @@ const Wishlist = () => {
                         <tr>
                             <th>Продукт</th>
                             <th>Баасы</th>
-                            {/*<th></th>*/}
-                            {/*<th></th>*/}
-                            {/*<th></th>*/}
+                            <th>Кампада</th>
+                            <th> Корзинкага кошуу</th>
+                            <th> Өчүрүү</th>
                         </tr>
                         </thead>
 
@@ -52,20 +52,11 @@ const Wishlist = () => {
 
                             </td>
                             <td className="price-col">$84.00</td>
-                            <td className="stock-col"><span className="in-stock">In stock</span></td>
+                            <td className="stock-col"><span className="in-stock">Жок</span></td>
                             <td className="action-col">
-                                <div className="dropdown">
-                                    <button className="btn btn-block btn-outline-primary-2" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <i className="icon-list-alt"></i>Select Options
-                                    </button>
-
-                                    <div className="dropdown-menu">
-                                        <a className="dropdown-item" href="#">First option</a>
-                                        <a className="dropdown-item" href="#">Another option</a>
-                                        <a className="dropdown-item" href="#">The best option</a>
-                                    </div>
-                                </div>
+                                <button className="btn btn-block btn-outline-primary-2"><i
+                                    className="icon-cart-plus"></i>Add to Cart
+                                </button>
                             </td>
                             <td className="remove-col">
                                 <button className="btn-remove"><i className="icon-close"></i></button>
@@ -87,7 +78,7 @@ const Wishlist = () => {
 
                             </td>
                             <td className="price-col">$76.00</td>
-                            <td className="stock-col"><span className="in-stock">In stock</span></td>
+                            <td className="stock-col"><span className="in-stock">Бар</span></td>
                             <td className="action-col">
                                 <button className="btn btn-block btn-outline-primary-2"><i
                                     className="icon-cart-plus"></i>Add to Cart
@@ -112,9 +103,9 @@ const Wishlist = () => {
                                 </div>
                             </td>
                             <td className="price-col">$52.00</td>
-                            <td className="stock-col"><span className="out-of-stock">Out of stock</span></td>
+                            <td className="stock-col"><span className="out-of-stock">Жок</span></td>
                             <td className="action-col">
-                                <button className="btn btn-block btn-outline-primary-2 disabled">Out of Stock</button>
+                                <button className="btn btn-block btn-outline-primary-2 disabled">Жок</button>
                             </td>
                             <td className="remove-col">
                                 <button className="btn-remove"><i className="icon-close"></i></button>
@@ -124,7 +115,7 @@ const Wishlist = () => {
                     </table>
                     <div className="wishlist-share">
                         <div className="social-icons social-icons-sm mb-2">
-                            <label className="social-label">Share on:</label>
+                            <label className="social-label">Бөлүшүү:</label>
                             <a href="#" className="social-icon" title="Facebook" target="_blank"><i
                                 className="icon-facebook-f"></i></a>
                             <a href="#" className="social-icon" title="Twitter" target="_blank"><i
