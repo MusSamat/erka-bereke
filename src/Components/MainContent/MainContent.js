@@ -31,7 +31,7 @@ const MainContent = () => {
                     </>
                 )
             }}/>
-            <Route path='/categories' component={Catalog}/>
+            <Route path='/categories/:id' component={Catalog}/>
             <Route path='/product' component={Product}/>
             <Route path="/cart" component={Cart}/>
             <Route path='/wishlist' component={Wishlist}/>

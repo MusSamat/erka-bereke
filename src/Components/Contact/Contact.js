@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../Nav/Nav";
 import NavBanner from "../Nav/NavBanner";
+import Location from "../Map/Location";
 
 const Contact = () => {
 
@@ -174,7 +175,9 @@ const Contact = () => {
                 {/*        </div>*/}
                 {/*    </div>*/}
                 </div>
-                <div id="map"></div>
+                <div id="map">
+                    <Location/>
+                </div>
             </div>
         </>
 

@@ -1,7 +1,44 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import CatalogProducts from "./CatalogProducts";
+import GetData from "../../service/GetData";
 
-const Categories = () => {
+const Categories = (props) => {
+
+    const data = new GetData()
+
+    const [catalog, setCatalog] = useState([])
+    const [subCategories, setSubCategories] = useState([])
+
+    const getAllCategories = () => {
+        data.getData('/categories/' + props.id).then(res => {
+            setCatalog(res)
+        })
+    }
+    const getAllSubCategories = () => {
+        data.getData('/subcategory').then(res => {
+            setSubCategories(res)
+        })
+    }
+
+
+    useEffect(() => {
+        let loadScript = function(src) {
+            let tag = document.createElement('script');
+            tag.async = false;
+            tag.src = src;
+            document.getElementsByTagName('body')[0].appendChild(tag);
+        }
+        loadScript('assets/js/owl.carousel.min.js')
+        loadScript('assets/js/bootstrap-input-spinner.js')
+        loadScript('assets/js/main.js')
+        loadScript('assets/js/demos/demo-13.js')
+
+        getAllCategories()
+        getAllSubCategories()
+    }, [])
+
+    console.log(props)
+
     return (
         <div className="page-content">
             <div className="container">
@@ -12,7 +49,7 @@ const Categories = () => {
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
                         <div className="sidebar sidebar-shop" style={{border: '1px solid #d2d0d0', borderRadius: '8px'}}>
                             <div className="widget widget-categories">
-                                <h3 className="widget-title" style={{paddingTop: 20, paddingLeft: 20, fontWeight: "bold"}}>Мөмө-Жемиштер</h3>
+                                <h3 className="widget-title" style={{paddingTop: 20, paddingLeft: 20, fontWeight: "bold"}}>{catalog.title}</h3>
                                 <h5 style={{ paddingLeft: 20}}>56 түр</h5>
 
                                 <div className="widget-body">
@@ -21,8 +58,14 @@ const Categories = () => {
                                         <div className="prodCategor">
                                             <h6>Категориялар</h6>
                                             <ul>
-                                                <li>Мөмө жемиш <span>(33)</span></li>
-                                                <li>Жер жемиш  <span>(23)</span></li>
+                                                {subCategories.map((subItem, i) => {
+                                                    if(subItem.subcategory === catalog.id){
+                                                        return(
+                                                            <li>{subItem.title} <span>(33)</span></li>
+                                                        )
+                                                    }
+                                                })}
+
                                             </ul>
                                         </div>
                                     </div>

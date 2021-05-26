@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {useTranslation} from 'react-i18next';
+import './Header.css'
 
 const HeaderTop = () => {
+
+    const {t, i18n} = useTranslation();
+
+    function languageChangeHandler(lang){
+        i18n.changeLanguage(lang);
+    }
+
     return(
         <div className='container'>
             <div className="header-top">
                 <div className="container">
                     <div className="header-left">
-                        <a href="tel:#"><i className="icon-phone"></i>Чалуу: +996 773 020 304</a>
+                        <a href="tel:#"><i className="icon-phone"></i> {t("CallNumber.1")}: +996 773 020 304</a>
                     </div>
 
                     <div className="header-right">
@@ -17,29 +26,25 @@ const HeaderTop = () => {
                                 <ul>
                                     <li>
                                         <div className="header-dropdown">
-                                            <a href="#">Сом</a>
-                                            <div className="header-menu">
+                                            <a href="#" style={{fontWeight: "600", fontSize: 17}}>{t("Lang.1")}</a>
+                                            <div className="header-menu lang_style">
                                                 <ul>
-                                                    <li><a href="#">Сом</a></li>
-                                                    <li><a href="#">Доллар</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="header-dropdown">
-                                            <a href="#">Кырг</a>
-                                            <div className="header-menu">
-                                                <ul>
-                                                    <li><a href="#">Кыргызча</a></li>
-                                                    <li><a href="#">Русский</a></li>
-                                                    <li><a href="#"> Türkçe</a></li>
+                                                    <li><div
+                                                           onClick={()=> languageChangeHandler('kyr')}
+                                                    >Кыр</div></li>
+                                                    <li><div
+                                                           onClick={()=> languageChangeHandler('ru')}
+                                                    >Ru</div></li>
+                                                    <li><div
+                                                           onClick={()=> languageChangeHandler('tr')}
+                                                    > Tr</div></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </li>
                                     <li className="login">
-                                        <a href="#signin-modal" data-toggle="modal">Катталуу / Кирүү</a>
+                                        <a href="#signin-modal" data-toggle="modal"
+                                           style={{fontWeight: "600", fontSize: 17}}>{t("Reg.1")} / {t("Reg.2")} </a>
                                     </li>
                                 </ul>
                             </li>

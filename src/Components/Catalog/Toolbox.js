@@ -2,7 +2,7 @@ import React from "react";
 
 const Toolbox = () => {
     return (
-        <div className="toolbox">
+        <div className="toolbox" style={{marginTop: 20}}>
             <div className="toolbox-left">
                 <div className="toolbox-info">
                     Баарысы<span>  56 /  7 </span> көрсөтүлдү

@@ -1,8 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Nav from "../Nav/Nav";
 import './ProductDet.css'
 
 const Product = () => {
+
+        useEffect(() => {
+            let loadScript = function(src) {
+                let tag = document.createElement('script');
+                tag.async = false;
+                tag.src = src;
+                document.getElementsByTagName('body')[0].appendChild(tag);
+            }
+            loadScript('/assets/js/jquery.elevateZoom.min.js')
+            loadScript('/assets/js/bootstrap-input-spinner.js')
+            loadScript('assets/js/main.js')
+            loadScript('/assets/js/jquery.magnific-popup.min.js')
+
+
+        return () => {
+            const elements = document.getElementsByClassName('zoomContainer')
+            while(elements.length > 0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        }
+    }, [])
 
     const product = {
         categoryName: 'Мөмө - жемиш',
