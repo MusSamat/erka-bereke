@@ -1,10 +1,27 @@
-import React from "react";
-import CatalogCarousel from "./CatalogCarousel";
+import React, {useEffect} from "react";
+// import CatalogCarousel from "./CatalogCarousel";
 import './Catalog.css'
 import Toolbox from "./Toolbox";
 import CatCarousel from "./CatCarousel";
+import {useDispatch, useSelector} from "react-redux";
+import {getProducts} from "../../store/actions/product";
+
+
 
 const CatalogProducts = (props) => {
+
+    const products = useSelector(state => state)
+
+    const dispatch = useDispatch()
+
+
+    useEffect(() => {
+      dispatch( getProducts())
+    },[dispatch])
+
+
+
+
     return (
         <div className="col-lg-9 col-xl-4-5col">
             {/*<CatalogCarousel/>*/}

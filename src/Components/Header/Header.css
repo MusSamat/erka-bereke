@@ -3,11 +3,13 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-    border: .1rem solid #ebebeb;
 }
-
+/*.liStyle:hover{*/
+/*    border-left: 6px solid black;*/
+/*}*/
 .menuLinkDiv:hover{
-    border: 1px solid black;
+    border-left: 2px solid #b8b8a4;
+    background-color: #e7e4e4;
 }
 
 .menuLink{

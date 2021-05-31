@@ -3,43 +3,29 @@ import './Header.css'
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import GetData from "../../service/GetData";
+import {useDispatch, useSelector} from "react-redux";
+import {getCategory} from "../../store/actions/category";
+import {getsubCategory} from "../../store/actions/subcategory";
+import {getsubCategory1} from "../../store/actions/subcategory1";
+import {getsubCategory2} from "../../store/actions/subcategory2";
 
 
 const HeaderBottom = () => {
     const {t, i18n} = useTranslation();
 
-    const data = new GetData()
-    const [catalog, setCatalog] = useState([])
-    const [subCategories, setSubCategories] = useState([])
-    const [subCategories1, setSubCategories1] = useState([])
-
-    const getAllCategories = () => {
-        data.getData('/categories').then(res => {
-            setCatalog(res)
-        })
-    }
-
-    const getAllSubCategories = () => {
-        data.getData("/subcategory").then(res => {
-            setSubCategories(res)
-        })
-    }
-
-    const getAllSubCategories1 = () => {
-        data.getData('/subcategory1').then(res => {
-            setSubCategories1(res)
-        })
-    }
-
-    // data.getData('/subCategories').then(res => {
-    //     setSubCategories(res)
-    // })
+    const dispatch = useDispatch()
+    const categories = useSelector(state => state.category.category)
+    const subcategoreis = useSelector(state => state.subcategory.subcategory)
+    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
+    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
 
     useEffect(() => {
-        getAllCategories()
-        getAllSubCategories()
-        getAllSubCategories1()
-    }, [])
+        dispatch(getCategory())
+        dispatch(getsubCategory())
+        dispatch(getsubCategory1())
+        dispatch(getsubCategory2())
+    }, [dispatch])
+
     return (
         <div className="header-bottom sticky-header" style={{backgroundColor: "#585858"}}>
             <div className="container">
@@ -56,67 +42,85 @@ const HeaderBottom = () => {
                             <nav className="side-nav">
                                 <ul className="menu-vertical sf-arrows">
                                     {
-                                        catalog.map((item, index) => {
+                                        categories.map((item, index) => {
                                             return (
-                                                <li className="megamenu-container " key={index}>
-                                                    <div className='menuLinkDiv'>
-                                                        <div className='menuLink'>
-                                                            <img src="/assets/svg_logo/fruits.svg" alt="fruits"/>
-                                                            <NavLink to={{
+                                                <li className="megamenu-container liStyle" key={index}>
+
+                                                        <div className='menuLinkDiv'>
+                                                            <div className='menuLink' style={{fontWeight: 600, fontSize: 17}}>
+                                                                <img src="/assets/svg_logo/fruits.svg" alt="fruits"/><NavLink to={{
                                                                 pathname: "/categories/" + item.title,
-                                                                id:  item.id
-                                                            }}
-                                                               style={{fontWeight: 600, fontSize: 17}}>{item.title}</NavLink>
+                                                                id: {
+                                                                    id: item.id
+                                                                }
+                                                            }}>
+                                                                {item.title}  </NavLink>
+                                                            </div>
+                                                            <i className='icon-angle-right'> </i>
                                                         </div>
-                                                        <i className='icon-angle-right'> </i>
-                                                    </div>
 
 
-                                                    <div className="megamenu" >
-                                                        <div className="row no-gutters">
-                                                            <div className="col-md">
-                                                                <div className="menu-col">
-                                                                    <div className="row">
-                                                                        <div className="col">
-                                                                            <div style={{display: "flex", flexDirection: "row", justifyContent: 'space-evenly', padding: 20,
-                                                                                flexWrap: 'wrap'
-                                                                            }}>
-                                                                                {
-                                                                                    subCategories.map((subItem, i) => {
-                                                                                        if (item.id === subItem.categories) {
-                                                                                            return (
-                                                                                                <>
-                                                                                                    <div className="menu-title" style={{color: "black",}}>{subItem.title}
-                                                                                                    <ul style={{borderTop: "1px solid #585858", paddingTop: 20}}>
-                                                                                                        {
-                                                                                                            subCategories1.map((subItem1, i) => {
-                                                                                                                if (subItem.id === subItem1.subcategory) {
-                                                                                                                    return (
-                                                                                                                        <li><NavLink to={{
-                                                                                                                            pathname: '/categories/' + subItem1.title
-                                                                                                                        }}
-                                                                                                                            style={{fontWeight: "bold", fontSize: 15}}
-                                                                                                                        >{subItem1.title}</NavLink></li>
-                                                                                                                    )
-                                                                                                                }
+                                                        <div className="megamenu">
+                                                            <div className="row no-gutters">
+                                                                <div className="col-md">
+                                                                    <div className="menu-col">
+                                                                        <div className="row">
+                                                                            <div className="col">
+                                                                                <div style={{
+                                                                                    display: "flex",
+                                                                                    flexDirection: "row",
+                                                                                    justifyContent: 'space-evenly',
+                                                                                    padding: 20,
+                                                                                    flexWrap: 'wrap'
+                                                                                }}>
+                                                                                    {
+                                                                                        subcategoreis.map((subItem, i) => {
+                                                                                            if (item.id === subItem.categories) {
+                                                                                                return (
+                                                                                                    <>
+                                                                                                        <div
+                                                                                                            className="menu-title"
+                                                                                                            style={{color: "black",}}
+                                                                                                            key={i}>{subItem.title}
+                                                                                                            <ul style={{
+                                                                                                                borderTop: "1px solid #585858",
+                                                                                                                paddingTop: 20
+                                                                                                            }}>
+                                                                                                                {
+                                                                                                                    subcategoreis1.map((subItem1, i) => {
+                                                                                                                        if (subItem.id === subItem1.subcategory) {
+                                                                                                                            return (
+                                                                                                                                <li key={i}>
+                                                                                                                                    <NavLink
+                                                                                                                                        to={{
+                                                                                                                                            pathname: '/categories/' + subItem1.title
+                                                                                                                                        }}
+                                                                                                                                        style={{
+                                                                                                                                            fontWeight: "bold",
+                                                                                                                                            fontSize: 15
+                                                                                                                                        }}
+                                                                                                                                    >{subItem1.title}</NavLink>
+                                                                                                                                </li>
+                                                                                                                            )
+                                                                                                                        }
 
-                                                                                                            })}
+                                                                                                                    })}
 
-                                                                                                    </ul>
-                                                                                                    </div>
-                                                                                                </>
-                                                                                            )
-                                                                                        }
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </>
+                                                                                                )
+                                                                                            }
 
-                                                                                    })}
+                                                                                        })}
+                                                                                </div>
+
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
                                                 </li>
 
                                             )
