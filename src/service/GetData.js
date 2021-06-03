@@ -15,6 +15,27 @@ class GetData extends React.Component {
         return res.json()
     }
 
+    async getDataWithToken(url, token){
+        const res = await  fetch(`${this._apiBase}${url}`, {
+            method: "GET",
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization':'Token ' + token
+            }
+        })
+        return res.json()
+    }
+
+
+
+    async setDataPro(token, url, body){
+        const res = await fetch(`${this._apiBase}${url}`, {
+            method: "POST",
+            body: body,
+            headers: {"Authorization": "Token " + token},
+        })
+        return res.json()
+    }
 
 
     async login(url, body) {

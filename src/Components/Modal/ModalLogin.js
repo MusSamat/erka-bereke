@@ -3,9 +3,17 @@ import ModalAuth from "./ModalAuth";
 import GetData from "../../service/GetData";
 import { ToastContainer, toast } from 'react-toastify';
 import {useTranslation} from "react-i18next";
+import AuthUser from "../../UsersInfo/AuthUser";
+import {getIsLoginValue} from "../../store/actions/isLogin";
+import {useDispatch} from "react-redux";
+import {getCartProducts} from "../../store/actions/product";
+import {getProductsFromCart} from "../../store/actions/cartProducts";
 // import "./Modal.css"
 
 const ModalLogin = () => {
+
+    const userLog = new AuthUser()
+    const dispatch = useDispatch()
 
     const {t, i18n} = useTranslation();
     const LogIn = new GetData()
@@ -30,9 +38,11 @@ const ModalLogin = () => {
                     toast.success('Successfully')
                     document.getElementById('closeModal').click()
                     localStorage.setItem('token', JSON.stringify(res.token))
+                    localStorage.setItem('userId', JSON.stringify(res.user.id))
+                    dispatch(getIsLoginValue(true))
+                    dispatch(getProductsFromCart(res.token, res.user.id))
                 } else {
-                    toast.error('Такой пользователь не существует')
-                    // setErrorToken("Enter a true username and password")
+                    toast.error('Some thing is wrong')
                 }
             })
     }

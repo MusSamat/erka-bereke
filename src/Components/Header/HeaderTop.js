@@ -1,14 +1,36 @@
 import React, {useEffect} from "react";
 import {useTranslation} from 'react-i18next';
 import './Header.css'
+import AuthUser from "../../UsersInfo/AuthUser";
+import {useDispatch, useSelector} from "react-redux";
+import {getIsLoginValue} from "../../store/actions/isLogin";
+import {getCartProducts} from "../../store/actions/product";
 
 const HeaderTop = () => {
+
+    const dispatch = useDispatch()
+
+    const isLogin = useSelector(state => state.isLogin.isLogin)
 
     const {t, i18n} = useTranslation();
 
     function languageChangeHandler(lang){
         i18n.changeLanguage(lang);
     }
+
+    const checkToken = () => {
+        if(localStorage.getItem('token')){
+        dispatch(getIsLoginValue(true))
+        }
+    }
+
+    const logOutHandler = () => {
+        dispatch(getIsLoginValue(false))
+        localStorage.clear()
+    }
+    useEffect(()=> {
+        checkToken()
+    },[dispatch])
 
     return(
         <div className='container'>
@@ -42,10 +64,19 @@ const HeaderTop = () => {
                                             </div>
                                         </div>
                                     </li>
-                                    <li className="login">
-                                        <a href="#signin-modal" data-toggle="modal"
-                                           style={{fontWeight: "600", fontSize: 17}}>{t("Reg.1")} / {t("Reg.2")} </a>
-                                    </li>
+                                    {/*<i className='icon-user' style={{fontSize: 20}}></i>*/}
+                                    {
+                                        isLogin ?
+                                            <li style={{ display: "flex", flexDirection: "row", gap: 10}}
+                                        ><img src="/assets/svg_logo/user.svg" alt="user" style={{textAlign: 'center'}} className="logOut"/>
+                                            <span className="logOut" style={{color: "grey"}} onClick={logOutHandler}>Выйти</span></li> :
+
+                                            <li className="login logIn" >
+                                                <img src="/assets/svg_logo/userAuth.svg" alt="user"/>
+                                                <a href="#signin-modal" data-toggle="modal"
+                                               style={{fontWeight: "600"}}>{t("Reg.1")} / {t("Reg.2")} </a>
+                                        </li>
+                                    }
                                 </ul>
                             </li>
                         </ul>

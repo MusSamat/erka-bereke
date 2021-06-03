@@ -69,3 +69,31 @@
     cursor: pointer;
 }
 
+.logOut{
+    font-size: 17px;
+    color: grey;
+}
+
+.logOut:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.logIn{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 4px;
+    padding: 5px;
+    border: 1px solid darkgrey;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #f1f0f0;
+}
+
+.EmptyCart{
+    font-size: 15px;
+    text-align: center;
+    color: #7b7777;
+    padding-bottom: 10px;
+}

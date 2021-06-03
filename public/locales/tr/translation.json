@@ -110,5 +110,22 @@
       "beAgree": "Katılıyorum *",
       "withSocial": "Aşağıdakiler ile kayit olmak"
     }
+  },
+  "Cart": {
+    "Empty": "Sepet boş",
+    "BtnTitle": "Sepete geç",
+    "CartPage": {
+      "title": "Sepet",
+      "Products": "Ürünler",
+      "Price": "Fiyat",
+      "Quantity": "Miktar",
+      "All": "Toplam",
+      "Refresh": "Güncelleme",
+      "Delivery": "Teslimat",
+      "Standart": "Standart",
+      "Express": "Express",
+      "Cash": "Ödemeye geç",
+      "Main": "Ana sayfaya geç"
+    }
   }
 }
