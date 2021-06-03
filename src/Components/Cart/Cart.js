@@ -11,6 +11,7 @@ const Cart = () => {
     const dispatch = useDispatch()
     const cartProductsPage= useSelector(state => state.cartProd.cartProd)
     // const sumOfCart = useSelector(state => state.sumOfCart.sumOfCart)
+    // second
 
     useEffect(() => {
     }, [])
