@@ -3,43 +3,41 @@ import './Header.css'
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import GetData from "../../service/GetData";
+import {useDispatch, useSelector} from "react-redux";
+import {getCategory} from "../../store/actions/category";
+import {getsubCategory} from "../../store/actions/subcategory";
+import {getsubCategory1} from "../../store/actions/subcategory1";
+import {getsubCategory2} from "../../store/actions/subcategory2";
+import {getCartProducts, getProducts} from "../../store/actions/product";
+import {getProductsFromCart} from "../../store/actions/cartProducts";
 
 
 const HeaderBottom = () => {
     const {t, i18n} = useTranslation();
 
-    const data = new GetData()
-    const [catalog, setCatalog] = useState([])
-    const [subCategories, setSubCategories] = useState([])
-    const [subCategories1, setSubCategories1] = useState([])
+    const isLogin = useSelector(state => state.isLogin.isLogin)
 
-    const getAllCategories = () => {
-        data.getData('/categories').then(res => {
-            setCatalog(res)
-        })
-    }
-
-    const getAllSubCategories = () => {
-        data.getData("/subcategory").then(res => {
-            setSubCategories(res)
-        })
-    }
-
-    const getAllSubCategories1 = () => {
-        data.getData('/subcategory1').then(res => {
-            setSubCategories1(res)
-        })
-    }
-
-    // data.getData('/subCategories').then(res => {
-    //     setSubCategories(res)
-    // })
+    const dispatch = useDispatch()
+    const categories = useSelector(state => state.category.category)
+    const subcategoreis = useSelector(state => state.subcategory.subcategory)
+    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
+    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
+    const cartProducts = useSelector(state => state.cartProd.cartProd)
+    console.log(cartProducts)
+    const token = JSON.parse(localStorage.getItem("token"))
+    const userId = localStorage.getItem("userId")
+    console.log(localStorage.getItem('token'))
+    console.log(localStorage.getItem('userId'))
 
     useEffect(() => {
-        getAllCategories()
-        getAllSubCategories()
-        getAllSubCategories1()
-    }, [])
+        dispatch(getCategory())
+        dispatch(getsubCategory())
+        dispatch(getsubCategory1())
+        dispatch(getsubCategory2())
+        dispatch(getProducts())
+        dispatch(getProductsFromCart(token, userId))
+    }, [dispatch])
+
     return (
         <div className="header-bottom sticky-header" style={{backgroundColor: "#585858"}}>
             <div className="container">
@@ -56,53 +54,71 @@ const HeaderBottom = () => {
                             <nav className="side-nav">
                                 <ul className="menu-vertical sf-arrows">
                                     {
-                                        catalog.map((item, index) => {
+                                        categories.map((item, index) => {
                                             return (
-                                                <li className="megamenu-container " key={index}>
+                                                <li className="megamenu-container liStyle" key={index}>
+
                                                     <div className='menuLinkDiv'>
-                                                        <div className='menuLink'>
-                                                            <img src="/assets/svg_logo/fruits.svg" alt="fruits"/>
-                                                            <NavLink to={{
-                                                                pathname: "/categories/" + item.title,
-                                                                id:  item.id
-                                                            }}
-                                                               style={{fontWeight: 600, fontSize: 17}}>{item.title}</NavLink>
+                                                        <div className='menuLink'
+                                                             style={{fontWeight: 600, fontSize: 17}}>
+                                                            <img src="/assets/svg_logo/fruits.svg"
+                                                                 alt="fruits"/><NavLink to={{
+                                                            pathname: "/categories/" + item.title,
+                                                            id: item.id
+                                                        }}>
+                                                            {item.title}  </NavLink>
                                                         </div>
                                                         <i className='icon-angle-right'> </i>
                                                     </div>
 
 
-                                                    <div className="megamenu" >
+                                                    <div className="megamenu">
                                                         <div className="row no-gutters">
                                                             <div className="col-md">
                                                                 <div className="menu-col">
                                                                     <div className="row">
                                                                         <div className="col">
-                                                                            <div style={{display: "flex", flexDirection: "row", justifyContent: 'space-evenly', padding: 20,
+                                                                            <div style={{
+                                                                                display: "flex",
+                                                                                flexDirection: "row",
+                                                                                justifyContent: 'space-evenly',
+                                                                                padding: 20,
                                                                                 flexWrap: 'wrap'
                                                                             }}>
                                                                                 {
-                                                                                    subCategories.map((subItem, i) => {
+                                                                                    subcategoreis.map((subItem, i) => {
                                                                                         if (item.id === subItem.categories) {
                                                                                             return (
                                                                                                 <>
-                                                                                                    <div className="menu-title" style={{color: "black",}}>{subItem.title}
-                                                                                                    <ul style={{borderTop: "1px solid #585858", paddingTop: 20}}>
-                                                                                                        {
-                                                                                                            subCategories1.map((subItem1, i) => {
-                                                                                                                if (subItem.id === subItem1.subcategory) {
-                                                                                                                    return (
-                                                                                                                        <li><NavLink to={{
-                                                                                                                            pathname: '/categories/' + subItem1.title
-                                                                                                                        }}
-                                                                                                                            style={{fontWeight: "bold", fontSize: 15}}
-                                                                                                                        >{subItem1.title}</NavLink></li>
-                                                                                                                    )
-                                                                                                                }
+                                                                                                    <div
+                                                                                                        className="menu-title"
+                                                                                                        style={{color: "black",}}
+                                                                                                        key={i}>{subItem.title}
+                                                                                                        <ul style={{
+                                                                                                            borderTop: "1px solid #585858",
+                                                                                                            paddingTop: 20
+                                                                                                        }}>
+                                                                                                            {
+                                                                                                                subcategoreis1.map((subItem1, i) => {
+                                                                                                                    if (subItem.id === subItem1.subcategory) {
+                                                                                                                        return (
+                                                                                                                            <li key={i}>
+                                                                                                                                <NavLink
+                                                                                                                                    to={{
+                                                                                                                                        pathname: '/categories/' + subItem1.title
+                                                                                                                                    }}
+                                                                                                                                    style={{
+                                                                                                                                        fontWeight: "bold",
+                                                                                                                                        fontSize: 15
+                                                                                                                                    }}
+                                                                                                                                >{subItem1.title}</NavLink>
+                                                                                                                            </li>
+                                                                                                                        )
+                                                                                                                    }
 
-                                                                                                            })}
+                                                                                                                })}
 
-                                                                                                    </ul>
+                                                                                                        </ul>
                                                                                                     </div>
                                                                                                 </>
                                                                                             )
@@ -454,25 +470,6 @@ const HeaderBottom = () => {
                         <form action="#" method="get">
                             <div className="header-search-wrapper search-wrapper-wide"
                                  style={{borderColor: 'rgb(204, 188, 48)'}}>
-                                {/*<div className="select-custom">*/}
-                                {/*    <select id="cat" name="cat">*/}
-                                {/*        <option value="">All Departments</option>*/}
-                                {/*        <option value="1">Fashion</option>*/}
-                                {/*        <option value="2">- Women</option>*/}
-                                {/*        <option value="3">- Men</option>*/}
-                                {/*        <option value="4">- Jewellery</option>*/}
-                                {/*        <option value="5">- Kids Fashion</option>*/}
-                                {/*        <option value="6">Electronics</option>*/}
-                                {/*        <option value="7">- Smart TVs</option>*/}
-                                {/*        <option value="8">- Cameras</option>*/}
-                                {/*        <option value="9">- Games</option>*/}
-                                {/*        <option value="10">Home &amp; Garden</option>*/}
-                                {/*        <option value="11">Motors</option>*/}
-                                {/*        <option value="12">- Cars and Trucks</option>*/}
-                                {/*        <option value="15">- Boats</option>*/}
-                                {/*        <option value="16">- Auto Tools &amp; Supplies</option>*/}
-                                {/*    </select>*/}
-                                {/*</div>*/}
                                 <label htmlFor="q" className="sr-only">{t("Sale.1")}...</label>
                                 <input type="search" className="form-control" name="q" id="q"
                                        placeholder={t("Sale.1")} required/>
@@ -485,7 +482,6 @@ const HeaderBottom = () => {
                 </div>
 
                 <div className="header-right">
-                    {/*<i className="la la-lightbulb-o"></i><p><span> Clearance Up to 30% Off</span></p>*/}
                     <div className="header-right">
                         <div className="header-dropdown-link">
 
@@ -496,72 +492,69 @@ const HeaderBottom = () => {
                             </NavLink>
 
                             <div className="dropdown cart-dropdown">
-                                <NavLink to="/cart" className="dropdown-toggle" role="button" data-toggle="dropdown"
+                                <NavLink to={{
+                                    pathname: "/cart"
+                                }} className="dropdown-toggle" role="button" data-toggle="dropdown"
                                          aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i className="icon-shopping-cart" style={{fontSize: '3.2rem'}}></i>
                                     <span className="cart-count"
-                                          style={{backgroundColor: "rgb(204, 188, 48)",}}>2</span>
+                                          // style={{backgroundColor: "rgb(204, 188, 48)",}}>{cartProducts ? <> {cartProducts.items.length} </> : 0}</span>
+                                          style={{backgroundColor: "rgb(204, 188, 48)",}}>0</span>
                                     <span className="cart-txt" style={{color: 'white'}}></span>
                                 </NavLink>
 
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <div className="dropdown-cart-products">
-                                        <div className="product">
-                                            <div className="product-cart-details">
-                                                <h4 className="product-title">
-                                                    <NavLink to="/product">Beige knitted elastic runner shoes</NavLink>
-                                                </h4>
+                                        {
+                                            cartProducts ? cartProducts.items.map((item, i) => {
+                                                const len = cartProducts.items.length
+                                                    if((i === len - 1) || (i === len - 2)){
+                                                        return (
+                                                            <div>
+                                                                <div className="product">
+                                                                    <div className="product-cart-details">
+                                                                        <h4 className="product-title">
+                                                                            <NavLink to={{
+                                                                                pathname: "/product/" + item.product.id,
+                                                                                id: item.product.id
+                                                                            }}style={{fontSize: 17, fontWeight: "600"}}>{item.product.title}</NavLink>
+                                                                        </h4>
 
-                                                <span className="cart-product-info">
-                                                    <span className="cart-product-qty">1</span>
-                                                    x $84.00
+                                                                        <span className="cart-product-info" style={{color: "black"}}>
+                                                    <span className="cart-product-qty" >{item.quantity} </span>
+                                                    x {Math.round(item.product.price)}
                                                 </span>
-                                            </div>
+                                                                    </div>
 
-                                            <figure className="product-image-container">
-                                                <NavLink to="/product" className="product-image">
-                                                    <img src="/assets/images/demos/demo-13/products/1.jpg"
-                                                         alt="Product image"/>
-                                                </NavLink>
-                                            </figure>
-                                            <a href="#" className="btn-remove" title="Remove Product"><i
-                                                className="icon-close"></i></a>
-                                        </div>
-
-                                        <div className="product">
-                                            <div className="product-cart-details">
-                                                <h4 className="product-title">
-                                                    <NavLink to="/product">Blue utility pinafore denim dress</NavLink>
-                                                </h4>
-
-                                                <span className="cart-product-info">
-                                                    <span className="cart-product-qty">1</span>
-                                                    x $76.00
-                                                </span>
-                                            </div>
-
-                                            <figure className="product-image-container">
-                                                <NavLink to="/product" className="product-image">
-                                                    <img src="/assets/images/demos/demo-13/products/2.jpg"
-                                                         alt="Product image"/>
-                                                </NavLink>
-                                            </figure>
-                                            <a href="#" className="btn-remove" title="Remove Product"><i
-                                                className="icon-close"></i></a>
-                                        </div>
+                                                                    <figure className="product-image-container">
+                                                                            <img src={item.product.image}
+                                                                                 alt="Product image"/>
+                                                                    </figure>
+                                                                    <a href="#" className="btn-remove" title="Remove Product"><i
+                                                                        className="icon-close"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                }) :
+                                                <div className="EmptyCart">
+                                                    <img src="/assets/svg_logo/empty-cart.png" alt="cartEmpty"
+                                                         style={{margin: '0 auto', paddingTop: 30, marginBottom: 30}}/>
+                                                    {t("Cart.Empty")}
+                                                </div>
+                                        }
                                     </div>
-
-                                    <div className="dropdown-cart-total">
-                                        <span>Баардыгы</span>
-
-                                        <span className="cart-total-price">$160.00</span>
-                                    </div>
-
-                                    <div className="dropdown-cart-action">
-                                        <a href="cart.html" className="btn btn-primary">корзинка</a>
-                                        <a href="checkout.html"
-                                           className="btn btn-outline-primary-2"><span>текшерүү</span><i
-                                            className="icon-long-arrow-right"></i></a>
+                                    { cartProducts.items.length > 2 ? <div style={{color: "#808080", display: "flex", flexDirection: "row",
+                                        justifyContent: "flex-end", marginTop: 5, fontWeight: "bold"}}>... еще {cartProducts.items.length -2 } товаров</div>: null
+                                    }
+                                    <div className="dropdown-cart-action"
+                                         style={{paddingTop: 10, fontSize: 17, borderRadius: 8}}>
+                                        < NavLink to={{
+                                            pathname: "/cart"
+                                        }} className="btn btn-primary" style={{
+                                            fontSize: 17,
+                                            margin: '0 auto'
+                                        }}> {t("Cart.BtnTitle")}</NavLink>
                                     </div>
                                 </div>
                             </div>

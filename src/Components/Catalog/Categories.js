@@ -1,24 +1,20 @@
 import React, {useEffect, useState} from "react";
 import CatalogProducts from "./CatalogProducts";
-import GetData from "../../service/GetData";
+import {useDispatch, useSelector} from "react-redux";
 
 const Categories = (props) => {
+    const id = props.id
+    const categories = useSelector(state => state.category.category)
+    const subcategoreis = useSelector(state => state.subcategory.subcategory)
+    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
+    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
+    const products = useSelector(state => state.product.products.filter((item, index) => {
+        if(item.category_id === id) {
+            return item
+        }
+}))
 
-    const data = new GetData()
 
-    const [catalog, setCatalog] = useState([])
-    const [subCategories, setSubCategories] = useState([])
-
-    const getAllCategories = () => {
-        data.getData('/categories/' + props.id).then(res => {
-            setCatalog(res)
-        })
-    }
-    const getAllSubCategories = () => {
-        data.getData('/subcategory').then(res => {
-            setSubCategories(res)
-        })
-    }
 
 
     useEffect(() => {
@@ -28,29 +24,36 @@ const Categories = (props) => {
             tag.src = src;
             document.getElementsByTagName('body')[0].appendChild(tag);
         }
-        loadScript('assets/js/owl.carousel.min.js')
-        loadScript('assets/js/bootstrap-input-spinner.js')
-        loadScript('assets/js/main.js')
-        loadScript('assets/js/demos/demo-13.js')
-
-        getAllCategories()
-        getAllSubCategories()
+        loadScript('/assets/js/owl.carousel.min.js')
+        loadScript('/assets/js/bootstrap-input-spinner.js')
+        loadScript('/assets/js/main.js')
+        loadScript('/assets/js/demos/demo-13.js')
     }, [])
 
-    console.log(props)
+    // console.log(props)
 
     return (
         <div className="page-content">
             <div className="container">
                 <div className="row">
 
-                    <CatalogProducts/>
+                    <CatalogProducts
+                        id={id}
+                        sizeOfProd={products.length}
+                    />
 
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
                         <div className="sidebar sidebar-shop" style={{border: '1px solid #d2d0d0', borderRadius: '8px'}}>
                             <div className="widget widget-categories">
-                                <h3 className="widget-title" style={{paddingTop: 20, paddingLeft: 20, fontWeight: "bold"}}>{catalog.title}</h3>
-                                <h5 style={{ paddingLeft: 20}}>56 түр</h5>
+                                <h3 className="widget-title" style={{paddingTop: 20, paddingLeft: 20, fontWeight: "bold"}}>
+                                    {  categories.map((it,i) => {
+                                        if(it.id === id){
+                                            return(
+                                                it.title
+                                            )
+                                        }
+                                    })}</h3>
+                                <h5 style={{ paddingLeft: 20}}> {products.length} түр</h5>
 
                                 <div className="widget-body">
                                     <div className="accordion" id="widget-cat-acc">
@@ -58,12 +61,16 @@ const Categories = (props) => {
                                         <div className="prodCategor">
                                             <h6>Категориялар</h6>
                                             <ul>
-                                                {subCategories.map((subItem, i) => {
-                                                    if(subItem.subcategory === catalog.id){
+                                                {subcategoreis.map((subItem, i) => {
+                                                    console.log(subItem.categories)
+                                                    if(subItem.categories === id){
+
                                                         return(
-                                                            <li>{subItem.title} <span>(33)</span></li>
+                                                            <li>{subItem.title} <span>
+                                                            </span></li>
                                                         )
                                                     }
+
                                                 })}
 
                                             </ul>

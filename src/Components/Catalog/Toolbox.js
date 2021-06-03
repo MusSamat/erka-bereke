@@ -1,11 +1,17 @@
 import React from "react";
 
-const Toolbox = () => {
+const Toolbox = (props) => {
+
+    const id = props.id
+    const c = props.sizeOfProd
+
+
+
     return (
         <div className="toolbox" style={{marginTop: 20}}>
             <div className="toolbox-left">
                 <div className="toolbox-info">
-                    Баарысы<span>  56 /  7 </span> көрсөтүлдү
+                    Баарысы<span>  {c} </span>
                 </div>
             </div>
 
@@ -13,10 +19,10 @@ const Toolbox = () => {
                 <div className="toolbox-sort">
                     <label htmlFor="sortby">Сорттоо:</label>
                     <div className="select-custom">
-                        <select name="sortby" id="sortby" className="form-control">
-                            <option value="popularity" selected="selected" disabled>жазыңыз...</option>
-                            <option value="rating">Датасы</option>
-                            <option value="date">Баасы</option>
+                        <select name="sortby" id="sortby" className="form-control" style={{ color: "black"}}>
+                            {/*<option value="popularity" selected="selected" disabled>жазыңыз...</option>*/}
+                            <option value="cost ">Алгач арзан баа </option>
+                            <option value="">Алгач кымбат баа</option>
                         </select>
                     </div>
                 </div>
@@ -50,7 +56,7 @@ const Toolbox = () => {
                 {/*            <rect x="12" y="6" width="4" height="4"/>*/}
                 {/*        </svg>*/}
                 {/*    </a>*/}
-                {/*    */}
+
                 {/*</div>*/}
 
             </div>
