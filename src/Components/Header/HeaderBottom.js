@@ -16,18 +16,11 @@ const HeaderBottom = () => {
     const {t, i18n} = useTranslation();
 
     const isLogin = useSelector(state => state.isLogin.isLogin)
-
     const dispatch = useDispatch()
-    const categories = useSelector(state => state.category.category)
-    const subcategoreis = useSelector(state => state.subcategory.subcategory)
-    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
-    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
-    const cartProducts = useSelector(state => state.cartProd.cartProd)
-    console.log(cartProducts)
-    const token = JSON.parse(localStorage.getItem("token"))
+
     const userId = localStorage.getItem("userId")
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('userId'))
+    // console.log(localStorage.getItem('token'))
+    // console.log(localStorage.getItem('userId'))
 
     useEffect(() => {
         dispatch(getCategory())
@@ -35,8 +28,18 @@ const HeaderBottom = () => {
         dispatch(getsubCategory1())
         dispatch(getsubCategory2())
         dispatch(getProducts())
-        dispatch(getProductsFromCart(token, userId))
+        dispatch(getProductsFromCart(userId))
     }, [dispatch])
+
+    const categories = useSelector(state => state.category.category)
+    const subcategoreis = useSelector(state => state.subcategory.subcategory)
+    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
+    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
+
+    const cartProductsById = useSelector(state => {
+        return state.cartProd
+    })
+
 
     return (
         <div className="header-bottom sticky-header" style={{backgroundColor: "#585858"}}>
@@ -497,55 +500,65 @@ const HeaderBottom = () => {
                                 }} className="dropdown-toggle" role="button" data-toggle="dropdown"
                                          aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i className="icon-shopping-cart" style={{fontSize: '3.2rem'}}></i>
-                                    <span className="cart-count"
-                                          // style={{backgroundColor: "rgb(204, 188, 48)",}}>{cartProducts ? <> {cartProducts.items.length} </> : 0}</span>
-                                          style={{backgroundColor: "rgb(204, 188, 48)",}}>0</span>
+                                    <span className="cart-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>
+                                        {cartProductsById ? <> {cartProductsById?.items?.length} </> : <> 0 </>}
+                                 </span>
+
                                     <span className="cart-txt" style={{color: 'white'}}></span>
                                 </NavLink>
 
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <div className="dropdown-cart-products">
                                         {
-                                            cartProducts ? cartProducts.items.map((item, i) => {
-                                                const len = cartProducts.items.length
-                                                    if((i === len - 1) || (i === len - 2)){
-                                                        return (
-                                                            <div>
-                                                                <div className="product">
-                                                                    <div className="product-cart-details">
-                                                                        <h4 className="product-title">
-                                                                            <NavLink to={{
-                                                                                pathname: "/product/" + item.product.id,
-                                                                                id: item.product.id
-                                                                            }}style={{fontSize: 17, fontWeight: "600"}}>{item.product.title}</NavLink>
-                                                                        </h4>
-
-                                                                        <span className="cart-product-info" style={{color: "black"}}>
-                                                    <span className="cart-product-qty" >{item.quantity} </span>
-                                                    x {Math.round(item.product.price)}
-                                                </span>
-                                                                    </div>
-
-                                                                    <figure className="product-image-container">
-                                                                            <img src={item.product.image}
-                                                                                 alt="Product image"/>
-                                                                    </figure>
-                                                                    <a href="#" className="btn-remove" title="Remove Product"><i
-                                                                        className="icon-close"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                }) :
+                                            cartProductsById === null ?
                                                 <div className="EmptyCart">
                                                     <img src="/assets/svg_logo/empty-cart.png" alt="cartEmpty"
                                                          style={{margin: '0 auto', paddingTop: 30, marginBottom: 30}}/>
                                                     {t("Cart.Empty")}
                                                 </div>
+                                                    :
+                                                cartProductsById?.items?.filter((i,j) => j < 2).map((item, i) => {
+                                                    const len = 0
+                                                        return (
+                                                            <div>
+                                                                <div className="product" key={i}>
+                                                                    <div className="product-cart-details">
+                                                                        <h4 className="product-title">
+                                                                            <NavLink to={{
+                                                                                pathname: "/product/" + item.product.id,
+                                                                                id: item.product.id
+                                                                            }} style={{
+                                                                                fontSize: 17,
+                                                                                fontWeight: "600"
+                                                                            }}>{item.product.title}</NavLink>
+                                                                        </h4>
+
+                                                                        <span className="cart-product-info"
+                                                                              style={{color: "black"}}>
+                                                    <span className="cart-product-qty">{item.quantity} </span>
+                                                    x {Math.round(item.product.price)}
+                                                </span>
+                                                                    </div>
+
+                                                                    <figure className="product-image-container">
+                                                                        <img src={item.product.image}
+                                                                             alt="Product image"/>
+                                                                    </figure>
+                                                                    <a href="#" className="btn-remove"
+                                                                       title="Remove Product">
+                                                                        <i
+                                                                        className="icon-close"></i></a>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                })
+
                                         }
                                     </div>
-                                    { cartProducts.items.length > 2 ? <div style={{color: "#808080", display: "flex", flexDirection: "row",
-                                        justifyContent: "flex-end", marginTop: 5, fontWeight: "bold"}}>... еще {cartProducts.items.length -2 } товаров</div>: null
+                                    {cartProductsById?.items?.length > 2 ? <div style={{
+                                        color: "#808080", display: "flex", flexDirection: "row",
+                                        justifyContent: "flex-end", marginTop: 5, fontWeight: "bold"
+                                    }}>... еще {cartProductsById.items.length - 2} товаров</div> : null
                                     }
                                     <div className="dropdown-cart-action"
                                          style={{paddingTop: 10, fontSize: 17, borderRadius: 8}}>

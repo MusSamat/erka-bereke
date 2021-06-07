@@ -39,7 +39,7 @@ const CatalogProducts = (props) => {
             cartProd.append("product", id)
             cartProd.append("quantity",q)
             new GetData().setDataPro(token,'/views/cart-item/', cartProd).then(() => {
-                dispatch(getProductsFromCart(token, userId))
+                dispatch(getProductsFromCart(userId))
             })
 
         }
@@ -88,7 +88,7 @@ const CatalogProducts = (props) => {
                                         </div>
 
                                         <div className="product-action">
-                                            <button onClick={() => addProductToCart(prod.id, 1)} className="btn-product " title="Корзинкага кошуу"><img
+                                            <button onClick={() => addProductToCart(prod.id, 2)} className="btn-product " title="Корзинкага кошуу"><img
                                                 src="/assets/svg_logo/addcar.png" alt=""/><span></span></button>
                                         </div>
                                     </figure>

@@ -1,15 +1,13 @@
 import {FETCH_CART_PRODUCT} from "../actions/actionTypes";
 
 const initsialState = {
-    cartProd: []
+    cartProd: null
 }
 
 export default function  cartProductsReducer(state = initsialState, action){
     switch (action.type){
         case FETCH_CART_PRODUCT:
-            return {
-                ...state, cartProd: action.cartProd
-            }
+            return action.cartProd
         default:
             return state
     }

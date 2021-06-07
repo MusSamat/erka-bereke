@@ -4,11 +4,11 @@ const initsialState = {
     sumOfCart:  0
 }
 
-export default function sumOfCartProducts(state = initsialState,action){
+export default function sumOfCartProd(state = initsialState,action){
     switch (action.type){
         case GET_SUM_OF_CART:
             return{
-                ...state, sumOfCart: action.sumOfCart + (+action.value)
+                sumOfCart: action.sumOfCart + (+action.value)
             }
         default:
             return state

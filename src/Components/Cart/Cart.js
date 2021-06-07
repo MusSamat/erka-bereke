@@ -1,19 +1,31 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import NavBanner from "../Nav/NavBanner";
 import Nav from "../Nav/Nav";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {sumOfCartProd} from "../../store/actions/sumOfCart";
+import sumOfCartProducts from "../../store/reducers/sumOfCart";
+import {sumOfCartProd} from "../../store/actions/sumOfCartProd";
+
 
 const Cart = () => {
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
-    const cartProductsPage= useSelector(state => state.cartProd.cartProd)
-    // const sumOfCart = useSelector(state => state.sumOfCart.sumOfCart)
-    // second
+    const cartProductsP =  useSelector(state => {
+        return state.cartProd
+    })
+    const sumOfCart = useSelector(state => state.sumOfCart.sumOfCart)
+    console.log(sumOfCart)
+
+    const sumOfPrice = () => {
+        cartProductsP?.items?.map((item,i) => {
+            const s = item.product.price * item.quantity
+            dispatch(sumOfCartProd(s))
+        })
+    }
 
     useEffect(() => {
+        sumOfPrice()
     }, [])
 
     const title = t("Cart.CartPage.title")
@@ -47,22 +59,22 @@ const Cart = () => {
                                     </thead>
 
                                     <tbody>
-                                    {
-                                        cartProductsPage?.cartProductsPage.items.map((item, i) => (
 
-                                            <tr key = {i}>
-                                                {/*{dispatch(sumOfCartProd(item.product.price  * item.quantity))}*/}
-                                                <td className="product-col">
-                                                    {dispatch(sumOfCartProd(item.product.price  * item.quantity))}
+                                    {
+                                        cartProductsP?.items?.map((item, i) => (
+
+                                            <tr key={i}>
+                                                <td className="product-col" >
                                                     <div className="product">
                                                         <figure className="product-media">
                                                             <a href="#">
-                                                                <img src={item.product.image} alt={item.product.title}/>
+                                                                <img src={item.product.image}
+                                                                     alt={item.product.title}/>
                                                             </a>
                                                         </figure>
 
                                                         <h3 className="product-title">
-                                                            <NavLink  to = {{
+                                                            <NavLink to={{
                                                                 pathname: '/product/' + item.product.id,
                                                                 id: item.product.id
                                                             }}>{item.product.title}</NavLink>
@@ -72,14 +84,17 @@ const Cart = () => {
                                                 <td className="price-col">{item.product.price}</td>
                                                 <td className="quantity-col">
                                                     <div className="cart-product-quantity">
-                                                        <input type="number" className="form-control" value="1" min="1" max="10"
+                                                        <input type="number" className="form-control" value={item.quantity}
+                                                               min="1" max="10"
                                                                step="1" data-decimals="0" required/>
                                                     </div>
                                                 </td>
-                                                <td className="total-col">{item.product.price  * item.quantity}</td>
+                                                <td className="total-col">{item.product.price * item.quantity}</td>
                                                 <td className="remove-col">
-                                                    <button className="btn-remove"><i className="icon-close"></i></button>
+                                                    <button className="btn-remove"><i className="icon-close"></i>
+                                                    </button>
                                                 </td>
+
                                             </tr>
                                         ))
                                     }
@@ -102,7 +117,8 @@ const Cart = () => {
                                     </div>
 
 
-                                    <a href="#" className="btn btn-outline-dark-2"><span style={{fontSize: 20}}>{t("Cart.CartPage.Refresh")}</span><i
+                                    <a href="#" className="btn btn-outline-dark-2"><span
+                                        style={{fontSize: 20}}>{t("Cart.CartPage.Refresh")}</span><i
                                         className="icon-refresh"></i></a>
                                 </div>
                             </div>
@@ -126,7 +142,8 @@ const Cart = () => {
                                                 <div className="custom-control custom-radio">
                                                     <input type="radio" id="free-shipping" name="shipping"
                                                            className="custom-control-input"/>
-                                                    <label className="custom-control-label" htmlFor="free-shipping">{t("Cart.CartPage.Standart")}</label>
+                                                    <label className="custom-control-label"
+                                                           htmlFor="free-shipping">{t("Cart.CartPage.Standart")}</label>
                                                 </div>
                                             </td>
                                             <td>$120.00</td>
@@ -154,11 +171,13 @@ const Cart = () => {
                                     </table>
 
 
-                                    <a href="checkout.html" className="btn btn-outline-primary-2 btn-order btn-block">{t("Cart.CartPage.Cash")}</a>
+                                    <a href="checkout.html"
+                                       className="btn btn-outline-primary-2 btn-order btn-block">{t("Cart.CartPage.Cash")}</a>
                                 </div>
 
 
-                                <NavLink to="/" className="btn btn-outline-dark-2 btn-block mb-3"><span>{t("Cart.CartPage.Main")}</span><i
+                                <NavLink to="/"
+                                         className="btn btn-outline-dark-2 btn-block mb-3"><span>{t("Cart.CartPage.Main")}</span><i
                                     className="icon-refresh"></i></NavLink>
                             </aside>
 

@@ -40,7 +40,7 @@ const ModalLogin = () => {
                     localStorage.setItem('token', JSON.stringify(res.token))
                     localStorage.setItem('userId', JSON.stringify(res.user.id))
                     dispatch(getIsLoginValue(true))
-                    dispatch(getProductsFromCart(res.token, res.user.id))
+                    dispatch(getProductsFromCart(res.user.id))
                 } else {
                     toast.error('Some thing is wrong')
                 }
