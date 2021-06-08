@@ -6,7 +6,8 @@ import subcategory1Reducer from "./subcategory1";
 import subcategoryReducer2 from "./subcategory2";
 import isLoginreducer from "./isLogin";
 import cartProductsReducer from "./cartProductsReducer";
-import sumOfCartProd from "./sumOfCart";
+import sumOfCartProd from "./sumOfCartProducts"
+import wishlistProductsReducer from "./wishlistProductsReducer"
 
 export default combineReducers({
     product: productReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     subcategory2: subcategoryReducer2,
     isLogin: isLoginreducer,
     cartProd: cartProductsReducer,
-    sumOfCart: sumOfCartProd
+    sumOfCart: sumOfCartProd,
+    wishlistProd: wishlistProductsReducer
 })

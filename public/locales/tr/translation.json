@@ -127,5 +127,20 @@
       "Cash": "Ödemeye geç",
       "Main": "Ana sayfaya geç"
     }
+  },
+  "Wishlist": {
+    "Empty": "Istek listesi boş ",
+    "WishlistPage": {
+      "title": "Istek liste",
+      "Products": "Ürün",
+      "Price": "Fiyat",
+      "Storage": "Depodo",
+      "Refresh": "Yenile",
+      "AddToCart": "Sepete ekle",
+      "Delete": "Sil",
+      "HaveInStorage": "Var",
+      "HaveNotInStorage": "Yok",
+      "Sharing": "Paylaşmak"
+    }
   }
 }

@@ -7,7 +7,7 @@ const Nav = props => {
             <div className="container">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item"><NavLink to="/" style={{fontSize: 17}}>Башкы бет</NavLink></li>
-                    <li className="breadcrumb-item"><a href="#" style={{fontSize: 17}}>{props.name}</a></li>
+                    <li className="breadcrumb-item"><span style={{fontSize: 17}}>{props.name}</span></li>
                     {/*/!*{ if(props.item === '')(*!/*/}
                     {/*/!*    <li className="breadcrumb-item active" aria-current="page" style={{fontSize: 17}}>{props.item}</li>*!/*/}
                     {/*/!*    )}*!/*/}

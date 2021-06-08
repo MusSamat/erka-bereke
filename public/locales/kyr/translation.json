@@ -128,5 +128,20 @@
       "Cash": "Төлөмдү аткаруу",
       "Main": "Башкы бетке өтүү"
     }
+  },
+  "Wishlist": {
+    "Empty": "Жактырылган товар бөлүмү бош",
+    "WishlistPage": {
+      "title": "Жактырылгандар",
+      "Products": "Товарлар",
+      "Price": "Баасы",
+      "Storage": "Кампада",
+      "Refresh": "Жаңылоо",
+      "AddToCart": "Корзинкага кошуу",
+      "Delete": "Өчүрүү",
+      "HaveInStorage": "Бар",
+      "HaveNotInStorage": "Жок",
+      "Sharing": "Бөлүшүү"
+    }
   }
 }

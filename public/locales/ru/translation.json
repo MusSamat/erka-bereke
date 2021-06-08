@@ -126,5 +126,20 @@
       "Cash": "Перейти к оплату",
       "Main": "Перейти к главную"
     }
+  },
+  "Wishlist": {
+    "Empty": "Избранное пусто",
+    "WishlistPage": {
+      "title": "Избранное",
+      "Products": "Товары",
+      "Price": "Цена",
+      "Storage": "В наличии",
+      "Refresh": "Обновить",
+      "AddToCart": "Добавить в корзинку",
+      "Delete": "Удалить",
+      "HaveInStorage": "Есть",
+      "HaveNotInStorage": "Нет",
+      "Sharing": "Поделиться"
+    }
   }
 }

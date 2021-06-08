@@ -7,7 +7,8 @@ import CatCarousel from "./CatCarousel";
 import {useDispatch, useSelector} from "react-redux";
 import {getCartProducts, getProducts} from "../../store/actions/product";
 import {NavLink} from "react-router-dom";
-import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
+import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 
 
 
@@ -31,23 +32,10 @@ const CatalogProducts = (props) => {
 
     const dispatch = useDispatch()
 
-    const addProductToCart = (id, q ) => {
-        const token = JSON.parse(localStorage.getItem('token'))
-        const userId = localStorage.getItem('userId')
-        if(token){
-            const cartProd = new FormData()
-            cartProd.append("product", id)
-            cartProd.append("quantity",q)
-            new GetData().setDataPro(token,'/views/cart-item/', cartProd).then(() => {
-                dispatch(getProductsFromCart(userId))
-            })
-
-        }
-    }
 
 
     useEffect(() => {
-      dispatch( getProducts())
+        dispatch( getProducts())
     },[dispatch])
 
 
@@ -82,14 +70,16 @@ const CatalogProducts = (props) => {
                                         </NavLink>
 
                                         <div className="product-action-vertical">
-                                            <a href="#" className="btn-product-icon btn-wishlist "></a>
-                                            <a href="popup/quickView.html" className="btn-product-icon btn-quickview"
-                                               title="Чоңойтуу"><span>Чоңойтуу</span></a>
+                                            <button onClick={() => dispatch(addProductToWishlist(prod.id))} className="btn-product-icon btn-wishlist ">
+
+                                            </button>
+                                            {/*<a href="popup/quickView.html" className="btn-product-icon btn-quickview"*/}
+                                            {/*   title="Чоңойтуу"><span>Чоңойтуу</span></a>*/}
                                         </div>
 
                                         <div className="product-action">
-                                            <button onClick={() => addProductToCart(prod.id, 2)} className="btn-product " title="Корзинкага кошуу"><img
-                                                src="/assets/svg_logo/addcar.png" alt=""/><span></span></button>
+                                            <button onClick={() => dispatch(addProductToCart(prod.id, 2))} className="btn-product " title="Корзинкага кошуу"><img
+                                                src="/assets/svg_logo/addcar.png" alt=""/></button>
                                         </div>
                                     </figure>
 

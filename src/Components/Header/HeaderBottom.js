@@ -10,6 +10,7 @@ import {getsubCategory1} from "../../store/actions/subcategory1";
 import {getsubCategory2} from "../../store/actions/subcategory2";
 import {getCartProducts, getProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 
 
 const HeaderBottom = () => {
@@ -28,7 +29,8 @@ const HeaderBottom = () => {
         dispatch(getsubCategory1())
         dispatch(getsubCategory2())
         dispatch(getProducts())
-        dispatch(getProductsFromCart(userId))
+        dispatch(getProductsFromCart())
+        dispatch(getProductsFromWishlist())
     }, [dispatch])
 
     const categories = useSelector(state => state.category.category)
@@ -39,6 +41,11 @@ const HeaderBottom = () => {
     const cartProductsById = useSelector(state => {
         return state.cartProd
     })
+    const wishlistProductsById = useSelector(state => {
+        return state.wishlistProd
+    })
+
+    console.log(wishlistProductsById)
 
 
     return (
@@ -46,7 +53,7 @@ const HeaderBottom = () => {
             <div className="container">
                 <div className="header-left">
                     <div className="dropdown category-dropdown show is-on" data-visible="true">
-                        <a href="#" className='Bars' role="button" data-toggle="dropdown"
+                        <a href="/" className='Bars' role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false" data-display="static"
                            title="Баардык категориялар">
                             <i className='icon-bars'></i>
@@ -64,8 +71,8 @@ const HeaderBottom = () => {
                                                     <div className='menuLinkDiv'>
                                                         <div className='menuLink'
                                                              style={{fontWeight: 600, fontSize: 17}}>
-                                                            <img src="/assets/svg_logo/fruits.svg"
-                                                                 alt="fruits"/><NavLink to={{
+                                                            <img src={item.image}
+                                                                 alt={item.title}/><NavLink to={{
                                                             pathname: "/categories/" + item.title,
                                                             id: item.id
                                                         }}>
@@ -490,7 +497,11 @@ const HeaderBottom = () => {
 
                             <NavLink to="/wishlist" className="wishlist-link">
                                 <i className="icon-heart-o" style={{fontSize: '2.8rem'}}></i>
-                                <span className="wishlist-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>3</span>
+                                <span className="wishlist-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>
+                                    {
+                                        wishlistProductsById?.items ? <>{wishlistProductsById?.items?.length}</>: <> 0 </>
+                                    }
+                                </span>
                                 <span className="wishlist-txt" style={{color: 'white'}}></span>
                             </NavLink>
 
@@ -501,7 +512,7 @@ const HeaderBottom = () => {
                                          aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i className="icon-shopping-cart" style={{fontSize: '3.2rem'}}></i>
                                     <span className="cart-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>
-                                        {cartProductsById ? <> {cartProductsById?.items?.length} </> : <> 0 </>}
+                                        {cartProductsById?.items ? <> {cartProductsById?.items?.length} </> : <> 0 </>}
                                  </span>
 
                                     <span className="cart-txt" style={{color: 'white'}}></span>

@@ -38,7 +38,7 @@ const ModalAuth = () => {
                         localStorage.setItem('token', JSON.stringify(res.token))
                         localStorage.setItem('userid', JSON.stringify(res.user.id))
                         dispatch(getIsLoginValue(true))
-                        dispatch(getProductsFromCart(res.user.id))
+                        dispatch(getProductsFromCart())
                     } else {
                         toast.error('Что-то пашло не так!')
                         // setErrorToken("Enter a true username and password")

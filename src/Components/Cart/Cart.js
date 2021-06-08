@@ -1,45 +1,45 @@
 import React, {useEffect, useState} from "react";
+import "./Cart.css"
 import NavBanner from "../Nav/NavBanner";
 import Nav from "../Nav/Nav";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
-import sumOfCartProducts from "../../store/reducers/sumOfCart";
-import {sumOfCartProd} from "../../store/actions/sumOfCartProd";
+import {addProductToCart, deleteProductFromCart, getProductsFromCart} from "../../store/actions/cartProducts";
+import {getSumOfProducts} from "../../store/actions/sumOfCartProducts";
 
 
 const Cart = () => {
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
-    const cartProductsP =  useSelector(state => {
+    const cartProductsP = useSelector(state => {
         return state.cartProd
     })
-    const sumOfCart = useSelector(state => state.sumOfCart.sumOfCart)
-    console.log(sumOfCart)
+    dispatch(getSumOfProducts())
+    const sum = useSelector(state => state.sumOfCart.sumOfProducts)
 
-    const sumOfPrice = () => {
-        cartProductsP?.items?.map((item,i) => {
-            const s = item.product.price * item.quantity
-            dispatch(sumOfCartProd(s))
-        })
-    }
+
+
+    // const sumOfPrice = () => {
+    //     let s = 0
+    //     dispatch(getProductsFromCart())
+    //     cartProductsP?.items?.map((item, i) => {
+    //          s =  s + item.product.price * item.quantity
+    //     })
+    // }
 
     useEffect(() => {
-        sumOfPrice()
     }, [])
 
     const title = t("Cart.CartPage.title")
 
-    const cart = {
-        item: title
-    }
 
     return (
         <div>
             <NavBanner
             />
             <Nav
-                item={t("Cart.CartPage.title")}
+                name={title}
             />
 
             <div className="page-content">
@@ -64,7 +64,7 @@ const Cart = () => {
                                         cartProductsP?.items?.map((item, i) => (
 
                                             <tr key={i}>
-                                                <td className="product-col" >
+                                                <td className="product-col">
                                                     <div className="product">
                                                         <figure className="product-media">
                                                             <a href="#">
@@ -82,16 +82,27 @@ const Cart = () => {
                                                     </div>
                                                 </td>
                                                 <td className="price-col">{item.product.price}</td>
-                                                <td className="quantity-col">
-                                                    <div className="cart-product-quantity">
-                                                        <input type="number" className="form-control" value={item.quantity}
-                                                               min="1" max="10"
-                                                               step="1" data-decimals="0" required/>
+                                                <td>
+                                                    <div className="counter">
+                                                        <button className="down"
+                                                                onClick={() => {
+                                                                   dispatch(addProductToCart(item.product.id, (item.quantity - 1)) );
+                                                                    dispatch(getProductsFromCart())
+                                                                }}>-</button>
+                                                        <input type="text" value={item.quantity}/>
+                                                        <button className="up"
+                                                              onClick={() => {
+                                                                  dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
+                                                                  dispatch(getProductsFromCart())
+                                                              }}>+</button>
                                                     </div>
                                                 </td>
                                                 <td className="total-col">{item.product.price * item.quantity}</td>
                                                 <td className="remove-col">
-                                                    <button className="btn-remove"><i className="icon-close"></i>
+                                                    <button onClick={() => {
+                                                        dispatch(deleteProductFromCart(item.product.id));
+                                                        dispatch(getProductsFromCart())
+                                                    }} className="btn-remove"><i className="icon-close"></i>
                                                     </button>
                                                 </td>
 
@@ -130,7 +141,7 @@ const Cart = () => {
                                         <tbody>
                                         <tr className="summary-subtotal">
                                             <td>{t("Cart.CartPage.All")}:</td>
-                                            <td>120$</td>
+                                            <td>{sum}</td>
                                         </tr>
                                         <tr className="summary-shipping">
                                             <td>{t("Cart.CartPage.Delivery")}:</td>
@@ -164,7 +175,7 @@ const Cart = () => {
                                         </tr>
                                         <tr className="summary-total">
                                             <td>{t("Cart.CartPage.All")}:</td>
-                                            <td>120$</td>
+                                            <td>{sum}</td>
                                         </tr>
 
                                         </tbody>

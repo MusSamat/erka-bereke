@@ -1,14 +1,14 @@
 import {GET_SUM_OF_CART} from "../actions/actionTypes";
 
 const initsialState = {
-    sumOfCart:  0
+    sumOfProducts: 0
 }
 
-export default function sumOfCartProd(state = initsialState,action){
-    switch (action.type){
+export default function sumOfProductsReducer( state = initsialState, action){
+    switch (action.type) {
         case GET_SUM_OF_CART:
             return{
-                sumOfCart: action.sumOfCart + (+action.value)
+                sumOfProducts: action.sumOfProducts
             }
         default:
             return state
