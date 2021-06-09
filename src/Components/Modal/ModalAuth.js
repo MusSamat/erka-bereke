@@ -68,7 +68,7 @@ const ModalAuth = () => {
                     <label htmlFor="register-user">{t("Modal.Reg.username")} *</label>
                     <input type="еуче" className="form-control" id="register-email"
                            name="register-email" required
-                        onChange={e => setUserName(e.target.value)}
+                           onChange={e => setUserName(e.target.value)}
                     />
                 </div>
 
@@ -76,7 +76,7 @@ const ModalAuth = () => {
                     <label htmlFor="register-email">{t("Modal.Reg.email")} </label>
                     <input type="email" className="form-control" id="register-email"
                            name="register-email" required
-                        onChange={e => setEmail(e.target.value)}
+                           onChange={e => setEmail(e.target.value)}
                     />
                 </div>
 
@@ -85,7 +85,7 @@ const ModalAuth = () => {
                     <label htmlFor="register-password">{t("Modal.Reg.password")}</label>
                     <input type="password" className="form-control" id="regPassword1"
                            name="register-password" required
-                        onChange={e => setPassword(e.target.value)}
+                           onChange={e => setPassword(e.target.value)}
                     />
                 </div>
 
@@ -121,7 +121,7 @@ const ModalAuth = () => {
                     <div className="col-sm-6">
                         <a href="#" className="btn btn-login btn-g">
                             <i className="icon-google"></i>
-                             Google
+                            Google
                         </a>
                     </div>
 

@@ -7,7 +7,8 @@
   },
   "Reg": {
     "1": "Üye Ol",
-    "2": "Giriş Yap"
+    "2": "Giriş Yap",
+    "3": "Önce kaydolmak veya giriş yapmak"
   },
 
   "Menu": {
@@ -114,6 +115,7 @@
   "Cart": {
     "Empty": "Sepet boş",
     "BtnTitle": "Sepete geç",
+    "CheckCart": " Bu ürün zaten sepette",
     "CartPage": {
       "title": "Sepet",
       "Products": "Ürünler",
@@ -130,6 +132,7 @@
   },
   "Wishlist": {
     "Empty": "Istek listesi boş ",
+    "CheckWishlist": "Bu ürün zaten favorilerde",
     "WishlistPage": {
       "title": "Istek liste",
       "Products": "Ürün",
@@ -142,5 +145,10 @@
       "HaveNotInStorage": "Yok",
       "Sharing": "Paylaşmak"
     }
+  },
+  "Order": {
+    "title": "SİPARİŞİ TAMAMLA",
+    "Pay": "Üyeliksiz Devam Et",
+    "OrderBtn": "Sipariş verme"
   }
 }

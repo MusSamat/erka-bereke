@@ -21,11 +21,6 @@ const ModalLogin = () => {
     const [userName, setUserName] = useState([])
     const [password, setPassword] = useState([])
 
-
-
-
-
-
     function submitLogin(e) {
         e.preventDefault()
         LogIn.login('/views/auth/login', {

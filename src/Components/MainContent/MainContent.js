@@ -13,6 +13,7 @@ import Wishlist from "../Wishlist/Wishlist";
 import Blog from "../Blog/Blog";
 import Contact from "../Contact/Contact";
 import NotFound from "../NotFoundPage/NotFound";
+import Order from "../Order/Order";
 
 const MainContent = () => {
     return (
@@ -38,6 +39,7 @@ const MainContent = () => {
             <Route path='/blog' component={Blog}/>
             <Route path='/contact' component={Contact}/>
             <Route path='/404' component={NotFound}/>
+            <Route path="/order" component={Order}/>
         </div>
     )
 }

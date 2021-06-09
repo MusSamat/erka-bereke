@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteProductFromWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
+import {toast} from "react-toastify";
 
 const Wishlist = () => {
 
@@ -14,8 +15,21 @@ const Wishlist = () => {
     const wishlistProductsP =  useSelector(state => {
         return state.wishlistProd
     })
+    const cartProductsP = useSelector(state => {
+        return state.cartProd
+    })
 
     const title = t("Wishlist.WishlistPage.title")
+
+    const checkCart = (id) => {
+        let c = 0
+        cartProductsP?.items?.map((item) => {
+            if(item.product.id === id){
+                c = 1
+            }
+        })
+        return c
+    }
 
     return(
         <div>
@@ -33,8 +47,8 @@ const Wishlist = () => {
                             <th>{t("Wishlist.WishlistPage.Products")}</th>
                             <th>{t("Wishlist.WishlistPage.Price")}</th>
                             <th>{t("Wishlist.WishlistPage.Storage")}</th>
-                            <th> {t("Wishlist.WishlistPage.AddToCart")}</th>
-                            <th> {t("Wishlist.WishlistPage.Delete")}</th>
+                            <th>{t("Wishlist.WishlistPage.AddToCart")}</th>
+                            <th>{t("Wishlist.WishlistPage.Delete")}</th>
                         </tr>
                         </thead>
 
@@ -59,9 +73,22 @@ const Wishlist = () => {
                                     <td className="price-col">{item.product.price}</td>
                                     <td className="stock-col"><span className="in-stock">{t("Wishlist.WishlistPage.HaveInStorage")}</span></td>
                                     <td className="action-col">
-                                        <button  onClick={() => {dispatch(addProductToCart(item.product.id, 1))}} className="btn btn-block btn-outline-primary-2">
+                                        { checkCart(item.product.id) ?
+                                            <button
+                                                className="btn btn-block btn-outline-primary-2"
+                                                title={t("Cart.CheckCart")}
+                                                disabled style={{backgroundColor:"#3399ff" }}>
+                                                <img src="/assets/svg_logo/addcar.png"
+                                                     alt="add to cart"/>
+                                            </button>
+                                            :
+                                            <button onClick={() => {
+                                            dispatch(addProductToCart(item.product.id, 1))
+                                            toast.success("Добавлено в карт")
+                                        }} className="btn btn-block btn-outline-primary-2">
                                             <img src="/assets/svg_logo/addcar.png" alt="add to cart"/>
                                         </button>
+                                        }
                                     </td>
                                     <td className="remove-col">
                                         <button onClick={() => {dispatch(deleteProductFromWishlist(item.product.id)); dispatch(getProductsFromWishlist())}} className="btn-remove"><i className="icon-close"></i></button>
