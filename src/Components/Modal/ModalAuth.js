@@ -3,7 +3,7 @@ import GetData from "../../service/GetData";
 import { toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getIsLoginValue} from "../../store/actions/isLogin";
 import {getCartProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
@@ -12,6 +12,7 @@ const ModalAuth = () => {
 
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
+    const isLogin = useSelector(state => state.isLogin.isLogin)
 
     const Auth = new GetData()
 
@@ -35,10 +36,14 @@ const ModalAuth = () => {
                     if (res.token) {
                         toast.success('Вы успешно зарегистрировались')
                         document.getElementById('closeModal').click()
+                        localStorage.setItem('user', JSON.stringify(res.user.username))
+                        localStorage.setItem('email', JSON.stringify(res.user.email))
                         localStorage.setItem('token', JSON.stringify(res.token))
-                        localStorage.setItem('userid', JSON.stringify(res.user.id))
+                        localStorage.setItem('userId', JSON.stringify(res.user.id))
                         dispatch(getIsLoginValue(true))
-                        dispatch(getProductsFromCart())
+                        if(isLogin){
+                            dispatch(getProductsFromCart())
+                        }
                     } else {
                         toast.error('Что-то пашло не так!')
                         // setErrorToken("Enter a true username and password")

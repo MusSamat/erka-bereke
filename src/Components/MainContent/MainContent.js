@@ -14,12 +14,17 @@ import Blog from "../Blog/Blog";
 import Contact from "../Contact/Contact";
 import NotFound from "../NotFoundPage/NotFound";
 import Order from "../Order/Order";
+import UserRoute from "../User/UserRoute";
+import UserPage from "../User/UserPage";
+import {useSelector} from "react-redux";
 
 const MainContent = () => {
+    const isLogin = useSelector(state => state.isLogin.isLogin)
+
     return (
         <div className='main'>
 
-            <Route path='/' exact render={() => {
+            <Route exact path='/' exact render={() => {
                 return (
                     <>
                         <Slider/>
@@ -32,14 +37,30 @@ const MainContent = () => {
                     </>
                 )
             }}/>
-            <Route path='/categories/:id' component={Catalog}/>
-            <Route path='/product' component={Product}/>
-            <Route path="/cart" component={Cart}/>
-            <Route path='/wishlist' component={Wishlist}/>
-            <Route path='/blog' component={Blog}/>
-            <Route path='/contact' component={Contact}/>
-            <Route path='/404' component={NotFound}/>
-            <Route path="/order" component={Order}/>
+            <Route  path='/categories/:id' component={Catalog}/>
+            <Route e path='/product/:id' component={Product}/>
+            <Route exact path="/cart" component={Cart}/>
+            <Route exact path='/wishlist' component={Wishlist}/>
+            <Route exact path='/blog' component={Blog}/>
+            <Route exact path='/contact' component={Contact}/>
+            <Route exact path='/404' component={NotFound}/>
+            <Route exact path="/order" component={Order}/>
+            {
+               isLogin ? <Route path="/userpage" component={UserRoute}/> : ''
+            }
+            {/*<Route exact path='*' exact render={() => {*/}
+            {/*    return (*/}
+            {/*        <>*/}
+            {/*            <Slider/>*/}
+            {/*            <ServiceSection/>*/}
+            {/*            /!*<IconBoxes/>*!/*/}
+            {/*            <MainSales/>*/}
+            {/*            <HotDealProducts/>*/}
+            {/*            <CatBanner/>*/}
+            {/*            <CatBanner2/>*/}
+            {/*        </>*/}
+            {/*    )*/}
+            {/*}}/>*/}
         </div>
     )
 }

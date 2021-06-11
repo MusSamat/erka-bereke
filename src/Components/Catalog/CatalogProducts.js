@@ -15,7 +15,7 @@ import {toast} from "react-toastify";
 
 
 const CatalogProducts = (props) => {
-
+    console.log(props)
     const {t, i18n} = useTranslation();
     const id = props.id
     const c = props.sizeOfProd
@@ -152,7 +152,7 @@ const CatalogProducts = (props) => {
                                                     src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
                                                     :
                                                     <button onClick={() => {
-                                                        dispatch(addProductToCart(prod.id, 2))
+                                                        dispatch(addProductToCart(prod.id, 1))
                                                         toast.success("Добавлено в карт")
                                                     }} className="btn-product " title="Корзинкага кошуу"><img
                                                         src="/assets/svg_logo/addcar.png" alt=""/></button>

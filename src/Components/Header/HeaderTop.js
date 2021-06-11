@@ -1,10 +1,13 @@
 import React, {useEffect} from "react";
+import {NavLink} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import './Header.css'
 import AuthUser from "../../UsersInfo/AuthUser";
 import {useDispatch, useSelector} from "react-redux";
 import {getIsLoginValue} from "../../store/actions/isLogin";
 import {getCartProducts} from "../../store/actions/product";
+import {resetCart} from "../../store/actions/cartProducts";
+import {resetWishlist} from "../../store/actions/wishlistProducts";
 
 const HeaderTop = () => {
 
@@ -26,6 +29,8 @@ const HeaderTop = () => {
 
     const logOutHandler = () => {
         dispatch(getIsLoginValue(false))
+        dispatch(resetCart())
+        dispatch(resetWishlist())
         localStorage.clear()
     }
     useEffect(()=> {
@@ -68,7 +73,10 @@ const HeaderTop = () => {
                                     {
                                         isLogin ?
                                             <li style={{ display: "flex", flexDirection: "row", gap: 10}}
-                                        ><img src="/assets/svg_logo/user.svg" alt="user" style={{textAlign: 'center'}} className="logOut"/>
+                                        >
+                                                <NavLink to='/userpage'>
+                                                    <img src="/assets/svg_logo/user.svg" alt="user" style={{textAlign: 'center'}} className="logOut"/>
+                                                </NavLink>
                                             <span className="logOut" style={{color: "grey"}} onClick={logOutHandler}>Выйти</span></li> :
 
                                             <li className="login logIn" >

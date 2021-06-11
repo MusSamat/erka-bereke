@@ -1,4 +1,4 @@
-import {GET_SUM_OF_CART} from "../actions/actionTypes";
+import {GET_SUM_OF_CART, RESET_CART} from "../actions/actionTypes";
 
 const initsialState = {
     sumOfProducts: 0

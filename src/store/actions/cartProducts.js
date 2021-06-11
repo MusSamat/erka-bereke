@@ -1,5 +1,5 @@
 import GetData from "../../service/GetData";
-import {FETCH_CART_PRODUCT, GET_SUM_OF_CART} from "./actionTypes";
+import {FETCH_CART_PRODUCT, GET_SUM_OF_CART, RESET_CART} from "./actionTypes";
 import {getProductsFromWishlist} from "./wishlistProducts";
 
 export const getProductsFromCart = () => (dispatch) => {
@@ -35,5 +35,11 @@ export const deleteProductFromCart = (id) => (dispatch) => {
             dispatch(getProductsFromWishlist())
         })
     }
+}
+
+export const resetCart = () => (dispatch) => {
+    dispatch({
+        type: RESET_CART,
+    })
 }
 

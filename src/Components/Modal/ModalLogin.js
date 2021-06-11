@@ -8,6 +8,7 @@ import {getIsLoginValue} from "../../store/actions/isLogin";
 import {useDispatch} from "react-redux";
 import {getCartProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 // import "./Modal.css"
 
 const ModalLogin = () => {
@@ -30,12 +31,16 @@ const ModalLogin = () => {
             .then(res => {
                 console.log(res)
                 if (res.token) {
+                    console.log(res)
                     toast.success('Successfully')
                     document.getElementById('closeModal').click()
+                    localStorage.setItem('user', JSON.stringify(res.user.username))
+                    localStorage.setItem('email', JSON.stringify(res.user.email))
                     localStorage.setItem('token', JSON.stringify(res.token))
                     localStorage.setItem('userId', JSON.stringify(res.user.id))
                     dispatch(getIsLoginValue(true))
                     dispatch(getProductsFromCart())
+                    dispatch(getProductsFromWishlist())
                 } else {
                     toast.error('Some thing is wrong')
                 }

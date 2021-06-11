@@ -4,14 +4,13 @@ import './ProductDet.css'
 import {useSelector} from "react-redux";
 
 const Product = (props) => {
-    const id = props.location.id
+    const id = parseInt(props.match.params.id)
     const productById = useSelector(state => state.product.products.filter(item => {
+
         if(item.id === id) {
-            return item.title
+            return item
         }}))
-    console.log(productById.map(item => {
-        return item.title
-    }))
+
 
         useEffect(() => {
             let loadScript = function(src) {

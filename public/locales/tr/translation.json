@@ -105,11 +105,17 @@
     "Reg": {
       "title": "Üye Ol",
       "username": "Ad",
-      "email": "E-Posta * *",
+      "email": "E-Posta  *",
       "password": "Şifre *",
       "conPassword": "Şifreyi tekrar yaz *",
       "beAgree": "Katılıyorum *",
       "withSocial": "Aşağıdakiler ile kayit olmak"
+    },
+    "Change": {
+      "username":"Ad",
+      "email": "E-Posta * ",
+      "password": "Yeni Şifre *",
+      "conPassword": "Yeni Şifreyi tekrar yaz  *"
     }
   },
   "Cart": {

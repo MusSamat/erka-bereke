@@ -20,8 +20,6 @@ const HeaderBottom = () => {
     const dispatch = useDispatch()
 
     const userId = localStorage.getItem("userId")
-    // console.log(localStorage.getItem('token'))
-    // console.log(localStorage.getItem('userId'))
 
     useEffect(() => {
         dispatch(getCategory())
@@ -29,8 +27,10 @@ const HeaderBottom = () => {
         dispatch(getsubCategory1())
         dispatch(getsubCategory2())
         dispatch(getProducts())
-        dispatch(getProductsFromCart())
-        dispatch(getProductsFromWishlist())
+        if(isLogin){
+            dispatch(getProductsFromCart())
+            dispatch(getProductsFromWishlist())
+        }
     }, [dispatch])
 
     const categories = useSelector(state => state.category.category)
@@ -44,9 +44,6 @@ const HeaderBottom = () => {
     const wishlistProductsById = useSelector(state => {
         return state.wishlistProd
     })
-
-    console.log(wishlistProductsById)
-
 
     return (
         <div className="header-bottom sticky-header" style={{backgroundColor: "#585858"}}>
@@ -68,17 +65,22 @@ const HeaderBottom = () => {
                                             return (
                                                 <li className="megamenu-container liStyle" key={index}>
 
-                                                    <div className='menuLinkDiv'>
+                                                    <div>
+                                                    <NavLink
+                                                        to={{
+                                                            pathname: "/categories/" + item.title,
+                                                            id: item.id
+                                                        }}
+                                                        className='menuLinkDiv'
+                                                    >
                                                         <div className='menuLink'
                                                              style={{fontWeight: 600, fontSize: 17}}>
                                                             <img src={item.image}
-                                                                 alt={item.title}/><NavLink to={{
-                                                            pathname: "/categories/" + item.title,
-                                                            id: item.id
-                                                        }}>
-                                                            {item.title}  </NavLink>
+                                                                 alt={item.title}/>
+                                                                {item.title}
                                                         </div>
                                                         <i className='icon-angle-right'> </i>
+                                                    </NavLink>
                                                     </div>
 
 

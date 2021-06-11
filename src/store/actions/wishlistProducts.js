@@ -1,4 +1,4 @@
-import {FETCH_WISHLIST_PRODUCT} from "./actionTypes";
+import {FETCH_WISHLIST_PRODUCT, RESET_WISHLIST} from "./actionTypes";
 import GetData from "../../service/GetData";
 
 
@@ -10,6 +10,12 @@ export const getProductsFromWishlist = () => (dispatch) => {
             type: FETCH_WISHLIST_PRODUCT,
             wishlistProd: res
         })
+    })
+}
+
+export const resetWishlist = () => (dispatch) => {
+    dispatch({
+        type: RESET_WISHLIST,
     })
 }
 

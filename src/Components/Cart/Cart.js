@@ -10,6 +10,7 @@ import {getSumOfProducts} from "../../store/actions/sumOfCartProducts";
 
 
 const Cart = () => {
+    const isLogin = useSelector(state => state.isLogin.isLogin)
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
     const cartProductsP = useSelector(state => {
@@ -17,7 +18,6 @@ const Cart = () => {
     })
     dispatch(getSumOfProducts())
     const sum = useSelector(state => state.sumOfCart.sumOfProducts)
-
 
 
     // const sumOfPrice = () => {
@@ -86,22 +86,30 @@ const Cart = () => {
                                                     <div className="counter">
                                                         <button className="down"
                                                                 onClick={() => {
-                                                                   dispatch(addProductToCart(item.product.id, (item.quantity - 1)) );
-                                                                    dispatch(getProductsFromCart())
-                                                                }}>-</button>
+                                                                    if (isLogin) {
+                                                                        dispatch(addProductToCart(item.product.id, (item.quantity - 1)));
+                                                                        dispatch(getProductsFromCart())
+                                                                    }
+                                                                }}>-
+                                                        </button>
                                                         <input type="text" value={item.quantity}/>
                                                         <button className="up"
-                                                              onClick={() => {
-                                                                  dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
-                                                                  dispatch(getProductsFromCart())
-                                                              }}>+</button>
+                                                                onClick={() => {
+                                                                    if (isLogin) {
+                                                                        dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
+                                                                        dispatch(getProductsFromCart())
+                                                                    }
+                                                                }}>+
+                                                        </button>
                                                     </div>
                                                 </td>
                                                 <td className="total-col">{item.product.price * item.quantity}</td>
                                                 <td className="remove-col">
                                                     <button onClick={() => {
-                                                        dispatch(deleteProductFromCart(item.product.id));
-                                                        dispatch(getProductsFromCart())
+                                                        if (isLogin) {
+                                                            dispatch(deleteProductFromCart(item.product.id));
+                                                            dispatch(getProductsFromCart())
+                                                        }
                                                     }} className="btn-remove"><i className="icon-close"></i>
                                                     </button>
                                                 </td>
@@ -182,8 +190,8 @@ const Cart = () => {
                                     </table>
 
 
-                                    <a href="checkout.html"
-                                       className="btn btn-outline-primary-2 btn-order btn-block">{t("Cart.CartPage.Cash")}</a>
+                                    <NavLink to="/order"
+                                             className="btn btn-outline-primary-2 btn-order btn-block">{t("Cart.CartPage.Cash")}</NavLink>
                                 </div>
 
 
