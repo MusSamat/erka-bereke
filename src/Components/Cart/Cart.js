@@ -62,59 +62,81 @@ const Cart = () => {
 
                                     {
                                         cartProductsP?.items?.map((item, i) => (
+                                            // item.product?.available ?
+                                                <tr key={i}>
+                                                    <td className="product-col">
+                                                        <div className="product">
+                                                            <figure className="product-media">
+                                                                <a href="#">
+                                                                    <img src={item.product.image}
+                                                                         alt={item.product.title}/>
+                                                                </a>
+                                                            </figure>
 
-                                            <tr key={i}>
-                                                <td className="product-col">
-                                                    <div className="product">
-                                                        <figure className="product-media">
-                                                            <a href="#">
-                                                                <img src={item.product.image}
-                                                                     alt={item.product.title}/>
-                                                            </a>
-                                                        </figure>
+                                                            <h3 className="product-title">
+                                                                <NavLink to={{
+                                                                    pathname: '/product/' + item.product.id,
+                                                                    id: item.product.id
+                                                                }}>{item.product.title}</NavLink>
+                                                            </h3>
+                                                        </div>
+                                                    </td>
+                                                    {
+                                                        item.product.percent > 0 ?
+                                                            <td className="price-col">{item.product.price -
+                                                            (item.product.price * item.product.percent /100)}
+                                                                <span className="old-price" style={{
+                                                                    textDecorationLine: "line-through",
+                                                                    color: "#ccbc30",
+                                                                    paddingLeft: "1rem"
+                                                                }}> {item.product.price}</span>
+                                                            </td>
+                                                            :
+                                                            <td className="price-col">{item.product.price}</td>
+                                                    }
+                                                    <td>
+                                                        <div className="counter">
+                                                            <button className="down"
+                                                                    onClick={() => {
+                                                                        if (isLogin) {
+                                                                            dispatch(addProductToCart(item.product.id, (item.quantity - 1)));
+                                                                            dispatch(getProductsFromCart())
+                                                                        }
+                                                                    }}>-
+                                                            </button>
+                                                            <input type="text" value={item.quantity}/>
+                                                            <button className="up"
+                                                                    onClick={() => {
+                                                                        if (isLogin) {
+                                                                            dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
+                                                                            dispatch(getProductsFromCart())
+                                                                        }
+                                                                    }}>+
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                    {
+                                                        item.product.percent > 0 ?
+                                                            <td className="total-col">{(item.product.price -
+                                                                (item.product.price * item.product.percent /100)) * item.quantity}
+                                                            </td>
+                                                            :
+                                                            <td className="total-col">{item.product.price * item.quantity}</td>
+                                                    }
 
-                                                        <h3 className="product-title">
-                                                            <NavLink to={{
-                                                                pathname: '/product/' + item.product.id,
-                                                                id: item.product.id
-                                                            }}>{item.product.title}</NavLink>
-                                                        </h3>
-                                                    </div>
-                                                </td>
-                                                <td className="price-col">{item.product.price}</td>
-                                                <td>
-                                                    <div className="counter">
-                                                        <button className="down"
-                                                                onClick={() => {
-                                                                    if (isLogin) {
-                                                                        dispatch(addProductToCart(item.product.id, (item.quantity - 1)));
-                                                                        dispatch(getProductsFromCart())
-                                                                    }
-                                                                }}>-
+                                                    <td className="remove-col">
+                                                        <button onClick={() => {
+                                                            if (isLogin) {
+                                                                dispatch(deleteProductFromCart(item.product.id));
+                                                                dispatch(getProductsFromCart())
+                                                            }
+                                                        }} className="btn-remove"><i className="icon-close"></i>
                                                         </button>
-                                                        <input type="text" value={item.quantity}/>
-                                                        <button className="up"
-                                                                onClick={() => {
-                                                                    if (isLogin) {
-                                                                        dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
-                                                                        dispatch(getProductsFromCart())
-                                                                    }
-                                                                }}>+
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                                <td className="total-col">{item.product.price * item.quantity}</td>
-                                                <td className="remove-col">
-                                                    <button onClick={() => {
-                                                        if (isLogin) {
-                                                            dispatch(deleteProductFromCart(item.product.id));
-                                                            dispatch(getProductsFromCart())
-                                                        }
-                                                    }} className="btn-remove"><i className="icon-close"></i>
-                                                    </button>
-                                                </td>
+                                                    </td>
 
-                                            </tr>
+                                                </tr>
+                                                // : null
+
                                         ))
                                     }
                                     </tbody>

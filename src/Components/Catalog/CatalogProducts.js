@@ -16,6 +16,7 @@ import {toast} from "react-toastify";
 
 const CatalogProducts = (props) => {
     console.log(props)
+    const  havenot = true
     const {t, i18n} = useTranslation();
     const id = props.id
     const c = props.sizeOfProd
@@ -65,40 +66,6 @@ const CatalogProducts = (props) => {
 
 
 
-    const addToCartAnimation = () => {
-        const cart = $('.dropdown-cart-products');
-        const imgtodrag = $(this).parent('.item').find("img").eq(0);
-        if (imgtodrag) {
-            const imgclone = imgtodrag.clone()
-                .offset({
-                    top: imgtodrag.offset().top,
-                    left: imgtodrag.offset().left
-                })
-                .css({
-                    'opacity': '0.8',
-                    'position': 'absolute',
-                    'height': '150px',
-                    'width': '150px',
-                    'z-index': '100'
-                })
-                .appendTo($('body'))
-                .animate({
-                    'top': cart.offset().top + 10,
-                    'left': cart.offset().left + 10,
-                    'width': 75,
-                    'height': 75
-                }, 1000, 'easeInOutExpo');
-
-            imgclone.animate({
-                'width': 0,
-                'height': 0
-            }, function () {
-                $(this).detach()
-            });
-        }
-    }
-
-
     return (
         <div className="col-lg-9 col-xl-4-5col">
             {/*<CatalogCarousel/>*/}
@@ -115,9 +82,19 @@ const CatalogProducts = (props) => {
                         products.map((prod, i) => (
 
                             <div className="col-6 col-md-4 col-lg-3" key={i}>
-                                <div className="product BorderPro">
-                                    <figure className="product-media">
-                                           <NavLink  to={{
+                                {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
+                                <div className="product BorderPro"  >
+
+
+                                    <figure className="product-media" id="ptr" >
+                                        {
+                                            prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
+                                                : null
+                                        }
+                                        {
+                                            prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
+                                        }
+                                        <NavLink  to={{
                                                pathname: "/product/" + prod.id,
                                                id: prod.id
                                            }}
@@ -127,13 +104,15 @@ const CatalogProducts = (props) => {
                                            </NavLink>
 
                                         <div className="product-action-vertical">
-                                            {console.log(checkWishlist(prod.id))}
                                             {
-                                                checkWishlist(prod.id) ?  <button onClick={() => dispatch(addProductToWishlist(prod.id))} className="btn-product-icon btn-wishlist "
+                                                checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
                                                                                   title={t("Wishlist.CheckWishlist")}
                                                                                   style={{backgroundColor: "#3399ff",
                                                                                   color: "white"}} disabled>
-                                                </button> : <button onClick={() => dispatch(addProductToWishlist(prod.id))} className="btn-product-icon btn-wishlist ">
+                                                </button> : <button onClick={() => {
+                                                    dispatch(addProductToWishlist(prod.id))
+                                                    toast.success("Добавлено в избранное")
+                                                }} className="btn-product-icon btn-wishlist ">
                                                 </button>
                                             }
 
@@ -144,7 +123,7 @@ const CatalogProducts = (props) => {
 
                                         <div className="product-action">
                                             {
-                                                checkCart(prod.id) ?
+                                                checkCart(prod.id)  || !prod.available ?
                                                     <button className="btn-product "
                                                             title={t("Cart.CheckCart")}
                                                     disabled style={{backgroundColor:"#3399ff" }}
@@ -168,8 +147,10 @@ const CatalogProducts = (props) => {
                                         </div>
 
                                         <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                                            <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
-                                            {/*<span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> $290.00</span>*/}
+                                            {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                                    <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
+                                                <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
+                                            }
                                         </div>
 
                                         <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink

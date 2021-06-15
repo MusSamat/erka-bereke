@@ -42,3 +42,7 @@
     visibility: visible;
 }
 
+.availableProduct {
+    pointer-events: none;
+}
+

@@ -6,7 +6,6 @@ import NavBanner from "../Nav/NavBanner";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
 import GetData from "../../service/GetData";
 import {toast} from "react-toastify";
 import {getIsLoginValue} from "../../store/actions/isLogin";
@@ -157,12 +156,12 @@ const Order = (props) => {
                                                     fontSize: 20,
                                                     color: "3399FF",
                                                     marginBottom: 40
-                                                }}>
+                                                }} >
                                                     <Tab style={{color: "#3399FF",}}>Войти</Tab>
                                                     <Tab style={{color: "#3399FF"}}>Регистрация</Tab>
                                                 </TabList>
 
-                                                <TabPanel>
+                                                <TabPanel >
                                                     <div className="tab-pane fade show active" id="signin" role="tabpanel"
                                                          aria-labelledby="signin-tab">
                                                         <form onSubmit={submitLoginO}>
@@ -378,7 +377,6 @@ const Order = (props) => {
                                     textAlign: "center",
                                     margin: 30
                                 }}>{t("Cart.CartPage.Products")}</th>
-                                <th>{t("Cart.CartPage.Price")}</th>
                                 <th>{t("Cart.CartPage.Quantity")} </th>
                                 <th>{t("Cart.CartPage.All")}</th>
 
@@ -406,9 +404,30 @@ const Order = (props) => {
                                                 </h3>
                                             </div>
                                         </td>
-                                        <td>{item.product.price}</td>
-                                        <td className="total-col" style={{textAlign: "center"}}>x {item.quantity}</td>
-                                        <td>{item.product.price * item.quantity}</td>
+                                        {/*{*/}
+                                        {/*    item.product.percent > 0 ?*/}
+                                        {/*        <td className="price-col" style={{*/}
+                                        {/*            marginLeft: 10*/}
+                                        {/*        }}>{item.product.price -*/}
+                                        {/*        (item.product.price * item.product.percent /100)}*/}
+                                        {/*            <span className="old-price" style={{*/}
+                                        {/*                textDecorationLine: "line-through",*/}
+                                        {/*                color: "#ccbc30",*/}
+                                        {/*                paddingLeft: "1rem"*/}
+                                        {/*            }}> {item.product.price}</span>*/}
+                                        {/*        </td>*/}
+                                        {/*        :*/}
+                                        {/*        <td className="price-col">{item.product.price}</td>*/}
+                                        {/*}*/}
+                                        <td className="quantity-col" style={{textAlign: "center"}}>x {item.quantity}</td>
+                                        {
+                                            item.product.percent > 0 ?
+                                                <td className="total-col">{(item.product.price -
+                                                    (item.product.price * item.product.percent /100)) * item.quantity}
+                                                </td>
+                                                :
+                                                <td className="total-col">{item.product.price * item.quantity}</td>
+                                        }
                                     </tr>
                                 ))
                             }

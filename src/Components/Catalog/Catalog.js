@@ -6,9 +6,10 @@ import {getCategory} from "../../store/actions/category";
 import {getsubCategory} from "../../store/actions/subcategory";
 import {getsubCategory1} from "../../store/actions/subcategory1";
 import {getsubCategory2} from "../../store/actions/subcategory2";
+import {useTranslation} from "react-i18next";
 
 const Catalog = (props) => {
-    // console.log(props)
+    const {t, i18n} = useTranslation();
     const id = props.location.id
     const dispatch = useDispatch()
     const categories = useSelector(state => state.category.category)
@@ -31,7 +32,9 @@ const Catalog = (props) => {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><NavLink  exact to='/' style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>Башкы бет</NavLink></li>
+                        <li className="breadcrumb-item"><NavLink  exact to='/' style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>
+                            {t("Main.Main")}
+                        </NavLink></li>
                         <li className="breadcrumb-item"><NavLink to={{
                             pathname: '/categories'  ,
                         }} style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>{

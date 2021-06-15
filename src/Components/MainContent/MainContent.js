@@ -37,7 +37,7 @@ const MainContent = () => {
                     </>
                 )
             }}/>
-            <Route  path='/categories/:id' component={Catalog}/>
+            <Route  path='/categories/:title' component={Catalog}/>
             <Route e path='/product/:id' component={Product}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path='/wishlist' component={Wishlist}/>

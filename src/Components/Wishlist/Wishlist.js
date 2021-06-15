@@ -70,10 +70,28 @@ const Wishlist = () => {
                                         </div>
 
                                     </td>
-                                    <td className="price-col">{item.product.price}</td>
-                                    <td className="stock-col"><span className="in-stock">{t("Wishlist.WishlistPage.HaveInStorage")}</span></td>
+                                    {
+                                        item.product.percent > 0 ?
+                                            <td className="price-col">{item.product.price -
+                                            (item.product.price * item.product.percent /100)}
+                                                <span className="old-price" style={{
+                                                    textDecorationLine: "line-through",
+                                                    color: "#ccbc30",
+                                                    paddingLeft: "1rem"
+                                                }}> {item.product.price}</span>
+                                            </td>
+                                            :
+                                            <td className="price-col">{item.product.price}</td>
+                                    }
+                                    <td className="stock-col">
+                                        {
+                                            item.product?.available ? <span className="in-stock">{t("Wishlist.WishlistPage.HaveInStorage")}</span>:
+                                                <span className="out-of-stock">{t("Wishlist.WishlistPage.HaveNotInStorage")}</span>
+                                        }
+
+                                    </td>
                                     <td className="action-col">
-                                        { checkCart(item.product.id) ?
+                                        { checkCart(item.product.id) || !item.product.available ?
                                             <button
                                                 className="btn btn-block btn-outline-primary-2"
                                                 title={t("Cart.CheckCart")}

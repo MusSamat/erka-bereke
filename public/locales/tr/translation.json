@@ -121,7 +121,7 @@
   "Cart": {
     "Empty": "Sepet boş",
     "BtnTitle": "Sepete geç",
-    "CheckCart": " Bu ürün zaten sepette",
+    "CheckCart": " Bu ürün zaten sepette veya depodo yok",
     "CartPage": {
       "title": "Sepet",
       "Products": "Ürünler",
@@ -156,5 +156,13 @@
     "title": "SİPARİŞİ TAMAMLA",
     "Pay": "Üyeliksiz Devam Et",
     "OrderBtn": "Sipariş verme"
+  },
+  "ProductSale": {
+    "title": "Indirim"
+  },
+  "Product": {
+    "Description": "Ürün Açıklaması",
+    "Information": "Bilgi",
+    "Comments": "Yorumlar"
   }
 }

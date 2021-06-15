@@ -8,7 +8,11 @@ export const getSumOfProducts = () => (dispatch) => {
 
     let sum = 0
     cartProductsP?.items?.map((item, i) => {
-        sum =  sum + item.product.price * item.quantity
+    if(item.product.available){
+        item.product.percent > 0 ? sum = sum + (item.product.price - item.product.price * item.product.percent/ 100)*item.quantity  :
+            sum =  sum + item.product.price * item.quantity
+    }
+
     })
     dispatch({
         type: GET_SUM_OF_CART,
