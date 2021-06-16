@@ -1,31 +1,22 @@
 import React, {useEffect} from "react";
-import $ from "jquery"
-import './Catalog.css'
-import GetData from "../../service/GetData";
-import Toolbox from "./Toolbox";
-import CatCarousel from "./CatCarousel";
+import '../Catalog/Catalog.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getCartProducts, getProducts} from "../../store/actions/product";
 import {NavLink} from "react-router-dom";
 import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {useTranslation} from "react-i18next";
 import {toast} from "react-toastify";
+import Toolbox from "../Catalog/Toolbox";
+import CatCarousel from "../Catalog/CatCarousel";
 
 
-
-const CatalogProducts = (props) => {
-    const  havenot = true
+const SubCatalog2Products = (props) => {
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
     const c = props.sizeOfProd
-    const categoryTitle = useSelector(state => state.category.category.filter( item => {
-        if(item.id === id){
-            return item.title
-        }
-    }))
+
     const products = useSelector(state => state.product.products.filter((item, index) => {
-        if(item.category_id === id) {
+        if(item.subcategory2 === id) {
             return item
         }
     }))
@@ -59,7 +50,7 @@ const CatalogProducts = (props) => {
     }
 
     useEffect(() => {
-        dispatch( getProducts())
+        // dispatch( getProducts())
     },[dispatch])
 
 
@@ -67,13 +58,15 @@ const CatalogProducts = (props) => {
     return (
         <div className="col-lg-9 col-xl-4-5col">
             {/*<CatalogCarousel/>*/}
-            <CatCarousel/>
+            <CatCarousel
+            />
             <Toolbox
                 id={id}
                 sizeOfProd={c}
             />
             <div className="cat-blocks-container">
                 <div className="row">
+
 
 
                     {
@@ -93,20 +86,20 @@ const CatalogProducts = (props) => {
                                             prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
                                         }
                                         <NavLink  to={{
-                                               pathname: "/product/" + prod.id,
-                                               id: prod.id
-                                           }}
-                                                     className="img-img"
-                                           >
-                                               <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
-                                           </NavLink>
+                                            pathname: "/product/" + prod.id,
+                                            id: prod.id
+                                        }}
+                                                  className="img-img"
+                                        >
+                                            <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
+                                        </NavLink>
 
                                         <div className="product-action-vertical">
                                             {
                                                 checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
-                                                                                  title={t("Wishlist.CheckWishlist")}
-                                                                                  style={{backgroundColor: "#3399ff",
-                                                                                  color: "white"}} disabled>
+                                                                                   title={t("Wishlist.CheckWishlist")}
+                                                                                   style={{backgroundColor: "#3399ff",
+                                                                                       color: "white"}} disabled>
                                                 </button> : <button onClick={() => {
                                                     dispatch(addProductToWishlist(prod.id))
                                                     toast.success("Добавлено в избранное")
@@ -124,9 +117,9 @@ const CatalogProducts = (props) => {
                                                 checkCart(prod.id)  || !prod.available ?
                                                     <button className="btn-product "
                                                             title={t("Cart.CheckCart")}
-                                                    disabled style={{backgroundColor:"#3399ff" }}
+                                                            disabled style={{backgroundColor:"#3399ff" }}
                                                     ><img
-                                                    src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                        src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
                                                     :
                                                     <button onClick={() => {
                                                         dispatch(addProductToCart(prod.id, 1))
@@ -174,4 +167,4 @@ const CatalogProducts = (props) => {
     )
 }
 
-export default CatalogProducts
+export default SubCatalog2Products

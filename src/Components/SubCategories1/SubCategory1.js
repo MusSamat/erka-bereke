@@ -1,17 +1,27 @@
 import React, {useEffect, useState} from "react";
-import CatalogProducts from "./CatalogProducts";
-import {useDispatch, useSelector} from "react-redux";
-import {LengthOfProductsBySubCategory} from "./LengthOfProductsBySubCategory";
-import {NavLink} from "react-router-dom";
 
-const Categories = (props) => {
+import {useDispatch, useSelector} from "react-redux";
+// import SubCatalogProducts from "./SubCatalogProducts";
+// import {NavLink} from "react-router-dom";
+import {LengthOfProductsBySubCategory2} from "./LengthOfProductsBySubCategory2";
+import {NavLink} from "react-router-dom";
+import SubCatalog1Products from "./SubCatalog1Products";
+
+
+const SubCategory1 = (props) => {
     const id = parseInt(props.props.match.params.id)
-    const categories = useSelector(state => state.category.category)
-    const subcategoreis = useSelector(state => state.subcategory.subcategory)
-    // const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
-    // const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
-    const prodLength = useSelector(state => state.product.products.filter((item, index) => {
-        if (item.category_id === id) {
+    const subcategory1 = useSelector(state => state.subcategory1.subcategory1.find(item => {
+        if (item.id === id) {
+            return item
+        }
+    }))
+    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2.filter(item => {
+        if (item.subcategory1 === id) {
+            return item
+        }
+    }))
+    const prodLength = useSelector(state => state.product.products?.filter((item, index) => {
+        if (item.subcategory1_id === id) {
             return item
         }
     }).length)
@@ -30,31 +40,22 @@ const Categories = (props) => {
         loadScript('/assets/js/demos/demo-13.js')
     }, [])
 
-    // console.log(props)
 
     return (
         <div className="page-content">
             <div className="container">
                 <div className="row">
-
-                    <CatalogProducts
+                    <SubCatalog1Products
                         props={props}
                         sizeOfProd={prodLength}
                     />
-
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
                         <div className="sidebar sidebar-shop"
                              style={{border: '1px solid #d2d0d0', borderRadius: '8px'}}>
                             <div className="widget widget-categories">
                                 <h3 className="widget-title"
                                     style={{paddingTop: 20, paddingLeft: 20, fontWeight: "bold"}}>
-                                    {categories.map((it, i) => {
-                                        if (it.id === id) {
-                                            return (
-                                                it.title
-                                            )
-                                        }
-                                    })}</h3>
+                                    {subcategory1?.title}</h3>
                                 <h5 style={{paddingLeft: 20}}> {prodLength} түр</h5>
 
                                 <div className="widget-body">
@@ -63,32 +64,28 @@ const Categories = (props) => {
                                         <div className="prodCategor">
                                             <h6>Категориялар</h6>
                                             <ul>
-                                                {subcategoreis.map((subItem, i) => {
-                                                    if (subItem.categories === id) {
-
-                                                        return (
-                                                            <NavLink
-                                                                activeStyle={{
-                                                                    color: "#ccbc30"
+                                                {subcategoreis2?.map((subItem, i) => {
+                                                    return (
+                                                        <NavLink
+                                                            activeStyle={{
+                                                                color: "#ccbc30"
+                                                            }}
+                                                            to={{
+                                                                pathname: '/subcategories2/' + subItem.id
+                                                            }}
+                                                        >
+                                                            <li
+                                                                style={{
+                                                                    fontSize: 16
                                                                 }}
-                                                                to={{
-                                                                    pathname: '/subcategories/' + subItem.id
-                                                                }}
-                                                            >
-                                                            <li style={{
-                                                                fontSize: 16,
-                                                            }}>
-                                                                    {subItem.title} <span>(
-                                                                <LengthOfProductsBySubCategory
-                                                                    id={subItem.id}
-                                                                />)
-                                                                </span>
-                                                            </li></NavLink>
-                                                        )
-                                                    }
-
+                                                            >{subItem.title} <span>(
+                                                                <LengthOfProductsBySubCategory2
+                                                                    id={subItem.id}/>
+                                                                )
+                                                            </span></li>
+                                                        </NavLink>
+                                                    )
                                                 })}
-
                                             </ul>
                                         </div>
                                     </div>
@@ -218,17 +215,12 @@ const Categories = (props) => {
                                 </div>
 
                             </div>
-
-
                         </div>
-
                     </aside>
-
-
                 </div>
             </div>
         </div>
     )
 }
 
-export default Categories
+export default SubCategory1

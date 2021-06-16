@@ -11,9 +11,10 @@ import {getsubCategory2} from "../../store/actions/subcategory2";
 import {getCartProducts, getProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
 import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
+import Nav from "../Nav/Nav";
 
 
-const HeaderBottom = () => {
+const HeaderBottom = (props) => {
     const {t, i18n} = useTranslation();
 
     const isLogin = useSelector(state => state.isLogin.isLogin)
@@ -27,7 +28,7 @@ const HeaderBottom = () => {
         dispatch(getsubCategory1())
         dispatch(getsubCategory2())
         dispatch(getProducts())
-        if(isLogin){
+        if (isLogin) {
             dispatch(getProductsFromCart())
             dispatch(getProductsFromWishlist())
         }
@@ -66,21 +67,23 @@ const HeaderBottom = () => {
                                                 <li className="megamenu-container liStyle" key={index}>
 
                                                     <div>
-                                                    <NavLink
-                                                        to={{
-                                                            pathname: "/categories/" + item.title,
-                                                            id: item.id
-                                                        }}
-                                                        className='menuLinkDiv'
-                                                    >
-                                                        <div className='menuLink'
-                                                             style={{fontWeight: 600, fontSize: 17}}>
-                                                            <img src={item.image}
-                                                                 alt={item.title}/>
+                                                        <NavLink
+                                                            activeStyle={{
+                                                                color: "#ccbc30"
+                                                            }}
+                                                            to={{
+                                                                pathname: "/categories/" + item.id,
+                                                            }}
+                                                            className='menuLinkDiv'
+                                                        >
+                                                            <div className='menuLink'
+                                                                 style={{fontWeight: 600, fontSize: 17}}>
+                                                                <img src={item.image}
+                                                                     alt={item.title}/>
                                                                 {item.title}
-                                                        </div>
-                                                        <i className='icon-angle-right'> </i>
-                                                    </NavLink>
+                                                            </div>
+                                                            <i className='icon-angle-right'> </i>
+                                                        </NavLink>
                                                     </div>
 
 
@@ -105,7 +108,19 @@ const HeaderBottom = () => {
                                                                                                     <div
                                                                                                         className="menu-title"
                                                                                                         style={{color: "black",}}
-                                                                                                        key={i}>{subItem.title}
+                                                                                                        key={i}>
+                                                                                                        <NavLink
+                                                                                                            activeStyle={{
+                                                                                                                color: "#ccbc30"
+                                                                                                            }}
+
+                                                                                                            to={{
+                                                                                                                pathname: '/subcategories/' + subItem.id
+                                                                                                            }}
+                                                                                                        >
+                                                                                                            {subItem.title}
+                                                                                                        </NavLink>
+
                                                                                                         <ul style={{
                                                                                                             borderTop: "1px solid #585858",
                                                                                                             paddingTop: 20
@@ -117,7 +132,7 @@ const HeaderBottom = () => {
                                                                                                                             <li key={i}>
                                                                                                                                 <NavLink
                                                                                                                                     to={{
-                                                                                                                                        pathname: '/categories/' + subItem1.title
+                                                                                                                                        pathname: '/subcategories1/' + subItem1.id
                                                                                                                                     }}
                                                                                                                                     style={{
                                                                                                                                         fontWeight: "bold",
@@ -149,326 +164,6 @@ const HeaderBottom = () => {
 
                                             )
                                         })}
-
-
-                                    {/*<li className="megamenu-container">*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/meat.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories"*/}
-                                    {/*               style={{fontWeight: 600, fontSize: 17}}>{t("Menu.1")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-
-                                    {/*    <div className="megamenu">*/}
-                                    {/*        <div className="row no-gutters">*/}
-                                    {/*            <div className="col-md-8">*/}
-                                    {/*                <div className="menu-col">*/}
-                                    {/*                    <div className="row">*/}
-                                    {/*                        <div className="col-md-6">*/}
-                                    {/*                            <div className="menu-title">Bedroom</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#">Beds, Frames & Bases</a></li>*/}
-                                    {/*                                <li><a href="#">Dressers</a></li>*/}
-                                    {/*                                <li><a href="#">Nightstands</a></li>*/}
-                                    {/*                                <li><a href="#">Kids' Beds & Headboards</a></li>*/}
-                                    {/*                                <li><a href="#">Armoires</a></li>*/}
-                                    {/*                            </ul>*/}
-
-                                    {/*                            <div className="menu-title">Living Room</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#">Coffee Tables</a></li>*/}
-                                    {/*                                <li><a href="#">Chairs</a></li>*/}
-                                    {/*                                <li><a href="#">Tables</a></li>*/}
-                                    {/*                                <li><a href="#">Futons & Sofa Beds</a></li>*/}
-                                    {/*                                <li><a href="#">Cabinets & Chests</a></li>*/}
-                                    {/*                            </ul>*/}
-                                    {/*                        </div>*/}
-
-                                    {/*                        <div className="col-md-6">*/}
-                                    {/*                            <div className="menu-title">Office</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#">Office Chairs</a></li>*/}
-                                    {/*                                <li><a href="#">Desks</a></li>*/}
-                                    {/*                                <li><a href="#">Bookcases</a></li>*/}
-                                    {/*                                <li><a href="#">File Cabinets</a></li>*/}
-                                    {/*                                <li><a href="#">Breakroom Tables</a></li>*/}
-                                    {/*                            </ul>*/}
-
-                                    {/*                            <div className="menu-title">Kitchen & Dining</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#">Dining Sets</a></li>*/}
-                                    {/*                                <li><a href="#">Kitchen Storage Cabinets</a></li>*/}
-                                    {/*                                <li><a href="#">Bakers Racks</a></li>*/}
-                                    {/*                                <li><a href="#">Dining Chairs</a></li>*/}
-                                    {/*                                <li><a href="#">Dining Room Tables</a></li>*/}
-                                    {/*                                <li><a href="#">Bar Stools</a></li>*/}
-                                    {/*                            </ul>*/}
-                                    {/*                        </div>*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-
-                                    {/*            <div className="col-md-4">*/}
-                                    {/*                <div className="banner banner-overlay">*/}
-                                    {/*                    <a href="category.html" className="banner banner-menu">*/}
-                                    {/*                        /!*<img src="assets/images/demos/demo-13/menu/banner-2.jpg"*!/*/}
-                                    {/*                        /!*     alt="Banner"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li className="megamenu-container">*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/milk.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories"*/}
-                                    {/*               style={{fontWeight: 600, fontSize: 17}}>{t("Menu.3")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-
-                                    {/*    <div className="megamenu">*/}
-                                    {/*        <div className="menu-col">*/}
-                                    {/*            <div className="row">*/}
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="menu-title">Cookware</div>*/}
-                                    {/*                    <ul>*/}
-                                    {/*                        <li><a href="#">Cookware Sets</a></li>*/}
-                                    {/*                        <li><a href="#">Pans, Griddles & Woks</a></li>*/}
-                                    {/*                        <li><a href="#">Pots</a></li>*/}
-                                    {/*                        <li><a href="#">Skillets & Grill Pans</a></li>*/}
-                                    {/*                        <li><a href="#">Kettles</a></li>*/}
-                                    {/*                        <li><a href="#">Soup & Stockpots</a></li>*/}
-                                    {/*                    </ul>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="menu-title">Dinnerware & Tabletop</div>*/}
-                                    {/*                    <ul>*/}
-                                    {/*                        <li><a href="#">Plates</a></li>*/}
-                                    {/*                        <li><a href="#">Cups & Mugs</a></li>*/}
-                                    {/*                        <li><a href="#">Trays & Platters</a></li>*/}
-                                    {/*                        <li><a href="#">Coffee & Tea Serving</a></li>*/}
-                                    {/*                        <li><a href="#">Salt & Pepper Shaker</a></li>*/}
-                                    {/*                    </ul>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="menu-title">Cooking Appliances</div>*/}
-                                    {/*                    <ul>*/}
-                                    {/*                        <li><a href="#">Microwaves</a></li>*/}
-                                    {/*                        <li><a href="#">Coffee Makers</a></li>*/}
-                                    {/*                        <li><a href="#">Mixers & Attachments</a></li>*/}
-                                    {/*                        <li><a href="#">Slow Cookers</a></li>*/}
-                                    {/*                        <li><a href="#">Air Fryers</a></li>*/}
-                                    {/*                        <li><a href="#">Toasters & Ovens</a></li>*/}
-                                    {/*                    </ul>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-
-                                    {/*            <div className="row menu-banners">*/}
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="banner">*/}
-                                    {/*                        <a href="#">*/}
-                                    {/*                            /!*<img src="assets/images/demos/demo-13/menu/1.jpg"*!/*/}
-                                    {/*                            /!*     alt="image"/>*!/*/}
-                                    {/*                        </a>*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="banner">*/}
-                                    {/*                        <a href="#">*/}
-                                    {/*                            /!*<img src="assets/images/demos/demo-13/menu/2.jpg"*!/*/}
-                                    {/*                            /!*     alt="image"/>*!/*/}
-                                    {/*                        </a>*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-md-4">*/}
-                                    {/*                    <div className="banner">*/}
-                                    {/*                        <a href="#">*/}
-                                    {/*                            /!*<img src="assets/images/demos/demo-13/menu/3.jpg"*!/*/}
-                                    {/*                            /!*     alt="image"/>*!/*/}
-                                    {/*                        </a>*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li className="megamenu-container">*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/azyk.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories"*/}
-                                    {/*               style={{fontWeight: 600, fontSize: 17}}>{t("Menu.4")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-
-                                    {/*    <div className="megamenu">*/}
-                                    {/*        <div className="row no-gutters">*/}
-                                    {/*            <div className="col-md-8">*/}
-                                    {/*                <div className="menu-col">*/}
-                                    {/*                    <div className="row">*/}
-                                    {/*                        <div className="col-md-6">*/}
-                                    {/*                            <div className="menu-title">Women</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#"><strong>New Arrivals</strong></a>*/}
-                                    {/*                                </li>*/}
-                                    {/*                                <li><a href="#"><strong>Best Sellers</strong></a>*/}
-                                    {/*                                </li>*/}
-                                    {/*                                <li><a href="#"><strong>Trending</strong></a></li>*/}
-                                    {/*                                <li><a href="#">Clothing</a></li>*/}
-                                    {/*                                <li><a href="#">Shoes</a></li>*/}
-                                    {/*                                <li><a href="#">Bags</a></li>*/}
-                                    {/*                                <li><a href="#">Accessories</a></li>*/}
-                                    {/*                                <li><a href="#">Jewlery & Watches</a></li>*/}
-                                    {/*                                <li><a href="#"><strong>Sale</strong></a></li>*/}
-                                    {/*                            </ul>*/}
-                                    {/*                        </div>*/}
-
-                                    {/*                        <div className="col-md-6">*/}
-                                    {/*                            <div className="menu-title">Men</div>*/}
-                                    {/*                            <ul>*/}
-                                    {/*                                <li><a href="#"><strong>New Arrivals</strong></a>*/}
-                                    {/*                                </li>*/}
-                                    {/*                                <li><a href="#"><strong>Best Sellers</strong></a>*/}
-                                    {/*                                </li>*/}
-                                    {/*                                <li><a href="#"><strong>Trending</strong></a></li>*/}
-                                    {/*                                <li><a href="#">Clothing</a></li>*/}
-                                    {/*                                <li><a href="#">Shoes</a></li>*/}
-                                    {/*                                <li><a href="#">Bags</a></li>*/}
-                                    {/*                                <li><a href="#">Accessories</a></li>*/}
-                                    {/*                                <li><a href="#">Jewlery & Watches</a></li>*/}
-                                    {/*                            </ul>*/}
-                                    {/*                        </div>*/}
-                                    {/*                    </div>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-
-                                    {/*            <div className="col-md-4">*/}
-                                    {/*                <div className="banner banner-overlay">*/}
-                                    {/*                    <a href="category.html" className="banner banner-menu">*/}
-                                    {/*                        /!*<img src="assets/images/demos/demo-13/menu/banner-3.jpg"*!/*/}
-                                    {/*                        /!*     alt="Banner"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-
-                                    {/*        <div className="menu-col menu-brands">*/}
-                                    {/*            <div className="row">*/}
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/1.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/2.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/3.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/4.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/5.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-
-                                    {/*                <div className="col-lg-2">*/}
-                                    {/*                    <a href="#" className="brand">*/}
-                                    {/*                        /!*<img src="assets/images/brands/6.png" alt="Brand Name"/>*!/*/}
-                                    {/*                    </a>*/}
-                                    {/*                </div>*/}
-                                    {/*            </div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/drinking.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories"*/}
-                                    {/*               style={{fontWeight: 600, fontSize: 17}}>{t("Menu.5")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/cleaning.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories"*/}
-                                    {/*               style={{fontWeight: 600, fontSize: 17}}>{t("Menu.6")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/cosmetics.svg"  style={{color: "black"}} alt="fruits" />*/}
-                                    {/*            <a href="/categories" style={{ fontWeight: 600, fontSize: 17}}>{t("Menu.7")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/baby.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories" style={{ fontWeight: 600, fontSize: 17}}>{t("Menu.8")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/house.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories" style={{ fontWeight: 600, fontSize: 17}}>{t("Menu.9")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/pets.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories" style={{ fontWeight: 600, fontSize: 17}}>{t("Menu.10")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
-                                    {/*<li>*/}
-                                    {/*    <div className='menuLinkDiv'>*/}
-                                    {/*        <div className='menuLink'>*/}
-                                    {/*            <img src="/assets/svg_logo/electronics.svg" alt="fruits"/>*/}
-                                    {/*            <a href="/categories" style={{ fontWeight: 600, fontSize: 17}}>{t("Menu.11")}</a>*/}
-                                    {/*        </div>*/}
-                                    {/*        <i className='icon-angle-right'> </i>*/}
-                                    {/*    </div>*/}
-                                    {/*</li>*/}
                                 </ul>
                             </nav>
                         </div>
@@ -501,7 +196,7 @@ const HeaderBottom = () => {
                                 <i className="icon-heart-o" style={{fontSize: '2.8rem'}}></i>
                                 <span className="wishlist-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>
                                     {
-                                        wishlistProductsById?.items ? <>{wishlistProductsById?.items?.length}</>: <> 0 </>
+                                        wishlistProductsById?.items ? <>{wishlistProductsById?.items?.length}</> : <> 0 </>
                                     }
                                 </span>
                                 <span className="wishlist-txt" style={{color: 'white'}}></span>
@@ -529,41 +224,41 @@ const HeaderBottom = () => {
                                                          style={{margin: '0 auto', paddingTop: 30, marginBottom: 30}}/>
                                                     {t("Cart.Empty")}
                                                 </div>
-                                                    :
-                                                cartProductsById?.items?.filter((i,j) => j < 2).map((item, i) => {
+                                                :
+                                                cartProductsById?.items?.filter((i, j) => j < 2).map((item, i) => {
                                                     const len = 0
-                                                        return (
-                                                            <div>
-                                                                <div className="product" key={i}>
-                                                                    <div className="product-cart-details">
-                                                                        <h4 className="product-title">
-                                                                            <NavLink to={{
-                                                                                pathname: "/product/" + item.product.id,
-                                                                                id: item.product.id
-                                                                            }} style={{
-                                                                                fontSize: 17,
-                                                                                fontWeight: "600"
-                                                                            }}>{item.product.title}</NavLink>
-                                                                        </h4>
+                                                    return (
+                                                        <div>
+                                                            <div className="product" key={i}>
+                                                                <div className="product-cart-details">
+                                                                    <h4 className="product-title">
+                                                                        <NavLink to={{
+                                                                            pathname: "/product/" + item.product.id,
+                                                                            id: item.product.id
+                                                                        }} style={{
+                                                                            fontSize: 17,
+                                                                            fontWeight: "600"
+                                                                        }}>{item.product.title}</NavLink>
+                                                                    </h4>
 
-                                                                        <span className="cart-product-info"
-                                                                              style={{color: "black"}}>
+                                                                    <span className="cart-product-info"
+                                                                          style={{color: "black"}}>
                                                     <span className="cart-product-qty">{item.quantity} </span>
                                                     x {Math.round(item.product.price)}
                                                 </span>
-                                                                    </div>
-
-                                                                    <figure className="product-image-container">
-                                                                        <img src={item.product.image}
-                                                                             alt="Product image"/>
-                                                                    </figure>
-                                                                    <a href="#" className="btn-remove"
-                                                                       title="Remove Product">
-                                                                        <i
-                                                                        className="icon-close"></i></a>
                                                                 </div>
+
+                                                                <figure className="product-image-container">
+                                                                    <img src={item.product.image}
+                                                                         alt="Product image"/>
+                                                                </figure>
+                                                                <a href="#" className="btn-remove"
+                                                                   title="Remove Product">
+                                                                    <i
+                                                                        className="icon-close"></i></a>
                                                             </div>
-                                                        )
+                                                        </div>
+                                                    )
                                                 })
 
                                         }

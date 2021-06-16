@@ -1,31 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Categories from "./Categories";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getCategory} from "../../store/actions/category";
-import {getsubCategory} from "../../store/actions/subcategory";
-import {getsubCategory1} from "../../store/actions/subcategory1";
-import {getsubCategory2} from "../../store/actions/subcategory2";
 import {useTranslation} from "react-i18next";
 
 const Catalog = (props) => {
     const {t, i18n} = useTranslation();
-    const id = props.location.id
+    const id = parseInt(props.match.params.id)
     const dispatch = useDispatch()
-    const categories = useSelector(state => state.category.category)
-    const subcategoreis = useSelector(state => state.subcategory.subcategory)
-    const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
-    const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
-
+    const category = useSelector(state => state.category.category.find(item => {
+        if(item.id === id){
+            return item
+        }
+    }))
 
     useEffect(() => {
-        dispatch(getCategory())
-        dispatch(getsubCategory())
-        dispatch(getsubCategory1())
-        dispatch(getsubCategory2())
     },[dispatch])
-
-
 
     return (
         <div className='main'>
@@ -35,26 +25,21 @@ const Catalog = (props) => {
                         <li className="breadcrumb-item"><NavLink  exact to='/' style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>
                             {t("Main.Main")}
                         </NavLink></li>
-                        <li className="breadcrumb-item"><NavLink to={{
-                            pathname: '/categories'  ,
+                        <li className="breadcrumb-item"><NavLink
+                            activeStyle={{
+                                color: "#ccbc30"
+                            }}
+                            to={{
+                            pathname: '/categories/'+ id  ,
                         }} style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>{
-
-                            categories.map((it,i) => {
-                                if(it.id === id){
-                                    return(
-                                        it.title
-                                    )
-                                }
-                            })
-
-
+                            category?.title
                         }</NavLink></li>
                     </ol>
                 </div>
             </nav>
 
             <Categories
-                id={id}
+                props={props}
             />
 
         </div>

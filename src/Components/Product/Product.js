@@ -90,16 +90,25 @@ const Product = (props) => {
                                             <li className="breadcrumb-item"><NavLink to="/"
                                                                                      style={{fontSize: 17}}>{t("Main.Main")}</NavLink>
                                             </li>
-                                            <li className="breadcrumb-item"><NavLink to="/"
+                                            <li className="breadcrumb-item"><NavLink to={{
+                                                pathname:  "/categories/" + product.category_id,
+                                            }}
                                                                                      style={{fontSize: 17}}>{product.category_title}</NavLink>
                                             </li>
-                                            <li className="breadcrumb-item"><NavLink to="/"
+                                            <li className="breadcrumb-item"><NavLink to={{
+                                                pathname: "/subcategories/" + product.subcategory_id
+                                            }}
                                                                                      style={{fontSize: 17}}>{product.subcategory_title}</NavLink>
                                             </li>
-                                            <li className="breadcrumb-item"><NavLink to="/"
+                                            <li className="breadcrumb-item"><NavLink to={{
+                                                pathname: "/subcategories1/" + product.subcategory1_id
+                                            }}
                                                                                      style={{fontSize: 17}}>{product.subcategory1_title}</NavLink>
                                             </li>
-                                            <li className="breadcrumb-item"><NavLink to="/"
+                                            <li className="breadcrumb-item"><NavLink to={{
+                                                pathname: "/subcategories2/" + product.subcategory2
+
+                                            }}
                                                                                      style={{fontSize: 17}}>{product.subcategory2_title}</NavLink>
                                             </li>
                                         </ol>

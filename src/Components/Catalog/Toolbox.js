@@ -11,7 +11,7 @@ const Toolbox = (props) => {
         <div className="toolbox" style={{marginTop: 20}}>
             <div className="toolbox-left">
                 <div className="toolbox-info">
-                    Баарысы<span>  {c} </span>
+                    Баарысы: <span>  {c} </span>
                 </div>
             </div>
 
