@@ -10,6 +10,7 @@ import CatCarousel from "../Catalog/CatCarousel";
 import Toolbox from "../Catalog/Toolbox";
 
 const SubCatalog1Products = (props) => {
+    const sale = props.sale
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
     const c = props.sizeOfProd
@@ -65,11 +66,8 @@ const SubCatalog1Products = (props) => {
             />
             <div className="cat-blocks-container">
                 <div className="row">
-
-
-
                     {
-                        products.map((prod, i) => (
+                        products.filter((prod, i) => sale ? prod.percent > 0 : true).map((prod, i)=> (
 
                             <div className="col-6 col-md-4 col-lg-3" key={i}>
                                 {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
@@ -101,8 +99,9 @@ const SubCatalog1Products = (props) => {
                                                                                        color: "white"}} disabled>
                                                 </button> : <button onClick={() => {
                                                     dispatch(addProductToWishlist(prod.id))
-                                                    toast.success("Добавлено в избранное")
-                                                }} className="btn-product-icon btn-wishlist ">
+                                                }} className="btn-product-icon btn-wishlist "
+                                                                    title={t("Wishlist.AddToWishlist")}
+                                                >
                                                 </button>
                                             }
 
@@ -122,8 +121,7 @@ const SubCatalog1Products = (props) => {
                                                     :
                                                     <button onClick={() => {
                                                         dispatch(addProductToCart(prod.id, 1))
-                                                        toast.success("Добавлено в карт")
-                                                    }} className="btn-product " title="Корзинкага кошуу"><img
+                                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
                                                         src="/assets/svg_logo/addcar.png" alt=""/></button>
                                             }
 

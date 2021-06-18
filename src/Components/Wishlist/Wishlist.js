@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteProductFromWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {toast} from "react-toastify";
+import {NavLink} from "react-router-dom";
 
 const Wishlist = () => {
 
@@ -65,7 +66,12 @@ const Wishlist = () => {
                                             </figure>
 
                                             <h3 className="product-title">
-                                                <a href="#">{item.product.title}</a>
+                                                <NavLink
+                                                    to={{
+                                                        pathname: "/product/" + item.product.id,
+                                                        id: item.product.id
+                                                    }}
+                                                >{item.product.title}</NavLink>
                                             </h3>
                                         </div>
 

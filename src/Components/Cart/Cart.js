@@ -67,10 +67,13 @@ const Cart = () => {
                                                     <td className="product-col">
                                                         <div className="product">
                                                             <figure className="product-media">
-                                                                <a href="#">
+                                                                <NavLink    to={{
+                                                                    pathname: "/product/" + item.product.id,
+                                                                    id: item.product.id
+                                                                }} >
                                                                     <img src={item.product.image}
                                                                          alt={item.product.title}/>
-                                                                </a>
+                                                                </NavLink>
                                                             </figure>
 
                                                             <h3 className="product-title">

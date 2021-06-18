@@ -16,6 +16,6 @@ export const getSumOfProducts = () => (dispatch) => {
     })
     dispatch({
         type: GET_SUM_OF_CART,
-        sumOfProducts: sum
+        sumOfProducts: sum.toFixed(2)
     })
 }

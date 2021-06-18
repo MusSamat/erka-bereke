@@ -8,8 +8,8 @@ const Nav = props => {
         <nav aria-label="breadcrumb" className="breadcrumb-nav ">
             <div className="container">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><NavLink to="/" style={{fontSize: 17}}>{t("Main.Main")}</NavLink></li>
-                    <li className="breadcrumb-item"><span style={{fontSize: 17}}>{props.name}</span></li>
+                    <li className="breadcrumb-item"><NavLink to="/" style={{fontSize: 16, fontWeight: "bold",}}>{t("Main.Main")}</NavLink></li>
+                    <li className="breadcrumb-item"><span style={{fontSize: 16, fontWeight: "bold", color: "#ccbc30"}}>{props.name}</span></li>
                     {/*/!*{ if(props.item === '')(*!/*/}
                     {/*/!*    <li className="breadcrumb-item active" aria-current="page" style={{fontSize: 17}}>{props.item}</li>*!/*/}
                     {/*/!*    )}*!/*/}

@@ -5,11 +5,10 @@ import {LengthOfProductsBySubCategory} from "./LengthOfProductsBySubCategory";
 import {NavLink} from "react-router-dom";
 
 const Categories = (props) => {
+    const [sale, setSale] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const categories = useSelector(state => state.category.category)
     const subcategoreis = useSelector(state => state.subcategory.subcategory)
-    // const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
-    // const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
     const prodLength = useSelector(state => state.product.products.filter((item, index) => {
         if (item.category_id === id) {
             return item
@@ -30,7 +29,6 @@ const Categories = (props) => {
         loadScript('/assets/js/demos/demo-13.js')
     }, [])
 
-    // console.log(props)
 
     return (
         <div className="page-content">
@@ -40,6 +38,7 @@ const Categories = (props) => {
                     <CatalogProducts
                         props={props}
                         sizeOfProd={prodLength}
+                        sale={sale}
                     />
 
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
@@ -75,6 +74,7 @@ const Categories = (props) => {
                                                                     pathname: '/subcategories/' + subItem.id
                                                                 }}
                                                             >
+                                                                {console.log(<LengthOfProductsBySubCategory id={subItem.id}/>)}
                                                             <li style={{
                                                                 fontSize: 16,
                                                             }}>
@@ -111,7 +111,6 @@ const Categories = (props) => {
                                             </div>
 
                                         </div>
-
 
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
@@ -171,48 +170,28 @@ const Categories = (props) => {
                                             </div>
 
                                         </div>
-
-
                                     </div>
 
                                 </div>
 
                             </div>
 
+
                             <div className="widget" style={{paddingLeft: 20}}>
-                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Арзандатуулар</h3>
+                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Товары со скидкой</h3>
 
                                 <div className="widget-body brandScroll">
                                     <div className="filter-items">
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-1"/>
+                                                <input type="checkbox" className="custom-control-input" id="sale"
+                                                    onChange={() => setSale(!sale)}
+                                                />
                                                 <label className="custom-control-label"
-                                                       htmlFor="brand-1">Next</label>
+                                                       htmlFor="sale">Sale</label>
                                             </div>
 
                                         </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-2"/>
-                                                <label className="custom-control-label" htmlFor="brand-2">River
-                                                    Island</label>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-3"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-3">Geox</label>
-                                            </div>
-
-                                        </div>
-
                                     </div>
 
                                 </div>

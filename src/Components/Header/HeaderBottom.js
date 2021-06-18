@@ -46,19 +46,25 @@ const HeaderBottom = (props) => {
         return state.wishlistProd
     })
 
+    const styles = {
+        hoverStyle: {
+            color: "#ccbc30",
+            '&:hover': {color: 'blue !important'}
+        }
+    }
+
     return (
         <div className="header-bottom sticky-header" style={{backgroundColor: "#585858"}}>
             <div className="container">
                 <div className="header-left">
-                    <div className="dropdown category-dropdown show is-on" data-visible="true">
-                        <a href="/" className='Bars' role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false" data-display="static"
-                           title="Баардык категориялар">
+                    <div className="dropdown category-dropdown">
+                        <a href="/" className="Bars" data-role="disabled" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                             <i className='icon-bars'></i>
                             <span> Erka  <span style={{color: "white"}}>Bereke</span></span>
                         </a>
 
-                        <div className="dropdown-menu show">
+                        <div className="dropdown-menu">
                             <nav className="side-nav">
                                 <ul className="menu-vertical sf-arrows">
                                     {
@@ -93,52 +99,61 @@ const HeaderBottom = (props) => {
                                                                 <div className="menu-col">
                                                                     <div className="row">
                                                                         <div className="col">
-                                                                            <div style={{
-                                                                                display: "flex",
-                                                                                flexDirection: "row",
-                                                                                justifyContent: 'space-evenly',
-                                                                                padding: 20,
-                                                                                flexWrap: 'wrap'
-                                                                            }}>
+                                                                            <div style={{}} className='row'>
                                                                                 {
                                                                                     subcategoreis.map((subItem, i) => {
                                                                                         if (item.id === subItem.categories) {
                                                                                             return (
                                                                                                 <>
                                                                                                     <div
-                                                                                                        className="menu-title"
-                                                                                                        style={{color: "black",}}
+                                                                                                        className="menu-title col-6"
+                                                                                                        style={{
+                                                                                                            color: "black",
+                                                                                                            paddingLeft: 20
+                                                                                                        }}
                                                                                                         key={i}>
                                                                                                         <NavLink
-                                                                                                            activeStyle={{
-                                                                                                                color: "#ccbc30"
-                                                                                                            }}
-
+                                                                                                            style={{color: "#ccbc30",
+                                                                                                            fontSize: 16}}
                                                                                                             to={{
                                                                                                                 pathname: '/subcategories/' + subItem.id
                                                                                                             }}
+                                                                                                            data-hover="sub"
                                                                                                         >
+                                                                                                            <style>{`[data-hover="sub"]:hover {
+                                                                                                                          text-decoration: underline !important;
+                                                                                                                    }`}</style>
                                                                                                             {subItem.title}
                                                                                                         </NavLink>
 
                                                                                                         <ul style={{
-                                                                                                            borderTop: "1px solid #585858",
-                                                                                                            paddingTop: 20
+                                                                                                            display: "flex",
+                                                                                                            flexDirection: "row",
+                                                                                                            flexWrap: 'wrap',
+                                                                                                            justifyContent: 'start'
                                                                                                         }}>
                                                                                                             {
                                                                                                                 subcategoreis1.map((subItem1, i) => {
                                                                                                                     if (subItem.id === subItem1.subcategory) {
                                                                                                                         return (
-                                                                                                                            <li key={i}>
+                                                                                                                            <li key={i}
+                                                                                                                                style={{paddingRight: 10}}
+                                                                                                                            >
                                                                                                                                 <NavLink
                                                                                                                                     to={{
                                                                                                                                         pathname: '/subcategories1/' + subItem1.id
                                                                                                                                     }}
                                                                                                                                     style={{
                                                                                                                                         fontWeight: "bold",
-                                                                                                                                        fontSize: 15
+                                                                                                                                        fontSize: 16
                                                                                                                                     }}
-                                                                                                                                >{subItem1.title}</NavLink>
+                                                                                                                                    data-hover="sub1"
+                                                                                                                                >
+                                                                                                                                    <style>{`[data-hover="sub1"]:hover {
+                                                                                                                                        color: #ccbc30 !important;
+                                                                                                                                    }`}</style>
+
+                                                                                                                                    {subItem1.title},</NavLink>
                                                                                                                             </li>
                                                                                                                         )
                                                                                                                     }

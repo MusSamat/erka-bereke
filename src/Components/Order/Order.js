@@ -20,6 +20,7 @@ const Order = (props) => {
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
+    const [show, setShow] = useState(false)
     const {t, i18n} = useTranslation();
     const isLogin = useSelector(state => state.isLogin.isLogin)
 
@@ -111,15 +112,6 @@ const Order = (props) => {
     const formBoxButton = document.getElementById("formBoxBtn")
     const iconAngle = document.getElementById('iconAngle')
 
-    const ToggleFormBoxHandler = () => {
-        if (formBoxButton.style.display === "none") {
-            formBoxButton.style.display = "block"
-            iconAngle.className = "icon-angle-up"
-        } else {
-            formBoxButton.style.display = "none"
-            iconAngle.className = "icon-angle-down"
-        }
-    }
 
 
     const title = t("Order.title")
@@ -139,70 +131,144 @@ const Order = (props) => {
                             {
                                 isLogin ?  null :<div>
                                     <button className="orderButton"
-                                            onClick={ToggleFormBoxHandler}
+                                            onClick={() => setShow(!show)}
                                     >
                                         {t("Reg.3")}
                                     </button>
                                     <div className="formLogSignPlus">
-                                        <i onClick={ToggleFormBoxHandler} className="icon-angle-down" id="iconAngle"></i>
+                                        <i onClick={() => setShow(!show)} className="icon-angle-down" ></i>
                                     </div>
+                                    {
+                                        show ?  <div className="form-box" >
+                                            <div className="form-tab">
+                                                <Tabs>
+                                                    <TabList style={{
+                                                        display: "flex", flexDirection: "row", justifyContent: "space-around",
+                                                        fontWeight: "500",
+                                                        fontSize: 20,
+                                                        color: "3399FF",
+                                                        marginBottom: 40
+                                                    }} >
+                                                        <Tab style={{color: "#3399FF",}}>Войти</Tab>
+                                                        <Tab style={{color: "#3399FF"}}>Регистрация</Tab>
+                                                    </TabList>
 
-                                    <div className="form-box hideFormLog" id="formBoxBtn">
-                                        <div className="form-tab">
-                                            <Tabs>
-                                                <TabList style={{
-                                                    display: "flex", flexDirection: "row", justifyContent: "space-around",
-                                                    fontWeight: "500",
-                                                    fontSize: 20,
-                                                    color: "3399FF",
-                                                    marginBottom: 40
-                                                }} >
-                                                    <Tab style={{color: "#3399FF",}}>Войти</Tab>
-                                                    <Tab style={{color: "#3399FF"}}>Регистрация</Tab>
-                                                </TabList>
+                                                    <TabPanel >
+                                                        <div className="tab-pane fade show active" id="signin" role="tabpanel"
+                                                             aria-labelledby="signin-tab">
+                                                            <form onSubmit={submitLoginO}>
+                                                                <div className="form-group">
+                                                                    <label htmlFor="singin-email">{t("Modal.Log.username")}*</label>
+                                                                    <input type="text" className="form-control" id="singin-email"
+                                                                           name="singin-email" required
+                                                                           onChange={(e) => setUserNameO(e.target.value)}
+                                                                    />
+                                                                </div>
 
-                                                <TabPanel >
-                                                    <div className="tab-pane fade show active" id="signin" role="tabpanel"
-                                                         aria-labelledby="signin-tab">
-                                                        <form onSubmit={submitLoginO}>
+
+                                                                <div className="form-group">
+                                                                    <label htmlFor="singin-password">{t("Modal.Log.password")}</label>
+                                                                    <input type="password" className="form-control" id="Login_passO"
+                                                                           name="singin-password" required
+                                                                           onChange={e => setPasswordO(e.target.value)}
+                                                                    />
+                                                                    <input type="checkbox" onClick={TogglePasswordO}/>
+                                                                    <label style={{paddingLeft: 10}}
+                                                                           htmlFor="toggle-password">{t("Modal.Log.showPassword")}</label>
+                                                                </div>
+
+
+                                                                <div className="form-footer">
+                                                                    <button type="submit" className="btn btn-outline-primary-2">
+                                                                        <span style={{fontSize: 17}}>{t("Modal.Log.title")}</span>
+                                                                        <i className="icon-long-arrow-right"></i>
+                                                                    </button>
+
+                                                                    <div className="custom-control custom-checkbox">
+                                                                        <input type="checkbox" className="custom-control-input"
+                                                                               id="signin-remember"/>
+                                                                        <label className="custom-control-label"
+                                                                               htmlFor="signin-remember">{t("Modal.Log.Reminder")}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <div className="form-choice">
+                                                                <p className="text-center"
+                                                                   style={{fontSize: 17}}>{t("Modal.Reg.withSocial")} </p>
+                                                                <div className="row">
+                                                                    <div className="col-sm-6">
+                                                                        <a href="#" className="btn btn-login btn-g">
+                                                                            <i className="icon-google"></i>
+                                                                            Google
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div className="col-sm-6">
+                                                                        <a href="#" className="btn btn-login btn-f">
+                                                                            <i className="icon-facebook-f"></i>
+                                                                            Facebook
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </TabPanel>
+                                                    <TabPanel>
+                                                        <form onSubmit={submitAuthO}>
                                                             <div className="form-group">
-                                                                <label htmlFor="singin-email">{t("Modal.Log.username")}*</label>
-                                                                <input type="text" className="form-control" id="singin-email"
-                                                                       name="singin-email" required
-                                                                       onChange={(e) => setUserNameO(e.target.value)}
+                                                                <label htmlFor="register-user">{t("Modal.Reg.username")} *</label>
+                                                                <input type="еуче" className="form-control" id="register-email"
+                                                                       name="register-email" required
+                                                                       onChange={e => setUserNameO(e.target.value)}
+                                                                />
+                                                            </div>
+
+                                                            <div className="form-group">
+                                                                <label htmlFor="register-email">{t("Modal.Reg.email")} </label>
+                                                                <input type="email" className="form-control" id="register-email"
+                                                                       name="register-email" required
+                                                                       onClick={e => setEmail(e.target.value)}
                                                                 />
                                                             </div>
 
 
                                                             <div className="form-group">
-                                                                <label htmlFor="singin-password">{t("Modal.Log.password")}</label>
-                                                                <input type="password" className="form-control" id="Login_passO"
-                                                                       name="singin-password" required
+                                                                <label htmlFor="register-password">{t("Modal.Reg.password")}</label>
+                                                                <input type="password" className="form-control" id="regPasswordO1"
+                                                                       name="register-password" required
                                                                        onChange={e => setPasswordO(e.target.value)}
                                                                 />
-                                                                <input type="checkbox" onClick={TogglePasswordO}/>
-                                                                <label style={{paddingLeft: 10}}
-                                                                       htmlFor="toggle-password">{t("Modal.Log.showPassword")}</label>
+                                                            </div>
+
+                                                            <div className="form-group">
+                                                                <label
+                                                                    htmlFor='register-password'>{t("Modal.Reg.conPassword")} </label>
+                                                                <input type="password" className="form-control" id="regPasswordO2"
+                                                                       name="register-password" required
+                                                                       onChange={e => setPasswordO2(e.target.value)}
+                                                                       onKeyUp={validatePasswordO}
+                                                                />
                                                             </div>
 
 
                                                             <div className="form-footer">
                                                                 <button type="submit" className="btn btn-outline-primary-2">
-                                                                    <span style={{fontSize: 17}}>{t("Modal.Log.title")}</span>
+                                                                    <span>{t("Modal.Reg.title")}</span>
                                                                     <i className="icon-long-arrow-right"></i>
                                                                 </button>
 
                                                                 <div className="custom-control custom-checkbox">
                                                                     <input type="checkbox" className="custom-control-input"
-                                                                           id="signin-remember"/>
+                                                                           id="register-policy"/>
                                                                     <label className="custom-control-label"
-                                                                           htmlFor="signin-remember">{t("Modal.Log.Reminder")}</label>
+                                                                           htmlFor="register-policy">{t("Modal.Reg.beAgree")}</label>
                                                                 </div>
+
                                                             </div>
+
                                                         </form>
                                                         <div className="form-choice">
-                                                            <p className="text-center"
-                                                               style={{fontSize: 17}}>{t("Modal.Reg.withSocial")} </p>
+                                                            <p className="text-center"> {t("Modal.Reg.withSocial")} </p>
                                                             <div className="row">
                                                                 <div className="col-sm-6">
                                                                     <a href="#" className="btn btn-login btn-g">
@@ -212,98 +278,26 @@ const Order = (props) => {
                                                                 </div>
 
                                                                 <div className="col-sm-6">
-                                                                    <a href="#" className="btn btn-login btn-f">
+                                                                    <a href="#" className="btn btn-login  btn-f">
                                                                         <i className="icon-facebook-f"></i>
                                                                         Facebook
                                                                     </a>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </TabPanel>
-                                                <TabPanel>
-                                                    <form onSubmit={submitAuthO}>
-                                                        <div className="form-group">
-                                                            <label htmlFor="register-user">{t("Modal.Reg.username")} *</label>
-                                                            <input type="еуче" className="form-control" id="register-email"
-                                                                   name="register-email" required
-                                                                   onChange={e => setUserNameO(e.target.value)}
-                                                            />
-                                                        </div>
 
-                                                        <div className="form-group">
-                                                            <label htmlFor="register-email">{t("Modal.Reg.email")} </label>
-                                                            <input type="email" className="form-control" id="register-email"
-                                                                   name="register-email" required
-                                                                   onClick={e => setEmail(e.target.value)}
-                                                            />
-                                                        </div>
-
-
-                                                        <div className="form-group">
-                                                            <label htmlFor="register-password">{t("Modal.Reg.password")}</label>
-                                                            <input type="password" className="form-control" id="regPasswordO1"
-                                                                   name="register-password" required
-                                                                   onChange={e => setPasswordO(e.target.value)}
-                                                            />
-                                                        </div>
-
-                                                        <div className="form-group">
-                                                            <label
-                                                                htmlFor='register-password'>{t("Modal.Reg.conPassword")} </label>
-                                                            <input type="password" className="form-control" id="regPasswordO2"
-                                                                   name="register-password" required
-                                                                   onChange={e => setPasswordO2(e.target.value)}
-                                                                   onKeyUp={validatePasswordO}
-                                                            />
-                                                        </div>
-
-
-                                                        <div className="form-footer">
-                                                            <button type="submit" className="btn btn-outline-primary-2">
-                                                                <span>{t("Modal.Reg.title")}</span>
-                                                                <i className="icon-long-arrow-right"></i>
-                                                            </button>
-
-                                                            <div className="custom-control custom-checkbox">
-                                                                <input type="checkbox" className="custom-control-input"
-                                                                       id="register-policy"/>
-                                                                <label className="custom-control-label"
-                                                                       htmlFor="register-policy">{t("Modal.Reg.beAgree")}</label>
                                                             </div>
 
                                                         </div>
+                                                    </TabPanel>
+                                                </Tabs>
+                                            </div>
+                                        </div>: null
 
-                                                    </form>
-                                                    <div className="form-choice">
-                                                        <p className="text-center"> {t("Modal.Reg.withSocial")} </p>
-                                                        <div className="row">
-                                                            <div className="col-sm-6">
-                                                                <a href="#" className="btn btn-login btn-g">
-                                                                    <i className="icon-google"></i>
-                                                                    Google
-                                                                </a>
-                                                            </div>
-
-                                                            <div className="col-sm-6">
-                                                                <a href="#" className="btn btn-login  btn-f">
-                                                                    <i className="icon-facebook-f"></i>
-                                                                    Facebook
-                                                                </a>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </TabPanel>
-                                            </Tabs>
-                                        </div>
-                                    </div>
+                                    }
                                 </div>
                             }
 
                         <button className="orderButton">
-                            {t("Order.Pay")}
+                            {isLogin ? "Допольните всю полю ": t("Order.Pay")}
                         </button>
                         <div className='form-box'>
                             <div className='form-tab'>

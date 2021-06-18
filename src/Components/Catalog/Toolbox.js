@@ -1,7 +1,8 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 const Toolbox = (props) => {
-
+    const {t, i18n} = useTranslation();
     const id = props.id
     const c = props.sizeOfProd
 
@@ -10,19 +11,23 @@ const Toolbox = (props) => {
     return (
         <div className="toolbox" style={{marginTop: 20}}>
             <div className="toolbox-left">
-                <div className="toolbox-info">
-                    Баарысы: <span>  {c} </span>
+                <div className="toolbox-info" style={{
+                    font: "17px",
+                }}>
+                    {t("Toolbox.All")}: <span style={{
+                        paddingLeft: 10
+                }}>  {c} </span>
                 </div>
             </div>
 
             <div className="toolbox-right">
                 <div className="toolbox-sort">
-                    <label htmlFor="sortby">Сорттоо:</label>
+                    <label htmlFor="sortby">{t("Toolbox.Sort")}:</label>
                     <div className="select-custom">
                         <select name="sortby" id="sortby" className="form-control" style={{ color: "black"}}>
                             {/*<option value="popularity" selected="selected" disabled>жазыңыз...</option>*/}
-                            <option value="cost ">Алгач арзан баа </option>
-                            <option value="">Алгач кымбат баа</option>
+                            <option value="cost ">{t("Toolbox.LowestPrice")} </option>
+                            <option value="">{t("Toolbox.HighestPrice")}</option>
                         </select>
                     </div>
                 </div>

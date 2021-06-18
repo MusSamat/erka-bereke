@@ -2,7 +2,7 @@ import React from "react";
 import {Route} from "react-router";
 import Slider from "./Slider/Slider";
 import MainSales from "./MainSales/MainSales";
-import HotDealProducts from "./Products/HotDealProducts";
+// import HotDealProducts from "./Products/HotDealProducts";
 import ServiceSection from "./Slider/ServiceSection";
 import CatBanner from "./Products/CatBanner";
 import CatBanner2 from "./Products/CatBanner2";
@@ -20,6 +20,8 @@ import {useSelector} from "react-redux";
 import SubCatalog from "../SubCategories/SubCatalog";
 import SubCatalog1 from "../SubCategories1/SubCatalog1";
 import SubCatalog2 from "../SubCategories2/SubCatalog2";
+// import Carousel from "./Carousel";
+import Carousel2 from "./Carousel2";
 
 const MainContent = () => {
     const isLogin = useSelector(state => state.isLogin.isLogin)
@@ -34,7 +36,10 @@ const MainContent = () => {
                         <ServiceSection/>
                         {/*<IconBoxes/>*/}
                         <MainSales/>
-                        <HotDealProducts/>
+                        {/*<HotDealProducts/>*/}
+                        <Carousel2/>
+                        {/*<Carousel/>*/}
+
                         <CatBanner/>
                         <CatBanner2/>
                     </>
@@ -44,7 +49,6 @@ const MainContent = () => {
             <Route  path='/subcategories/:id' component={SubCatalog}/>
             <Route  path='/subcategories1/:id' component={SubCatalog1}/>
             <Route  path='/subcategories2/:id' component={SubCatalog2}/>
-
             <Route  path='/product/:id' component={Product}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path='/wishlist' component={Wishlist}/>

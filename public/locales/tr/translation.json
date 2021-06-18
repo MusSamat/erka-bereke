@@ -119,9 +119,11 @@
     }
   },
   "Cart": {
+    "AddedToCart": "Sepete güncelendi",
+    "AddToCart": "Sepete ekle ",
     "Empty": "Sepet boş",
     "BtnTitle": "Sepete geç",
-    "CheckCart": " Bu ürün zaten sepette veya depodo yok",
+    "CheckCart": " Bu ürün zaten sepette",
     "CartPage": {
       "title": "Sepet",
       "Products": "Ürünler",
@@ -137,6 +139,8 @@
     }
   },
   "Wishlist": {
+    "AddedToWishlist": "Istek listesine eklendi",
+    "AddToWishlist": "Istek listesiye ekle",
     "Empty": "Istek listesi boş ",
     "CheckWishlist": "Bu ürün zaten favorilerde",
     "WishlistPage": {
@@ -164,5 +168,11 @@
     "Description": "Ürün Açıklaması",
     "Information": "Bilgi",
     "Comments": "Yorumlar"
+  },
+  "Toolbox": {
+    "All": "Ürün sayısı",
+    "Sort": "Ürünleri sıralamak",
+    "LowestPrice": "Önce pahalı ürünler",
+    "HighestPrice": "Önce ucuz ürünler"
   }
 }

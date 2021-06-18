@@ -19,6 +19,15 @@
     color: black;
 
 }
+.menuLink:hover{
+    color: #ccbc30;
+}
+
+.subCategoryMenu:hover{
+    text-decoration: underline;
+}
+
+
 .menuLink a{
     color: black;
 }

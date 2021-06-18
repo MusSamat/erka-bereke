@@ -15,6 +15,8 @@ import {toast} from "react-toastify";
 
 
 const CatalogProducts = (props) => {
+    const sale = props.sale
+    console.log(sale)
     const  havenot = true
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
@@ -63,7 +65,6 @@ const CatalogProducts = (props) => {
     },[dispatch])
 
 
-
     return (
         <div className="col-lg-9 col-xl-4-5col">
             {/*<CatalogCarousel/>*/}
@@ -77,94 +78,95 @@ const CatalogProducts = (props) => {
 
 
                     {
-                        products.map((prod, i) => (
 
-                            <div className="col-6 col-md-4 col-lg-3" key={i}>
-                                {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
-                                <div className="product BorderPro"  >
+                            products.filter((prod, i) => sale ? prod.percent > 0 : true).map((prod, i)=> (
+
+                                <div className="col-6 col-md-4 col-lg-3" key={i}>
+                                    {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
+                                    <div className="product BorderPro"  >
 
 
-                                    <figure className="product-media" id="ptr" >
-                                        {
-                                            prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
-                                                : null
-                                        }
-                                        {
-                                            prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
-                                        }
-                                        <NavLink  to={{
-                                               pathname: "/product/" + prod.id,
-                                               id: prod.id
-                                           }}
-                                                     className="img-img"
-                                           >
-                                               <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
-                                           </NavLink>
-
-                                        <div className="product-action-vertical">
+                                        <figure className="product-media" id="ptr" >
                                             {
-                                                checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
-                                                                                  title={t("Wishlist.CheckWishlist")}
-                                                                                  style={{backgroundColor: "#3399ff",
-                                                                                  color: "white"}} disabled>
-                                                </button> : <button onClick={() => {
-                                                    dispatch(addProductToWishlist(prod.id))
-                                                    toast.success("Добавлено в избранное")
-                                                }} className="btn-product-icon btn-wishlist ">
-                                                </button>
+                                                prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
+                                                    : null
                                             }
-
-
-                                            {/*<a href="popup/quickView.html" className="btn-product-icon btn-quickview"*/}
-                                            {/*   title="Чоңойтуу"><span>Чоңойтуу</span></a>*/}
-                                        </div>
-
-                                        <div className="product-action">
                                             {
-                                                checkCart(prod.id)  || !prod.available ?
-                                                    <button className="btn-product "
-                                                            title={t("Cart.CheckCart")}
-                                                    disabled style={{backgroundColor:"#3399ff" }}
-                                                    ><img
-                                                    src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
-                                                    :
-                                                    <button onClick={() => {
-                                                        dispatch(addProductToCart(prod.id, 1))
-                                                        toast.success("Добавлено в карт")
-                                                    }} className="btn-product " title="Корзинкага кошуу"><img
-                                                        src="/assets/svg_logo/addcar.png" alt=""/></button>
+                                                prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
                                             }
-
-                                        </div>
-                                    </figure>
-
-
-                                    <div className="product-body">
-                                        <div className="product-cat">
-                                            <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
-                                        </div>
-
-                                        <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                                            {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
-                                                    <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
-                                                <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
-                                            }
-                                        </div>
-
-                                        <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
-                                            to={{
+                                            <NavLink  to={{
                                                 pathname: "/product/" + prod.id,
                                                 id: prod.id
                                             }}
+                                                      className="img-img"
+                                            >
+                                                <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
+                                            </NavLink>
 
-                                        >{prod.title}</NavLink></h3>
+                                            <div className="product-action-vertical">
+                                                {
+                                                    checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
+                                                                                       title={t("Wishlist.CheckWishlist")}
+                                                                                       style={{backgroundColor: "#3399ff",
+                                                                                           color: "white"}} disabled>
+                                                    </button> : <button onClick={() => {
+                                                        dispatch(addProductToWishlist(prod.id))
+                                                    }} className="btn-product-icon btn-wishlist "
+                                                        title={t("Wishlist.AddToWishlist")}
+                                                    >
+                                                    </button>
+                                                }
+
+
+                                                {/*<a href="popup/quickView.html" className="btn-product-icon btn-quickview"*/}
+                                                {/*   title="Чоңойтуу"><span>Чоңойтуу</span></a>*/}
+                                            </div>
+
+                                            <div className="product-action">
+                                                {
+                                                    checkCart(prod.id)  || !prod.available ?
+                                                        <button className="btn-product "
+                                                                title={t("Cart.CheckCart")}
+                                                                disabled style={{backgroundColor:"#3399ff" }}
+                                                        ><img
+                                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                        :
+                                                        <button onClick={() => {
+                                                            dispatch(addProductToCart(prod.id, 1))
+                                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                            src="/assets/svg_logo/addcar.png" alt=""/></button>
+                                                }
+
+                                            </div>
+                                        </figure>
+
+
+                                        <div className="product-body">
+                                            <div className="product-cat">
+                                                <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
+                                            </div>
+
+                                            <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
+                                                {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                                        <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
+                                                    <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
+                                                }
+                                            </div>
+
+                                            <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                                                to={{
+                                                    pathname: "/product/" + prod.id,
+                                                    id: prod.id
+                                                }}
+
+                                            >{prod.title}</NavLink></h3>
+
+                                        </div>
 
                                     </div>
 
                                 </div>
-
-                            </div>
-                        ))
+                            ))
                     }
                 </div>
 

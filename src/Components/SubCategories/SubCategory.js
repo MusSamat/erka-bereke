@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import {LengthOfProductsBySubCategory1} from "./LengthOfProductsBySubCategory1";
 
 const SubCategory = (props) => {
+    const [saleSub, setSaleSub] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const subcategory = useSelector(state => state.subcategory.subcategory.find(item => {
         if (item.id === id) {
@@ -45,6 +46,7 @@ const SubCategory = (props) => {
                     <SubCatalogProducts
                         props={props}
                         sizeOfProd={prodLength}
+                        sale={saleSub}
                     />
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
                         <div className="sidebar sidebar-shop"
@@ -171,44 +173,26 @@ const SubCategory = (props) => {
                             </div>
 
                             <div className="widget" style={{paddingLeft: 20}}>
-                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Арзандатуулар</h3>
+                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Товары со скидкой</h3>
 
                                 <div className="widget-body brandScroll">
                                     <div className="filter-items">
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-1"/>
+                                                <input type="checkbox" className="custom-control-input" id="sale"
+                                                       onChange={() => setSaleSub(!saleSub)}
+                                                />
                                                 <label className="custom-control-label"
-                                                       htmlFor="brand-1">Next</label>
+                                                       htmlFor="sale">Sale</label>
                                             </div>
 
                                         </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-2"/>
-                                                <label className="custom-control-label" htmlFor="brand-2">River
-                                                    Island</label>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-3"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-3">Geox</label>
-                                            </div>
-
-                                        </div>
-
                                     </div>
 
                                 </div>
 
                             </div>
+
                         </div>
                     </aside>
                 </div>

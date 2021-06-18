@@ -1,38 +1,36 @@
 import React, {useEffect} from "react";
-import '../Catalog/Catalog.css'
+import InfiniteCarousel from 'react-leaf-carousel';
+import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
-import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
-import {useTranslation} from "react-i18next";
+import {addProductToWishlist} from "../../store/actions/wishlistProducts";
 import {toast} from "react-toastify";
-import CatCarousel from "../Catalog/CatCarousel";
-import Toolbox from "../Catalog/Toolbox";
+import {addProductToCart} from "../../store/actions/cartProducts";
+import {getProducts} from "../../store/actions/product";
 
-const SubCatalogProducts = (props) => {
-    const sale = props.sale
+const Carousel = () => {
     const {t, i18n} = useTranslation();
-    const id = parseInt(props.props.props.match.params.id)
-    const c = props.sizeOfProd
-
     const products = useSelector(state => state.product.products.filter((item, index) => {
-        if(item.subcategory_id === id) {
+        if (item.percent > 0) {
             return item
         }
     }))
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [])
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
 
-    const wishlistProductsP =  useSelector(state => {
+    const wishlistProductsP = useSelector(state => {
         return state.wishlistProd
     })
 
     const checkWishlist = (id) => {
-        let  c = 0
+        let c = 0
         wishlistProductsP?.items?.map((item, i) => {
-            if(item.product.id === id){
+            if (item.product.id === id) {
                 c = 1
             }
         })
@@ -42,38 +40,55 @@ const SubCatalogProducts = (props) => {
     const checkCart = (id) => {
         let c = 0
         cartProductsP?.items?.map((item) => {
-            if(item.product.id === id){
+            if (item.product.id === id) {
                 c = 1
             }
         })
         return c
     }
 
-    useEffect(() => {
-        // dispatch( getProducts())
-    },[dispatch])
-
 
 
     return (
-        <div className="col-lg-9 col-xl-4-5col">
-            {/*<CatalogCarousel/>*/}
-            <CatCarousel
-            />
-            <Toolbox
-                id={id}
-                sizeOfProd={c}
-            />
-            <div className="cat-blocks-container">
-                <div className="row">
-
+        <div className="container">
+            <div className='brands_title'>
+                <h2>without div</h2>
+            </div>
+            <div className="horizontal">
+                <hr/>
+            </div>
+                <InfiniteCarousel
+                    breakpoints={[
+                        {
+                            breakpoint: 500,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 2,
+                            },
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3,
+                            },
+                        },
+                    ]}
+                    dots={true}
+                    showSides={true}
+                    sidesOpacity={0.5}
+                    sideSize={0.1}
+                    slideSpacing={1}
+                    slidesToScroll={4}
+                    slidesToShow={4}
+                    scrollOnDevice={true}
+                    animationDuration={10}
+                >
                     {
 
-                        products.filter((prod, i) => sale ? prod.percent > 0 : true).map((prod, i)=> (
-
-                            <div className="col-6 col-md-4 col-lg-3" key={i}>
-                                {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
-                                <div className="product BorderPro"  >
+                        products.map((prod, i)=> {
+                            return (
+                                <div className="product "  >
 
 
                                     <figure className="product-media" id="ptr" >
@@ -101,9 +116,8 @@ const SubCatalogProducts = (props) => {
                                                                                        color: "white"}} disabled>
                                                 </button> : <button onClick={() => {
                                                     dispatch(addProductToWishlist(prod.id))
-                                                }} className="btn-product-icon btn-wishlist "
-                                                                    title={t("Wishlist.AddToWishlist")}
-                                                >
+                                                    toast.success("Добавлено в избранное")
+                                                }} className="btn-product-icon btn-wishlist ">
                                                 </button>
                                             }
 
@@ -123,7 +137,8 @@ const SubCatalogProducts = (props) => {
                                                     :
                                                     <button onClick={() => {
                                                         dispatch(addProductToCart(prod.id, 1))
-                                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                        toast.success("Добавлено в карт")
+                                                    }} className="btn-product " title="Корзинкага кошуу"><img
                                                         src="/assets/svg_logo/addcar.png" alt=""/></button>
                                             }
 
@@ -155,15 +170,14 @@ const SubCatalogProducts = (props) => {
 
                                 </div>
 
-                            </div>
-                        ))
+                            )
+                        })
                     }
-                </div>
 
-            </div>
+
+                </InfiniteCarousel>
         </div>
-
     )
 }
 
-export default SubCatalogProducts
+export default Carousel

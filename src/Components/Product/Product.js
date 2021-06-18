@@ -88,28 +88,29 @@ const Product = (props) => {
                                     productById.map((product, i) => (
                                         <ol className="breadcrumb">
                                             <li className="breadcrumb-item"><NavLink to="/"
-                                                                                     style={{fontSize: 17}}>{t("Main.Main")}</NavLink>
+                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{t("Main.Main")}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname:  "/categories/" + product.category_id,
                                             }}
-                                                                                     style={{fontSize: 17}}>{product.category_title}</NavLink>
+                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.category_title}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories/" + product.subcategory_id
                                             }}
-                                                                                     style={{fontSize: 17}}>{product.subcategory_title}</NavLink>
+                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.subcategory_title}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories1/" + product.subcategory1_id
                                             }}
-                                                                                     style={{fontSize: 17}}>{product.subcategory1_title}</NavLink>
+                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.subcategory1_title}</NavLink>
                                             </li>
-                                            <li className="breadcrumb-item"><NavLink to={{
+                                            <li className="breadcrumb-item"><NavLink
+                                                to={{
                                                 pathname: "/subcategories2/" + product.subcategory2
 
                                             }}
-                                                                                     style={{fontSize: 17}}>{product.subcategory2_title}</NavLink>
+                                                                                     style={{fontSize: 16, fontWeight: "bold", color: "#ccbc30"}}>{product.subcategory2_title}</NavLink>
                                             </li>
                                         </ol>
                                     ))

@@ -1,5 +1,6 @@
 import {FETCH_WISHLIST_PRODUCT, RESET_WISHLIST} from "./actionTypes";
 import GetData from "../../service/GetData";
+import {toast} from "react-toastify";
 
 
 export const getProductsFromWishlist = () => (dispatch) => {
@@ -28,6 +29,7 @@ export const addProductToWishlist = (id) => (dispatch) =>  {
         const wishlistProd = new FormData()
         wishlistProd.append("product", id)
         new GetData().setDataPro(token,'/wishlist-item/', wishlistProd).then(() => {
+            toast.success("Добавлено в избранное")
             dispatch(getProductsFromWishlist())
         })
 
