@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
-// import SubCatalogProducts from "./SubCatalogProducts";
-// import {NavLink} from "react-router-dom";
 import {LengthOfProductsBySubCategory2} from "./LengthOfProductsBySubCategory2";
 import {NavLink} from "react-router-dom";
 import SubCatalog1Products from "./SubCatalog1Products";
+import {useTranslation} from "react-i18next";
 
 
 const SubCategory1 = (props) => {
+    const {t, i18n} = useTranslation();
     const [sale, setSale] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const subcategory1 = useSelector(state => state.subcategory1.subcategory1.find(item => {
@@ -189,7 +189,7 @@ const SubCategory1 = (props) => {
                                                        onChange={() => setSale(!sale)}
                                                 />
                                                 <label className="custom-control-label"
-                                                       htmlFor="sale">Sale</label>
+                                                       htmlFor="sale">{t("Sale.title")}</label>
                                             </div>
 
                                         </div>

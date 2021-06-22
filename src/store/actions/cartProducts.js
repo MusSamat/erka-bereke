@@ -1,6 +1,7 @@
 import GetData from "../../service/GetData";
 import {FETCH_CART_PRODUCT, GET_SUM_OF_CART, RESET_CART} from "./actionTypes";
 import {getProductsFromWishlist} from "./wishlistProducts";
+import {toast} from "react-toastify";
 
 export const getProductsFromCart = () => (dispatch) => {
     const token = JSON.parse(localStorage.getItem("token"))
@@ -14,12 +15,14 @@ export const getProductsFromCart = () => (dispatch) => {
 }
 
 export const addProductToCart = (id, q ) => (dispatch) =>  {
+
     const token = JSON.parse(localStorage.getItem('token'))
     if(token){
         const cartProd = new FormData()
         cartProd.append("product", id)
         cartProd.append("quantity",q)
         new GetData().setDataPro(token,'/views/cart-item/', cartProd).then(() => {
+            toast.success("Добавлено в карт")
             dispatch(getProductsFromCart())
         })
 

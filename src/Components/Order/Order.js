@@ -9,9 +9,10 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import GetData from "../../service/GetData";
 import {toast} from "react-toastify";
 import {getIsLoginValue} from "../../store/actions/isLogin";
-import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {getProductsFromCart, resetCart} from "../../store/actions/cartProducts";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import {resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
 
 
 const Order = (props) => {
@@ -33,6 +34,12 @@ const Order = (props) => {
     const [email, setEmail] = useState([])
     const [passwordO2, setPasswordO2] = useState([])
 
+    const [firstName, setFirstName] = useState([])
+    const [lastName, setLastName] = useState([])
+    const [address, setAddress] = useState([])
+    const [tel, setTel] = useState([])
+
+
     function submitLoginO(e) {
         e.preventDefault()
         LogIn.login('/views/auth/login', {
@@ -42,7 +49,7 @@ const Order = (props) => {
             .then(res => {
                 console.log(res)
                 if (res.token) {
-                    toast.success('Successfully')
+                    toast.success(t("Reg.4"))
                     document.getElementById('closeModal').click()
                     localStorage.setItem('user', JSON.stringify(res.user.username))
                     localStorage.setItem('email', JSON.stringify(res.user.email))
@@ -55,6 +62,33 @@ const Order = (props) => {
                     toast.error('Some thing is wrong')
                 }
             })
+    }
+
+    function Reset(){
+        setFirstName(null)
+        setLastName(null)
+        setTel( null)
+        setAddress(null)
+    }
+
+
+    function setOrderDet (e) {
+        e.preventDefault()
+        const order = new FormData()
+
+        order.append("first_name", firstName )
+        // order.append("last_name", lastName)
+        order.append("address", address)
+        order.append("phone_number", tel)
+        order.append("cart_id", cartProductsP?.id)
+
+        new GetData().setOrder("/views/order/", order).then(() => {
+            dispatch(resetCart())
+            dispatch(resetSumOfCartProducts())
+            Reset()
+            document.getElementById("orderForm").reset()
+            toast.success(t("Modal.Log.setOrder"))
+        })
     }
 
 
@@ -70,7 +104,7 @@ const Order = (props) => {
             })
                 .then(res => {
                     if (res.token) {
-                        toast.success('Вы успешно зарегистрировались')
+                        toast.success(t("Reg.5"))
                         document.getElementById('closeModal').click()
                         localStorage.setItem('user', JSON.stringify(res.user.username))
                         localStorage.setItem('email', JSON.stringify(res.user.email))
@@ -149,8 +183,8 @@ const Order = (props) => {
                                                         color: "3399FF",
                                                         marginBottom: 40
                                                     }} >
-                                                        <Tab style={{color: "#3399FF",}}>Войти</Tab>
-                                                        <Tab style={{color: "#3399FF"}}>Регистрация</Tab>
+                                                        <Tab style={{color: "#3399FF",}}>{t("Reg.1")}</Tab>
+                                                        <Tab style={{color: "#3399FF"}}>{t("Reg.2")}</Tab>
                                                     </TabList>
 
                                                     <TabPanel >
@@ -301,47 +335,48 @@ const Order = (props) => {
                         </button>
                         <div className='form-box'>
                             <div className='form-tab'>
-                                <form>
+                                <form  onSubmit={(e) => setOrderDet(e)} id='orderForm'>
                                     <div className="form-group">
-                                        <label htmlFor="order-firstname">* Имя </label>
+                                        <label htmlFor="order-firstname">{t("Modal.Log.firstName")}*</label>
 
                                         <input type="text" className="form-control" id="order-firstname"
                                                name="order-firstname" required
                                                placeholder="Асан"
-                                               value={isLogin ? name : null}
-                                               onChange={e => setUserNameO(e.target.value)}
+                                               // value={isLogin ? name : null}
+                                               onChange={e => setFirstName(e.target.value)}
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="order-lastname">* Фамилия</label>
+                                        <label htmlFor="order-lastname">{t("Modal.Log.lastName")}*</label>
                                         <input type="text" className="form-control" id="order-lastname"
                                                name="order-lastname" required
                                                placeholder="Үсөнов"
-                                               onChange={e => setUserNameO(e.target.value)}
+                                               onChange={e => setLastName(e.target.value)}
                                         />
                                     </div>
 
 
                                     <div className="form-group">
-                                        <label htmlFor="order-telephone">* Телефон</label>
+                                        <label htmlFor="order-telephone">{t("Modal.Log.tel")}*</label>
 
                                         <PhoneInput
                                             country={'kg'}
-                                            value={"+996"}
+                                            onChange={tel => setTel(tel)}
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="order-address">* Адрес </label>
+                                        <label htmlFor="order-address">{t("Modal.Log.address")}* </label>
                                         <input type="text" className="form-control" id="order-address"
                                                name="order-address" required
-                                               placeholder="Введите адрес на который будет осуществлена доставка"
-                                               onChange={e => setEmail(e.target.value)}
+                                               placeholder={t("Modal.Log.addressTitle")}
+                                               onChange={e => setAddress(e.target.value)}
                                         />
                                     </div>
 
                                     <div className="form-footer">
-                                        <button type="submit" className="btn btn-outline-primary-2">
-                                            <span>Оплатить</span>
+                                        <button
+                                                className="btn btn-outline-primary-2">
+                                            <span>{t("Modal.Log.order")}</span>
                                             <i className="icon-long-arrow-right"></i>
                                         </button>
 

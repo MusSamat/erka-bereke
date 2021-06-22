@@ -37,6 +37,16 @@ class GetData extends React.Component {
         return res.json()
     }
 
+    async setOrder( url, body){
+        const res = await fetch(`${this._apiBase}${url}`, {
+            method: "POST",
+            body: body,
+        })
+        return res.json()
+    }
+
+
+
 
     async login(url, body) {
 

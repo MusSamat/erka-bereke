@@ -3,9 +3,11 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {LengthOfProductsBySubCategory2} from "../SubCategories1/LengthOfProductsBySubCategory2";
 import SubCatalog2Products from "./SubCatalog2Products";
+import {useTranslation} from "react-i18next";
 
 
 const SubCategory2 = (props) => {
+    const {t, i18n} = useTranslation();
     const [sale,setSale] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const subcategory2 = useSelector(state => state.subcategory2.subcategory2.find(item => {
@@ -173,7 +175,7 @@ const SubCategory2 = (props) => {
                                                        onChange={() => setSale(!sale)}
                                                 />
                                                 <label className="custom-control-label"
-                                                       htmlFor="sale">Sale</label>
+                                                       htmlFor="sale">{t("Sale.title")}</label>
                                             </div>
 
                                         </div>

@@ -24,7 +24,6 @@ export const resetWishlist = () => (dispatch) => {
 
 export const addProductToWishlist = (id) => (dispatch) =>  {
     const token = JSON.parse(localStorage.getItem('token'))
-    const userId = localStorage.getItem('userId')
     if(token){
         const wishlistProd = new FormData()
         wishlistProd.append("product", id)
@@ -33,6 +32,9 @@ export const addProductToWishlist = (id) => (dispatch) =>  {
             dispatch(getProductsFromWishlist())
         })
 
+    }
+    else{
+        toast.error("You must sign in or log in")
     }
 }
 

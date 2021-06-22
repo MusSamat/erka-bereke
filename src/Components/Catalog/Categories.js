@@ -3,8 +3,10 @@ import CatalogProducts from "./CatalogProducts";
 import {useDispatch, useSelector} from "react-redux";
 import {LengthOfProductsBySubCategory} from "./LengthOfProductsBySubCategory";
 import {NavLink} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const Categories = (props) => {
+    const {t, i18n} = useTranslation();
     const [sale, setSale] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const categories = useSelector(state => state.category.category)
@@ -188,7 +190,7 @@ const Categories = (props) => {
                                                     onChange={() => setSale(!sale)}
                                                 />
                                                 <label className="custom-control-label"
-                                                       htmlFor="sale">Sale</label>
+                                                       htmlFor="sale">{t("Sale.title")}</label>
                                             </div>
 
                                         </div>

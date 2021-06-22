@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink as Link, NavLink} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import './Header.css'
 import AuthUser from "../../UsersInfo/AuthUser";
@@ -38,60 +38,79 @@ const HeaderTop = () => {
     },[dispatch])
 
     return(
-        <div className='container'>
-            <div className="header-top">
-                <div className="container">
-                    <div className="header-left">
-                        <a href="tel:#"><i className="icon-phone"></i> {t("CallNumber.1")}: +996 773 020 304</a>
-                    </div>
+        <div>
+            <div className='container'>
+                <div className="header-top">
+                    <div className="container">
+                        <div className="header-left">
+                            <a href="tel:#"><i className="icon-phone"></i> {t("CallNumber.1")}: +996 773 020 304</a>
+                        </div>
 
-                    <div className="header-right">
+                        <div className="header-right">
 
-                        <ul className="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul>
-                                    <li>
-                                        <div className="header-dropdown">
-                                            <a href="#" style={{fontWeight: "600", fontSize: 17}}>{t("Lang.1")}</a>
-                                            <div className="header-menu lang_style">
-                                                <ul>
-                                                    <li><div
-                                                           onClick={()=> languageChangeHandler('kyr')}
-                                                    >Кыр</div></li>
-                                                    <li><div
-                                                           onClick={()=> languageChangeHandler('ru')}
-                                                    >Ru</div></li>
-                                                    <li><div
-                                                           onClick={()=> languageChangeHandler('tr')}
-                                                    > Tr</div></li>
-                                                </ul>
+                            <ul className="top-menu">
+                                <li>
+                                    <a href="#">Links</a>
+                                    <ul>
+                                        <li>
+                                            <div className="header-dropdown">
+                                                <a href="#" style={{fontWeight: "600", fontSize: 17}}>{t("Lang.1")}</a>
+                                                <div className="header-menu lang_style">
+                                                    <ul>
+                                                        <li><div
+                                                            onClick={()=> languageChangeHandler('kyr')}
+                                                        >Кыр</div></li>
+                                                        <li><div
+                                                            onClick={()=> languageChangeHandler('ru')}
+                                                        >Ru</div></li>
+                                                        <li><div
+                                                            onClick={()=> languageChangeHandler('tr')}
+                                                        > Tr</div></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    {/*<i className='icon-user' style={{fontSize: 20}}></i>*/}
-                                    {
-                                        isLogin ?
-                                            <li style={{ display: "flex", flexDirection: "row", gap: 10}}
-                                        >
-                                                <NavLink to='/userpage'>
-                                                    <img src="/assets/svg_logo/user.svg" alt="user" style={{textAlign: 'center'}} className="logOut"/>
-                                                </NavLink>
-                                            <span className="logOut" style={{color: "grey"}} onClick={logOutHandler}>Выйти</span></li> :
-
-                                            <li className="login logIn" >
-                                                <img src="/assets/svg_logo/userAuth.svg" alt="user"/>
-                                                <a href="#signin-modal" data-toggle="modal"
-                                               style={{fontWeight: "600"}}>{t("Reg.1")} / {t("Reg.2")} </a>
                                         </li>
-                                    }
-                                </ul>
-                            </li>
-                        </ul>
+                                        {/*<i className='icon-user' style={{fontSize: 20}}></i>*/}
+                                        {
+                                            isLogin ?
+                                                <li style={{ display: "flex", flexDirection: "row", gap: 10}}
+                                                >
+                                                    <NavLink to='/userpage'>
+                                                        <img src="/assets/svg_logo/user.svg" alt="user" style={{textAlign: 'center'}} className="logOut"/>
+                                                    </NavLink>
+                                                    <span className="logOut" style={{color: "grey"}} onClick={logOutHandler}>Выйти</span></li> :
+
+                                                <li className="login logIn" >
+                                                    <img src="/assets/svg_logo/userAuth.svg" alt="user"/>
+                                                    <a href="#signin-modal" data-toggle="modal"
+                                                       style={{fontWeight: "600"}}>{t("Reg.1")} / {t("Reg.2")} </a>
+                                                </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div className="radiowave">
+                <div style={{
+                    fontSize: 29
+                }}>
+                </div>
+                <Link to={{pathname: 'https://wa.me/996552180305'}} target="_blank">
+                    <div className="btn-data">
+                        <div className="btn-text"><i style={{fontSize: 32}} className='icon-whatsapp'></i></div>
+                        <span className="wave"></span>
+                        <span className="wave"></span>
+                        <span className="wave"></span>
+                        <span className="wave"></span>
+                    </div>
+                </Link>
+            </div>
         </div>
+
     )
 }
 

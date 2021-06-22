@@ -7,6 +7,7 @@ import MainContent from "./Components/MainContent/MainContent";
 import Footer from "./Components/Footer/Footer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 // import {useEffect} from "react";
 // import Header2 from "./Components/Header/Header2/Header2";
 
@@ -33,6 +34,7 @@ function App() {
               <Header/>
               {/*<Header2/>*/}
               <MainContent/>
+              {/*<Whatsapps/>*/}
               <Footer/>
 
           </div>

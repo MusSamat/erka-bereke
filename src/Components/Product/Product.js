@@ -88,29 +88,45 @@ const Product = (props) => {
                                     productById.map((product, i) => (
                                         <ol className="breadcrumb">
                                             <li className="breadcrumb-item"><NavLink to="/"
-                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{t("Main.Main")}</NavLink>
+                                                                                     style={{
+                                                                                         fontSize: 16,
+                                                                                         fontWeight: "bold"
+                                                                                     }}>{t("Main.Main")}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
-                                                pathname:  "/categories/" + product.category_id,
+                                                pathname: "/categories/" + product.category_id,
                                             }}
-                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.category_title}</NavLink>
+                                                                                     style={{
+                                                                                         fontSize: 16,
+                                                                                         fontWeight: "bold"
+                                                                                     }}>{product.category_title}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories/" + product.subcategory_id
                                             }}
-                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.subcategory_title}</NavLink>
+                                                                                     style={{
+                                                                                         fontSize: 16,
+                                                                                         fontWeight: "bold"
+                                                                                     }}>{product.subcategory_title}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories1/" + product.subcategory1_id
                                             }}
-                                                                                     style={{fontSize: 16, fontWeight: "bold"}}>{product.subcategory1_title}</NavLink>
+                                                                                     style={{
+                                                                                         fontSize: 16,
+                                                                                         fontWeight: "bold"
+                                                                                     }}>{product.subcategory1_title}</NavLink>
                                             </li>
                                             <li className="breadcrumb-item"><NavLink
                                                 to={{
-                                                pathname: "/subcategories2/" + product.subcategory2
+                                                    pathname: "/subcategories2/" + product.subcategory2
 
-                                            }}
-                                                                                     style={{fontSize: 16, fontWeight: "bold", color: "#ccbc30"}}>{product.subcategory2_title}</NavLink>
+                                                }}
+                                                style={{
+                                                    fontSize: 16,
+                                                    fontWeight: "bold",
+                                                    color: "#ccbc30"
+                                                }}>{product.subcategory2_title}</NavLink>
                                             </li>
                                         </ol>
                                     ))
@@ -150,8 +166,8 @@ const Product = (props) => {
                                                             }
                                                             <img id="product-zoom"
                                                                  src={item.image}
-                                                                 data-zoom-image="/assets/images/demos/demo-13/products/kap.jpg"
-                                                                 alt="product image"/>
+                                                                // data-zoom-image={item.image}
+                                                                 alt={item?.title}/>
 
                                                             <a href="#" id="btn-product-gallery"
                                                                className="btn-product-gallery">
@@ -160,34 +176,49 @@ const Product = (props) => {
                                                         </figure>
 
 
-                                                        <div id="product-zoom-gallery" className="product-image-gallery">
+                                                        <div id="product-zoom-gallery"
+                                                             className="product-image-gallery">
                                                             <a className="product-gallery-item active" href="#"
-                                                               data-image="/assets/images/demos/demo-13/products/kap.jpg"
-                                                               data-zoom-image="/assets/images/demos/demo-13/products/kap.jpg">
-                                                                <img src="/assets/images/demos/demo-13/products/kap.jpg"
-                                                                     alt="product side"/>
+                                                               data-image={item?.image}
+
+                                                            >
+                                                                <img src={item?.image}
+                                                                     alt={item?.title}
+                                                                />
                                                             </a>
 
-                                                            <a className="product-gallery-item" href="#"
-                                                               data-image="/assets/images/demos/demo-13/products/kap3.jpg"
-                                                               data-zoom-image="/assets/images/demos/demo-13/products/kap3.jpg">
-                                                                <img src="/assets/images/demos/demo-13/products/kap3.jpg"
-                                                                     alt="product cross"/>
-                                                            </a>
+                                                            {item?.image1 ?
+                                                                <a className="product-gallery-item" href="#"
+                                                                   data-image={item?.image1}
+                                                                >
+                                                                    <img src={item?.image1}
+                                                                         alt={item?.title}/>
+                                                                </a>
+                                                                :
+                                                                null
+                                                            }
 
-                                                            <a className="product-gallery-item" href="#"
-                                                               data-image="/assets/images/demos/demo-13/products/kap4.jpg"
-                                                               data-zoom-image="/assets/images/demos/demo-13/products/kap4.jpg">
-                                                                <img src="/assets/images/demos/demo-13/products/kap4.jpg"
-                                                                     alt="product with model"/>
-                                                            </a>
+                                                            {item?.image2 ?
+                                                                <a className="product-gallery-item" href="#"
+                                                                   data-image={item?.image2}
+                                                                >
+                                                                    <img src={item?.image2}
+                                                                         alt={item?.title}/>
+                                                                </a>
+                                                                :
+                                                                null
+                                                            }
 
-                                                            <a className="product-gallery-item" href="#"
-                                                               data-image="/assets/images/products/single/sidebar-gallery/4.jpg"
-                                                               data-zoom-image="/assets/images/products/single/sidebar-gallery/4-big.jpg">
-                                                                <img src="/assets/images/demos/demo-13/products/1.jpg"
-                                                                     alt="product back"/>
-                                                            </a>
+                                                            {item?.image3 ?
+                                                                <a className="product-gallery-item" href="#"
+                                                                   data-image={item?.image3}
+                                                                >
+                                                                    <img src={item?.image3}
+                                                                         alt={item?.title}/>
+                                                                </a>
+                                                                :
+                                                                null
+                                                            }
                                                         </div>
 
                                                     </div>
@@ -235,7 +266,6 @@ const Product = (props) => {
                                                                         :
                                                                         <button onClick={() => {
                                                                             dispatch(addProductToCart(item.id, 1))
-                                                                            toast.success("Добавлено в карт")
                                                                         }} className="carT " title="AddToCart"><img
                                                                             src="/assets/svg_logo/addcar.png" alt=""/>
                                                                         </button>
@@ -251,7 +281,6 @@ const Product = (props) => {
                                                                         <button className='wisH'
                                                                                 onClick={() => {
                                                                                     dispatch(addProductToWishlist(item.id))
-                                                                                    toast.success("Добавлено в избранное")
                                                                                 }}
                                                                         ><i className='icon-heart'></i></button>
                                                                 }
@@ -271,7 +300,8 @@ const Product = (props) => {
                                         style={{
                                             border: "1px solid rgb(88,88,88)",
                                             borderRadius: "8px",
-                                            minHeight: "300px"
+                                            minHeight: "300px",
+                                            width: "100%"
                                         }}>
                                         <Tabs>
                                             <TabList style={{
@@ -297,46 +327,9 @@ const Product = (props) => {
                                                 </Tab>
                                             </TabList>
 
-                                            <TabPanel>
+                                            <TabPanel style={{width: "100%"}}>
                                                 <div className="tabPanel">
-                                                    Product Information
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                    Donec nec justo eget felis facilisis fermentum. Aliquam porttitor
-                                                    mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus
-                                                    ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer
-                                                    ligula vulputate sem tristique cursus.
-
-                                                    Nunc nec porttitor turpis. In eu risus enim. In vitae mollis elit.
-                                                    Vivamus finibus vel mauris ut vehicula.
-                                                    Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                    Donec nec justo eget felis facilisis fermentum. Aliquam porttitor
-                                                    mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus
-                                                    ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer
-                                                    ligula vulputate sem tristique cursus.    Product Information
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                    Donec nec justo eget felis facilisis fermentum. Aliquam porttitor
-                                                    mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus
-                                                    ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer
-                                                    ligula vulputate sem tristique cursus.
-
-                                                    Nunc nec porttitor turpis. In eu risus enim. In vitae mollis elit.
-                                                    Vivamus finibus vel mauris ut vehicula.
-                                                    Nullam a magna porttitor, dictum risus nec, faucibus sapien.
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                    Donec nec justo eget felis facilisis fermentum. Aliquam porttitor
-                                                    mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus
-                                                    ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer
-                                                    ligula vulputate sem tristique cursus.
-
+                                                    <div dangerouslySetInnerHTML={{__html: item.description}}/>
                                                 </div>
 
                                             </TabPanel>

@@ -34,7 +34,7 @@ const ModalAuth = () => {
             })
                 .then(res => {
                     if (res.token) {
-                        toast.success('Вы успешно зарегистрировались')
+                        toast.success(t("Reg.5"))
                         document.getElementById('closeModal').click()
                         localStorage.setItem('user', JSON.stringify(res.user.username))
                         localStorage.setItem('email', JSON.stringify(res.user.email))
@@ -71,8 +71,8 @@ const ModalAuth = () => {
             <form onSubmit={submitAuth}>
                 <div className="form-group">
                     <label htmlFor="register-user">{t("Modal.Reg.username")} *</label>
-                    <input type="еуче" className="form-control" id="register-email"
-                           name="register-email" required
+                    <input type="text" className="form-control" id="register-user"
+                           name="register-user" required
                            onChange={e => setUserName(e.target.value)}
                     />
                 </div>

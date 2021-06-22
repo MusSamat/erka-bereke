@@ -32,7 +32,7 @@ const ModalLogin = () => {
                 console.log(res)
                 if (res.token) {
                     console.log(res)
-                    toast.success('Successfully')
+                    toast.success(t("Reg.4"))
                     document.getElementById('closeModal').click()
                     localStorage.setItem('user', JSON.stringify(res.user.username))
                     localStorage.setItem('email', JSON.stringify(res.user.email))

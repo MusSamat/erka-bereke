@@ -8,7 +8,9 @@
   "Reg": {
     "1": "Üye Ol",
     "2": "Giriş Yap",
-    "3": "Önce kaydolmak veya giriş yapmak"
+    "3": "Önce kaydolmak veya giriş yapmak",
+    "4": "Mağazamıza hoş geldiniz",
+    "5": "Başarıyla kayıt oldunuz!!!"
   },
 
   "Menu": {
@@ -26,7 +28,8 @@
   },
 
   "Sale": {
-    "1": "10% indirim..."
+    "1": "10% indirim...",
+    "title": "Indirim"
   },
 
   "Footer": {
@@ -96,11 +99,18 @@
     "Log": {
       "title": "Giriş Yap",
       "username": "Ad",
+      "firstName": "Ad",
+      "lastName": "Soyadı",
+      "tel": "Telefon nomura",
+      "address": "Adres",
+      "addressTitle": "Teslimatın yapılacağı adresi yazın",
       "password": "Şifre *",
       "showPassword": "Göster",
       "Reminder": "Reminder",
       "forgetPassword": "Şifreyi unutmusum",
-      "withSocial": "Aşağıdakiler ile kayit olmak"
+      "withSocial": "Aşağıdakiler ile kayit olmak",
+      "order": "Başvurunuzu gönderin",
+      "setOrder": ""
     },
     "Reg": {
       "title": "Üye Ol",
@@ -174,5 +184,10 @@
     "Sort": "Ürünleri sıralamak",
     "LowestPrice": "Önce pahalı ürünler",
     "HighestPrice": "Önce ucuz ürünler"
+  },
+  "Search": {
+    "title": "Ara",
+    "SearchingBy": "Aralması gereken kelime",
+    "noResult": "ile ilgili sonuç bulamadık "
   }
 }

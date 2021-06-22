@@ -4,8 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import SubCatalogProducts from "./SubCatalogProducts";
 import {NavLink} from "react-router-dom";
 import {LengthOfProductsBySubCategory1} from "./LengthOfProductsBySubCategory1";
+import {useTranslation} from "react-i18next";
 
 const SubCategory = (props) => {
+    const {t, i18n} = useTranslation();
     const [saleSub, setSaleSub] = useState(false)
     const id = parseInt(props.props.match.params.id)
     const subcategory = useSelector(state => state.subcategory.subcategory.find(item => {
@@ -183,7 +185,7 @@ const SubCategory = (props) => {
                                                        onChange={() => setSaleSub(!saleSub)}
                                                 />
                                                 <label className="custom-control-label"
-                                                       htmlFor="sale">Sale</label>
+                                                       htmlFor="sale">{t("Sale.title")}</label>
                                             </div>
 
                                         </div>

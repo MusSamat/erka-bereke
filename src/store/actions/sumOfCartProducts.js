@@ -1,4 +1,4 @@
-import {GET_SUM_OF_CART} from "./actionTypes";
+import {GET_SUM_OF_CART, RESET_SUM_OF_CART_PRODUCTS} from "./actionTypes";
 import {useSelector} from "react-redux";
 
 export const getSumOfProducts = () => (dispatch) => {
@@ -17,5 +17,11 @@ export const getSumOfProducts = () => (dispatch) => {
     dispatch({
         type: GET_SUM_OF_CART,
         sumOfProducts: sum.toFixed(2)
+    })
+}
+
+export const resetSumOfCartProducts = () => (dispatch) => {
+    dispatch({
+        type: RESET_SUM_OF_CART_PRODUCTS
     })
 }

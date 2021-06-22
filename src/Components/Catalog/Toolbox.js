@@ -25,7 +25,6 @@ const Toolbox = (props) => {
                     <label htmlFor="sortby">{t("Toolbox.Sort")}:</label>
                     <div className="select-custom">
                         <select name="sortby" id="sortby" className="form-control" style={{ color: "black"}}>
-                            {/*<option value="popularity" selected="selected" disabled>жазыңыз...</option>*/}
                             <option value="cost ">{t("Toolbox.LowestPrice")} </option>
                             <option value="">{t("Toolbox.HighestPrice")}</option>
                         </select>

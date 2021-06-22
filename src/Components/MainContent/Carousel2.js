@@ -152,7 +152,6 @@ const Carousel2 = () => {
                                                 }} className="btn-product " title={t("Cart.AddToCart")}><img
                                                     src="/assets/svg_logo/addcar.png" alt=""/></button>
                                         }
-
                                     </div>
                                 </figure>
 

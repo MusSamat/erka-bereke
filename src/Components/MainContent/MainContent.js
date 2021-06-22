@@ -20,8 +20,11 @@ import {useSelector} from "react-redux";
 import SubCatalog from "../SubCategories/SubCatalog";
 import SubCatalog1 from "../SubCategories1/SubCatalog1";
 import SubCatalog2 from "../SubCategories2/SubCatalog2";
+
 // import Carousel from "./Carousel";
 import Carousel2 from "./Carousel2";
+import SearchPage from "../SearchPage/SearchPage";
+
 
 const MainContent = () => {
     const isLogin = useSelector(state => state.isLogin.isLogin)
@@ -39,12 +42,12 @@ const MainContent = () => {
                         {/*<HotDealProducts/>*/}
                         <Carousel2/>
                         {/*<Carousel/>*/}
-
                         <CatBanner/>
                         <CatBanner2/>
                     </>
                 )
             }}/>
+            <Route path='/search/:searchInput' component={SearchPage}/>
             <Route  path='/categories/:id' component={Catalog}/>
             <Route  path='/subcategories/:id' component={SubCatalog}/>
             <Route  path='/subcategories1/:id' component={SubCatalog1}/>

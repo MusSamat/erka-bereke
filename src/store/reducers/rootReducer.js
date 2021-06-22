@@ -8,6 +8,8 @@ import isLoginreducer from "./isLogin";
 import cartProductsReducer from "./cartProductsReducer";
 import sumOfCartProd from "./sumOfCartProducts"
 import wishlistProductsReducer from "./wishlistProductsReducer"
+import {searchProductReducer} from "./searchProduct";
+
 
 export default combineReducers({
     product: productReducer,
@@ -18,5 +20,7 @@ export default combineReducers({
     isLogin: isLoginreducer,
     cartProd: cartProductsReducer,
     sumOfCart: sumOfCartProd,
-    wishlistProd: wishlistProductsReducer
+    wishlistProd: wishlistProductsReducer,
+    searchProd: searchProductReducer
+
 })

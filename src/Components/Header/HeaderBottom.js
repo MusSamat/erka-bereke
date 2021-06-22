@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './Header.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import GetData from "../../service/GetData";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,15 +12,27 @@ import {getCartProducts, getProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
 import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import Nav from "../Nav/Nav";
+import {searchProduct} from "../../store/actions/searchProduct";
+import {getIsLoginValue} from "../../store/actions/isLogin";
 
 
 const HeaderBottom = (props) => {
     const {t, i18n} = useTranslation();
+    const [searchInput, setSearchInput] = useState()
 
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const dispatch = useDispatch()
 
     const userId = localStorage.getItem("userId")
+
+    function CheckLogin(){
+        const token = JSON.parse(localStorage.getItem("token"))
+        if(token){
+            dispatch(getIsLoginValue(true))
+            dispatch(getProductsFromCart())
+            dispatch(getProductsFromWishlist())
+        }
+    }
 
     useEffect(() => {
         dispatch(getCategory())
@@ -28,10 +40,7 @@ const HeaderBottom = (props) => {
         dispatch(getsubCategory1())
         dispatch(getsubCategory2())
         dispatch(getProducts())
-        if (isLogin) {
-            dispatch(getProductsFromCart())
-            dispatch(getProductsFromWishlist())
-        }
+        CheckLogin()
     }, [dispatch])
 
     const categories = useSelector(state => state.category.category)
@@ -46,11 +55,9 @@ const HeaderBottom = (props) => {
         return state.wishlistProd
     })
 
-    const styles = {
-        hoverStyle: {
-            color: "#ccbc30",
-            '&:hover': {color: 'blue !important'}
-        }
+    const redirectToSearchPage = (e) => {
+        e.preventDefault()
+        props.history.push("/search/" + searchInput)
     }
 
     return (
@@ -58,11 +65,11 @@ const HeaderBottom = (props) => {
             <div className="container">
                 <div className="header-left">
                     <div className="dropdown category-dropdown">
-                        <a href="/" className="Bars" data-role="disabled" role="button" data-toggle="dropdown"
+                        <NavLink to="/" className="Bars" data-role="disabled" role="button" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
                             <i className='icon-bars'></i>
                             <span> Erka  <span style={{color: "white"}}>Bereke</span></span>
-                        </a>
+                        </NavLink>
 
                         <div className="dropdown-menu">
                             <nav className="side-nav">
@@ -186,20 +193,25 @@ const HeaderBottom = (props) => {
                 </div>
                 <div className="header-center">
                     <div
-                        className="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block"
+                        className=" header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block"
                         style={{marginTop: "1.2rem", marginBottom: "1.2rem"}}>
-                        <a href="#" className="search-toggle" role="button"><i className="icon-search"></i></a>
-                        <form action="#" method="get">
+                        <form onSubmit={(e) => redirectToSearchPage(e) }>
                             <div className="header-search-wrapper search-wrapper-wide"
                                  style={{borderColor: 'rgb(204, 188, 48)'}}>
                                 <label htmlFor="q" className="sr-only">{t("Sale.1")}...</label>
-                                <input type="search" className="form-control" name="q" id="q"
-                                       placeholder={t("Sale.1")} required/>
-                                <button className="btn btn" style={{backgroundColor: "rgb(204, 188, 48)"}}
-                                        type="submit"><i className="icon-search"></i>
-                                </button>
+                                <input type="text" className="form-control"
+                                       placeholder={t("Sale.1")} required
+                                       onChange={(e) => {setSearchInput(e.target.value)
+                                        dispatch(searchProduct(searchInput))
+                                       }}
+                                />
+
+                                    <button className="btn btn" style={{backgroundColor: "rgb(204, 188, 48)"}}
+                                            type="submit"><i className="icon-search"></i>
+                                    </button>
                             </div>
                         </form>
+
                     </div>
                 </div>
 
@@ -303,4 +315,4 @@ const HeaderBottom = (props) => {
     )
 }
 
-export default HeaderBottom
+export default withRouter(HeaderBottom)
