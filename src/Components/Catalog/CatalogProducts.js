@@ -16,7 +16,6 @@ import {toast} from "react-toastify";
 
 const CatalogProducts = (props) => {
     const sale = props.sale
-    console.log(sale)
     const  havenot = true
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)

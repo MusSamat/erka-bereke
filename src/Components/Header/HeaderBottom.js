@@ -253,10 +253,9 @@ const HeaderBottom = (props) => {
                                                 </div>
                                                 :
                                                 cartProductsById?.items?.filter((i, j) => j < 2).map((item, i) => {
-                                                    const len = 0
                                                     return (
-                                                        <div>
-                                                            <div className="product" key={i}>
+                                                        <div key={i}>
+                                                            <div className="product" >
                                                                 <div className="product-cart-details">
                                                                     <h4 className="product-title">
                                                                         <NavLink to={{

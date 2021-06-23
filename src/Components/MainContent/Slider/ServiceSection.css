@@ -3,22 +3,30 @@
     margin-bottom: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 20px;
 }
 
-.serviceSection .serviceItems{
+ .serviceItems{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 10px;
+     /*padding-left: 30px;*/
+     padding-top: 15px;
 }
 
-.serviceSection .serviceItems h4{
+@media screen and (min-width: 900px) {
+    .serviceItems {
+        padding-left: 3rem;
+    }
+}
+
+ .serviceItems h4{
     font-size: 1.6rem;
     font-weight: 600;
 }
-.serviceSection .serviceItems span{
+.serviceItems span{
     font-size: 15px;
     font-weight: bolder;
 }

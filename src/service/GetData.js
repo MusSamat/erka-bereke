@@ -8,7 +8,6 @@ class GetData extends React.Component {
     }
 
     async getData(url) {
-
         const res  = await fetch(`${this._apiBase}${url}`, {
             method: "GET"
         })

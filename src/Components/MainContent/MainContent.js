@@ -1,11 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Route} from "react-router";
 import Slider from "./Slider/Slider";
 import MainSales from "./MainSales/MainSales";
-// import HotDealProducts from "./Products/HotDealProducts";
 import ServiceSection from "./Slider/ServiceSection";
 import CatBanner from "./Products/CatBanner";
-import CatBanner2 from "./Products/CatBanner2";
 import Catalog from "../Catalog/Catalog";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
@@ -20,14 +18,29 @@ import {useSelector} from "react-redux";
 import SubCatalog from "../SubCategories/SubCatalog";
 import SubCatalog1 from "../SubCategories1/SubCatalog1";
 import SubCatalog2 from "../SubCategories2/SubCatalog2";
-
-// import Carousel from "./Carousel";
 import Carousel2 from "./Carousel2";
 import SearchPage from "../SearchPage/SearchPage";
+
+import GetData from "../../service/GetData";
 
 
 const MainContent = () => {
     const isLogin = useSelector(state => state.isLogin.isLogin)
+    const [themeProducts, setThemeProducts] = useState([])
+
+    function GetThemeProducts(){
+        new GetData().getData("/views/theme/").then(res => {
+            setThemeProducts(res)
+        })
+    }
+
+
+    console.log(themeProducts)
+
+
+    useEffect(() => {
+        GetThemeProducts()
+    },[])
 
     return (
         <div className='main'>
@@ -37,13 +50,17 @@ const MainContent = () => {
                     <>
                         <Slider/>
                         <ServiceSection/>
-                        {/*<IconBoxes/>*/}
                         <MainSales/>
-                        {/*<HotDealProducts/>*/}
                         <Carousel2/>
-                        {/*<Carousel/>*/}
-                        <CatBanner/>
-                        <CatBanner2/>
+                        {
+                            themeProducts?.map((item, i) => (
+                                <CatBanner
+                                    id={item.id}
+                                    image={item.image}
+                                    title={item.title}
+                                />
+                            ))
+                        }
                     </>
                 )
             }}/>
@@ -62,19 +79,6 @@ const MainContent = () => {
             {
                isLogin ? <Route path="/userpage" component={UserRoute}/> : ''
             }
-            {/*<Route exact path='*' exact render={() => {*/}
-            {/*    return (*/}
-            {/*        <>*/}
-            {/*            <Slider/>*/}
-            {/*            <ServiceSection/>*/}
-            {/*            /!*<IconBoxes/>*!/*/}
-            {/*            <MainSales/>*/}
-            {/*            <HotDealProducts/>*/}
-            {/*            <CatBanner/>*/}
-            {/*            <CatBanner2/>*/}
-            {/*        </>*/}
-            {/*    )*/}
-            {/*}}/>*/}
         </div>
     )
 }

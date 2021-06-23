@@ -168,7 +168,7 @@ const Carousel2 = () => {
                                         }
                                     </div>
 
-                                    <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                                    <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, height: 100, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
                                         to={{
                                             pathname: "/product/" + prod.id,
                                             id: prod.id
