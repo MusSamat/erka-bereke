@@ -12,7 +12,7 @@ import {getIsLoginValue} from "../../store/actions/isLogin";
 import {getProductsFromCart, resetCart} from "../../store/actions/cartProducts";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import {resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
+import {getSumOfProducts, resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
 
 
 const Order = (props) => {
@@ -41,6 +41,7 @@ const Order = (props) => {
 
 
     function submitLoginO(e) {
+        dispatch(getSumOfProducts())
         e.preventDefault()
         LogIn.login('/views/auth/login', {
             username: userNameO,
@@ -419,7 +420,9 @@ const Order = (props) => {
 
                                     <tr key={i}>
                                         <td className="product-col">
-                                            <div className="product">
+                                            <div className="product" style={{
+                                                paddingLeft: 20
+                                            }}>
                                                 <figure className="product-media">
                                                     <img src={item.product.image}
                                                          alt={item.product.title}/>

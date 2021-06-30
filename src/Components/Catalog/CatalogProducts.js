@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
-import $ from "jquery"
+import React, {useEffect, useState} from "react";
+
 import './Catalog.css'
-import GetData from "../../service/GetData";
+
 import Toolbox from "./Toolbox";
 import CatCarousel from "./CatCarousel";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,26 +10,30 @@ import {NavLink} from "react-router-dom";
 import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {useTranslation} from "react-i18next";
-import {toast} from "react-toastify";
+import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
 
 
 
 const CatalogProducts = (props) => {
-    const sale = props.sale
-    const  havenot = true
+    console.log(props)
+
+    const brandsId = props.brandsId
+
+    const [filter, setFilter] = useState("lowestToHighest")
+
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
     const c = props.sizeOfProd
-    const categoryTitle = useSelector(state => state.category.category.filter( item => {
-        if(item.id === id){
-            return item.title
-        }
-    }))
+
     const products = useSelector(state => state.product.products.filter((item, index) => {
         if(item.category_id === id) {
             return item
         }
     }))
+
+    const sale = useSelector(state => state.sale.sale)
+    console.log(sale)
+
     const dispatch = useDispatch()
     const cartProductsP = useSelector(state => {
         return state.cartProd
@@ -59,18 +63,21 @@ const CatalogProducts = (props) => {
         return c
     }
 
+
     useEffect(() => {
         dispatch( getProducts())
     },[dispatch])
 
 
+
     return (
-        <div className="col-lg-9 col-xl-4-5col">
+        <div className="col-lg-9 col-xl-4-5 col">
             {/*<CatalogCarousel/>*/}
             <CatCarousel/>
             <Toolbox
                 id={id}
                 sizeOfProd={c}
+                setFilter={setFilter}
             />
             <div className="cat-blocks-container">
                 <div className="row">
@@ -78,7 +85,12 @@ const CatalogProducts = (props) => {
 
                     {
 
-                            products.filter((prod, i) => sale ? prod.percent > 0 : true).map((prod, i)=> (
+                            products
+                                .filter((prod, i) => brandsId.length === 0 ? true : brandsId.includes(prod?.marka ))
+                                .filter((prod, i) => sale ? prod.percent > 0 : true)
+                                .sort((a,b) => (filter === "lowestToHighest") ?
+                                    (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) )
+                                .map((prod, i)=> (
 
                                 <div className="col-6 col-md-4 col-lg-3" key={i}>
                                     {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}

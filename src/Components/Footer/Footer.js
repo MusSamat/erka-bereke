@@ -1,11 +1,12 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
 
 const Footer = () => {
 
     const {t, i18n} = useTranslation();
     return (
-        <footer className="footer footer-2" style={{backgroundColor: 'black'}}>
+        <footer className="footer footer-2" style={{backgroundColor: 'black', marginTop: 60}}>
             <div className="icon-boxes-container">
                 <div className="container">
                     <div className="row">
@@ -102,7 +103,7 @@ const Footer = () => {
                                             <span className="widget-about-title">{t("Footer.Linking.2")}</span>
 
                                             <figure className="footer-payments">
-                                                <img src="assets/images/payments.png" alt="Payment methods" width="272"
+                                                <img src="/assets/images/payments.png" alt="Payment methods" width="272"
                                                      height="20"/>
                                             </figure>
 
@@ -122,8 +123,8 @@ const Footer = () => {
                                 <ul className="widget-list">
                                     <li><a href="about.html">{t("Footer.FooterMenu.1.2")}</a></li>
                                     <li><a href="#">{t("Footer.FooterMenu.1.3")} </a></li>
-                                    <li><a href="faq.html">{t("Footer.FooterMenu.1.4")}</a></li>
-                                    <li><a href="contact.html">{t("Footer.FooterMenu.1.5")}</a></li>
+                                    <li><NavLink  to="/news-blogs">{t("Footer.FooterMenu.1.4")}</NavLink></li>
+                                    <li><NavLink to="/contact" href="contact.html">{t("Footer.FooterMenu.1.5")}</NavLink></li>
                                     <li><a href="login.html">{t("Footer.FooterMenu.1.6")}</a></li>
                                 </ul>
 

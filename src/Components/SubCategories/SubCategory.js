@@ -5,10 +5,12 @@ import SubCatalogProducts from "./SubCatalogProducts";
 import {NavLink} from "react-router-dom";
 import {LengthOfProductsBySubCategory1} from "./LengthOfProductsBySubCategory1";
 import {useTranslation} from "react-i18next";
+import {setSaleValue} from "../../store/actions/sale";
 
 const SubCategory = (props) => {
+    const dispatch = useDispatch()
     const {t, i18n} = useTranslation();
-    const [saleSub, setSaleSub] = useState(false)
+    const sale = useSelector(state => state.sale.sale)
     const id = parseInt(props.props.match.params.id)
     const subcategory = useSelector(state => state.subcategory.subcategory.find(item => {
         if (item.id === id) {
@@ -48,7 +50,7 @@ const SubCategory = (props) => {
                     <SubCatalogProducts
                         props={props}
                         sizeOfProd={prodLength}
-                        sale={saleSub}
+                        sale={sale}
                     />
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
                         <div className="sidebar sidebar-shop"
@@ -182,7 +184,8 @@ const SubCategory = (props) => {
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
                                                 <input type="checkbox" className="custom-control-input" id="sale"
-                                                       onChange={() => setSaleSub(!saleSub)}
+                                                       checked={sale}
+                                                       onChange={() => dispatch(setSaleValue(!sale))}
                                                 />
                                                 <label className="custom-control-label"
                                                        htmlFor="sale">{t("Sale.title")}</label>
