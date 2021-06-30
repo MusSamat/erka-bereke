@@ -60,6 +60,7 @@ const CatalogProducts = (props) => {
                 c = 1
             }
         })
+
         return c
     }
 
