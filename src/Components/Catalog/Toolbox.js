@@ -3,10 +3,13 @@ import {useTranslation} from "react-i18next";
 
 const Toolbox = (props) => {
     const {t, i18n} = useTranslation();
+    const setFilter = props.setFilter
     const id = props.id
     const c = props.sizeOfProd
 
-
+    const onChangeFilterHandler = (e) => {
+        setFilter(e.target.value)
+    }
 
     return (
         <div className="toolbox" style={{marginTop: 20}}>
@@ -24,9 +27,12 @@ const Toolbox = (props) => {
                 <div className="toolbox-sort">
                     <label htmlFor="sortby">{t("Toolbox.Sort")}:</label>
                     <div className="select-custom">
-                        <select name="sortby" id="sortby" className="form-control" style={{ color: "black"}}>
-                            <option value="cost ">{t("Toolbox.LowestPrice")} </option>
-                            <option value="">{t("Toolbox.HighestPrice")}</option>
+                        <select name="sortby" id="sortby" className="form-control" style={{ color: "black"}}
+                                onChange={ e => onChangeFilterHandler(e) }
+
+                        >
+                            <option value="lowestToHighest">{t("Toolbox.LowestPrice")} </option>
+                            <option value="highestToLowest">{t("Toolbox.HighestPrice")}</option>
                         </select>
                     </div>
                 </div>

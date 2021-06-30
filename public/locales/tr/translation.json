@@ -65,7 +65,7 @@
         "1": "Информация",
         "2": "Biz",
         "3": "Online ödeme",
-        "4": "FAQ",
+        "4": "Haberler",
         "5": "Contact",
         "6": "Üye Ol"
       },
@@ -140,10 +140,11 @@
       "Price": "Fiyat",
       "Quantity": "Miktar",
       "All": "Toplam",
+      "AllWithSale": "Toplam indirim ile",
       "Refresh": "Güncelleme",
       "Delivery": "Teslimat",
-      "Standart": "Standart",
-      "Express": "Express",
+      "Standart": "Bişkek içi ",
+      "Express": "Bölgeye göre teslimat",
       "Cash": "Ödemeye geç",
       "Main": "Ana sayfaya geç"
     }
@@ -189,5 +190,20 @@
     "title": "Ara",
     "SearchingBy": "Aralması gereken kelime",
     "noResult": "ile ilgili sonuç bulamadık "
+  },
+  "Contact": {
+    "title": "İletişim detayları",
+    "Map": "Harita",
+    "Market": "Mağazası",
+    "Address": "Microdistrict Cal, Bişkek. Kırgızistan",
+    "Office": "Ofis",
+    "Time": "Pazartesi - Pazar",
+    "Questions": "Sorular",
+    "Qtitle": "Aşağıdaki alanları doldurun",
+    "Qname": "Ad",
+    "Qtel": "Telefon",
+    "Qtheme": "Konu",
+    "Qmail": "Mesaj",
+    "Submit": "Gönder"
   }
 }

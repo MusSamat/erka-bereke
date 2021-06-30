@@ -14,6 +14,7 @@ import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import Nav from "../Nav/Nav";
 import {searchProduct} from "../../store/actions/searchProduct";
 import {getIsLoginValue} from "../../store/actions/isLogin";
+import {setSaleValue} from "../../store/actions/sale";
 
 
 const HeaderBottom = (props) => {
@@ -81,6 +82,7 @@ const HeaderBottom = (props) => {
 
                                                     <div>
                                                         <NavLink
+                                                            onClick={() =>  {console.log('dispatch'); dispatch(setSaleValue(false))}}
                                                             activeStyle={{
                                                                 color: "#ccbc30"
                                                             }}
@@ -120,6 +122,7 @@ const HeaderBottom = (props) => {
                                                                                                         }}
                                                                                                         key={i}>
                                                                                                         <NavLink
+                                                                                                            onClick={() => {dispatch(setSaleValue(false))}}
                                                                                                             style={{color: "#ccbc30",
                                                                                                             fontSize: 16}}
                                                                                                             to={{
@@ -147,6 +150,7 @@ const HeaderBottom = (props) => {
                                                                                                                                 style={{paddingRight: 10}}
                                                                                                                             >
                                                                                                                                 <NavLink
+                                                                                                                                    onClick={() => {dispatch(setSaleValue(false))}}
                                                                                                                                     to={{
                                                                                                                                         pathname: '/subcategories1/' + subItem1.id
                                                                                                                                     }}

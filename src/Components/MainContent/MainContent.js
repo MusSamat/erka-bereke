@@ -22,6 +22,7 @@ import Carousel2 from "./Carousel2";
 import SearchPage from "../SearchPage/SearchPage";
 
 import GetData from "../../service/GetData";
+import BlogById from "../Blog/BlogById";
 
 
 const MainContent = () => {
@@ -34,17 +35,12 @@ const MainContent = () => {
         })
     }
 
-
-    console.log(themeProducts)
-
-
     useEffect(() => {
         GetThemeProducts()
     },[])
 
     return (
         <div className='main'>
-
             <Route exact path='/' exact render={() => {
                 return (
                     <>
@@ -72,10 +68,12 @@ const MainContent = () => {
             <Route  path='/product/:id' component={Product}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path='/wishlist' component={Wishlist}/>
-            <Route exact path='/blog' component={Blog}/>
+            <Route exact path='/news-blogs' component={Blog}/>
+            <Route exact path="/blog/:id" component={BlogById}/>
             <Route exact path='/contact' component={Contact}/>
             <Route exact path='/404' component={NotFound}/>
             <Route exact path="/order" component={Order}/>
+
             {
                isLogin ? <Route path="/userpage" component={UserRoute}/> : ''
             }

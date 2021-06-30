@@ -11,9 +11,7 @@ export const getSumOfProducts = () => (dispatch) => {
     if(item.product.available){
         item.product.percent > 0 ? sum = sum + (item.product.price - item.product.price * item.product.percent/ 100)*item.quantity  :
             sum =  sum + item.product.price * item.quantity
-    }
-
-    })
+    }})
     dispatch({
         type: GET_SUM_OF_CART,
         sumOfProducts: sum.toFixed(2)

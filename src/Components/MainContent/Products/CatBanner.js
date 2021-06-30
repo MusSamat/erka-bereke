@@ -46,6 +46,7 @@ const CatBanner = (props) => {
         return c
     }
 
+
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -93,7 +94,7 @@ const CatBanner = (props) => {
                     <Carousel
                         swipeable={false}
                         draggable={false}
-                        showDots={true}
+                        showDots={false}
                         responsive={responsive}
                         ssr={true} // means to render carousel on server-side.
                         infinite={true}

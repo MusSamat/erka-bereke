@@ -3,6 +3,8 @@ import Categories from "./Categories";
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
+import {getProducts} from "../../store/actions/product";
 
 const Catalog = (props) => {
     const {t, i18n} = useTranslation();
@@ -15,6 +17,8 @@ const Catalog = (props) => {
     }))
 
     useEffect(() => {
+
+        dispatch(getProducts())
     },[dispatch])
 
     return (
@@ -26,6 +30,7 @@ const Catalog = (props) => {
                             {t("Main.Main")}
                         </NavLink></li>
                         <li className="breadcrumb-item"><NavLink
+
                             activeStyle={{
                                 color: "#ccbc30"
                             }}

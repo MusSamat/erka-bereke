@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../Catalog/Catalog.css'
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
@@ -10,6 +10,7 @@ import CatCarousel from "../Catalog/CatCarousel";
 import Toolbox from "../Catalog/Toolbox";
 
 const SubCatalog1Products = (props) => {
+    const [filter, setFilter] = useState("lowestToHighest")
     const sale = props.sale
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
@@ -63,11 +64,12 @@ const SubCatalog1Products = (props) => {
             <Toolbox
                 id={id}
                 sizeOfProd={c}
+                setFilter={setFilter}
             />
             <div className="cat-blocks-container">
                 <div className="row">
                     {
-                        products.filter((prod, i) => sale ? prod.percent > 0 : true).map((prod, i)=> (
+                        products.filter((prod, i) => sale ? prod.percent > 0 : true).sort((a,b) => (filter === "lowestToHighest") ? (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) ).map((prod, i)=> (
 
                             <div className="col-6 col-md-4 col-lg-3" key={i}>
                                 {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}

@@ -7,28 +7,43 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {addProductToCart, deleteProductFromCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {getSumOfProducts} from "../../store/actions/sumOfCartProducts";
+import {getSumOfProductsWithoutSale} from "../../store/actions/sumOfCartProductsWithoutSale";
 
 
 const Cart = () => {
+    const [saleH, setSaleH] = useState(false)
+    const [sumWithoutSale, setSumWithoutSale] = useState([])
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
-    dispatch(getSumOfProducts())
+
+    const checkSale = () => {
+        for (let i = 0; i< cartProductsP?.items?.length; i++){
+            if(cartProductsP?.items[i]?.product.percent){
+                setSaleH(true)
+                break;
+            }else{
+                setSaleH(false)
+            }
+        }
+    }
+
+
     const sum = useSelector(state => state.sumOfCart.sumOfProducts)
+    const sumW = useSelector(state =>state.cartProdW.sumProd)
+
+    console.log(sumW)
+
+    dispatch(getSumOfProducts())
+    dispatch(getSumOfProductsWithoutSale())
 
 
-    // const sumOfPrice = () => {
-    //     let s = 0
-    //     dispatch(getProductsFromCart())
-    //     cartProductsP?.items?.map((item, i) => {
-    //          s =  s + item.product.price * item.quantity
-    //     })
-    // }
 
-    useEffect(() => {
+   useEffect(() => {
+        checkSale()
     }, [])
 
     const title = t("Cart.CartPage.title")
@@ -46,7 +61,7 @@ const Cart = () => {
                 <div className="cart">
                     <div className="container">
                         <div className="row">
-                            <div className="col-lg-9">
+                            <div className="col-lg-8">
                                 <table className="table table-cart table-mobile">
                                     <thead>
                                     <tr>
@@ -131,6 +146,7 @@ const Cart = () => {
                                                         <button onClick={() => {
                                                             if (isLogin) {
                                                                 dispatch(deleteProductFromCart(item.product.id));
+                                                                checkSale()
                                                                 dispatch(getProductsFromCart())
                                                             }
                                                         }} className="btn-remove"><i className="icon-close"></i>
@@ -166,7 +182,7 @@ const Cart = () => {
                                         className="icon-refresh"></i></a>
                                 </div>
                             </div>
-                            <aside className="col-lg-3">
+                            <aside className="col-lg-4">
                                 <div className="summary summary-cart">
                                     <h3 className="summary-title" style={{fontSize: 20}}>{t("Cart.CartPage.title")}</h3>
 
@@ -184,31 +200,58 @@ const Cart = () => {
                                         <tr className="summary-shipping-row">
                                             <td>
                                                 <div className="custom-control custom-radio">
-                                                    <input type="radio" id="free-shipping" name="shipping"
+                                                    <input type="radio" id="jal" name="shipping"
                                                            className="custom-control-input"/>
                                                     <label className="custom-control-label"
-                                                           htmlFor="free-shipping">{t("Cart.CartPage.Standart")}</label>
+                                                           htmlFor="jal">Жал (Cal)</label>
                                                 </div>
                                             </td>
-                                            <td>$120.00</td>
+                                            <td>Бесплатно</td>
                                         </tr>
 
 
                                         <tr className="summary-shipping-row">
                                             <td>
                                                 <div className="custom-control custom-radio">
-                                                    <input type="radio" id="standart-shipping" name="shipping"
+                                                    <input type="radio" id="gorod" name="shipping"
                                                            className="custom-control-input"/>
                                                     <label className="custom-control-label"
-                                                           htmlFor="standart-shipping">{t("Cart.CartPage.Express")}:</label>
+                                                           htmlFor="gorod">{t("Cart.CartPage.Standart")}:</label>
                                                 </div>
 
                                             </td>
-                                            <td>$10.00</td>
+                                            <td>100.00 с</td>
+                                        </tr>
+                                        <tr className="summary-shipping-row">
+                                            <td>
+                                                <div className="custom-control custom-radio">
+                                                    <input type="radio" id="region" name="shipping"
+                                                           className="custom-control-input"/>
+                                                    <label className="custom-control-label"
+                                                           htmlFor="region">{t("Cart.CartPage.Express")}:</label>
+                                                </div>
+
+                                            </td>
+                                            <td>250 с</td>
                                         </tr>
                                         <tr className="summary-total">
-                                            <td>{t("Cart.CartPage.All")}:</td>
-                                            <td>{sum}</td>
+                                            {
+                                                saleH ?
+                                                    <>
+                                                        <td>{t("Cart.CartPage.AllWithSale")}</td>
+                                                        <td style={{
+                                                            textDecorationLine: "line-through",
+                                                            color: "#ccbc30",
+                                                        }}>{sumW}</td>
+                                                        <td>{sum }</td>
+                                                    </>
+                                                :
+                                                    <>
+                                                        <td>{t("Cart.CartPage.All")}:</td>
+                                                        <td>{sum+1}</td>
+                                                    </>
+                                            }
+
                                         </tr>
 
                                         </tbody>

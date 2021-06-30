@@ -4,21 +4,53 @@ import {useDispatch, useSelector} from "react-redux";
 import {LengthOfProductsBySubCategory} from "./LengthOfProductsBySubCategory";
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import GetData from "../../service/GetData";
+import {fetchBrands} from "../../store/actions/brands_action";
+import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
 
 const Categories = (props) => {
     const {t, i18n} = useTranslation();
-    const [sale, setSale] = useState(false)
+
+    const dispatch = useDispatch()
     const id = parseInt(props.props.match.params.id)
     const categories = useSelector(state => state.category.category)
     const subcategoreis = useSelector(state => state.subcategory.subcategory)
-    const prodLength = useSelector(state => state.product.products.filter((item, index) => {
+    const prod = useSelector(state => state.product.products.filter((item, index) => {
         if (item.category_id === id) {
             return item
         }
-    }).length)
+    }))
 
+    const brands = useSelector(state => state.brands.brands)
+
+    const sale = useSelector(state => state.sale.sale)
+
+
+    // const [brands, setBrands] = useState([])
+    const [marka, setMarka] = useState([])
+
+    console.log(brands)
+
+    function getBrands() {
+        new GetData().getData("/markas/").then(res => {
+            setMarka(res)
+        })
+    }
+
+    // const checkedBox = (id) => {
+    //     const index = brands.indexOf(id)
+    //     if(index !== -1){
+    //         brands.splice(index, 1)
+    //         setBrands(state => [...state])
+    //     }else{
+    //         setBrands(state => [...state,  id])
+    //     }
+    //
+    // }
 
     useEffect(() => {
+        console.log(brands)
+        getBrands()
         let loadScript = function (src) {
             let tag = document.createElement('script');
             tag.async = false;
@@ -39,8 +71,9 @@ const Categories = (props) => {
 
                     <CatalogProducts
                         props={props}
-                        sizeOfProd={prodLength}
+                        sizeOfProd={prod?.length}
                         sale={sale}
+                        brandsId={brands}
                     />
 
                     <aside className="col-lg-3 col-xl-5col order-lg-first">
@@ -56,7 +89,7 @@ const Categories = (props) => {
                                             )
                                         }
                                     })}</h3>
-                                <h5 style={{paddingLeft: 20}}> {prodLength} түр</h5>
+                                <h5 style={{paddingLeft: 20}}> {prod?.length} түр</h5>
 
                                 <div className="widget-body">
                                     <div className="accordion" id="widget-cat-acc">
@@ -76,16 +109,17 @@ const Categories = (props) => {
                                                                     pathname: '/subcategories/' + subItem.id
                                                                 }}
                                                             >
-                                                                {console.log(<LengthOfProductsBySubCategory id={subItem.id}/>)}
-                                                            <li style={{
-                                                                fontSize: 16,
-                                                            }}>
+
+                                                                <li style={{
+                                                                    fontSize: 16,
+                                                                }}>
                                                                     {subItem.title} <span>(
                                                                 <LengthOfProductsBySubCategory
                                                                     id={subItem.id}
                                                                 />)
                                                                 </span>
-                                                            </li></NavLink>
+                                                                </li>
+                                                            </NavLink>
                                                         )
                                                     }
 
@@ -105,73 +139,35 @@ const Categories = (props) => {
 
                                 <div className="widget-body brandScroll">
                                     <div className="filter-items">
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-1"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-1">Next</label>
-                                            </div>
 
-                                        </div>
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-2"/>
-                                                <label className="custom-control-label" htmlFor="brand-2">River
-                                                    Island</label>
-                                            </div>
-
-                                        </div>
+                                        {
 
 
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-3"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-3">Geox</label>
-                                            </div>
+                                            marka?.map(marka => {
+                                                for(let i = 0; i< prod.length; i++){
+                                                    if(prod[i].marka_title === marka.title){
+                                                        return (
+                                                            <div className="filter-item">
+                                                                <div className="custom-control custom-checkbox">
+                                                                    <input type="checkbox" className="custom-control-input"
+                                                                           name="filter-price"
+                                                                           id={marka.title}
+                                                                           onClick={() => dispatch(fetchBrands(marka.id))}
+                                                                    />
+                                                                        <label className="custom-control-label"
+                                                                               htmlFor={marka.title}>{marka.title}</label>
+                                                                </div>
+                                                            </div>
 
-                                        </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-4"/>
-                                                <label className="custom-control-label" htmlFor="brand-4">New
-                                                    Balance</label>
-                                            </div>
-
-                                        </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-5"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-5">UGG</label>
-                                            </div>
-
-                                        </div>
+                                                    )
+                                                        break;
+                                                    }
+                                                }
+                                            })
 
 
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-6"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-6">F&F</label>
-                                            </div>
+                                        }
 
-                                        </div>
-
-
-                                        <div className="filter-item">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="brand-7"/>
-                                                <label className="custom-control-label"
-                                                       htmlFor="brand-7">Nike</label>
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                 </div>
@@ -180,14 +176,16 @@ const Categories = (props) => {
 
 
                             <div className="widget" style={{paddingLeft: 20}}>
-                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Товары со скидкой</h3>
+                                <h3 className="widget-title" style={{fontSize: 20, fontWeight: 600}}>Товары со
+                                    скидкой</h3>
 
                                 <div className="widget-body brandScroll">
                                     <div className="filter-items">
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
                                                 <input type="checkbox" className="custom-control-input" id="sale"
-                                                    onChange={() => setSale(!sale)}
+                                                       checked={sale}
+                                                       onChange={() => dispatch(setSaleValue(!sale))}
                                                 />
                                                 <label className="custom-control-label"
                                                        htmlFor="sale">{t("Sale.title")}</label>

@@ -5,11 +5,13 @@ import {LengthOfProductsBySubCategory2} from "./LengthOfProductsBySubCategory2";
 import {NavLink} from "react-router-dom";
 import SubCatalog1Products from "./SubCatalog1Products";
 import {useTranslation} from "react-i18next";
+import {setSaleValue} from "../../store/actions/sale";
 
 
 const SubCategory1 = (props) => {
     const {t, i18n} = useTranslation();
-    const [sale, setSale] = useState(false)
+    const dispatch = useDispatch()
+    const sale = useSelector(state=> state.sale.sale)
     const id = parseInt(props.props.match.params.id)
     const subcategory1 = useSelector(state => state.subcategory1.subcategory1.find(item => {
         if (item.id === id) {
@@ -186,7 +188,8 @@ const SubCategory1 = (props) => {
                                         <div className="filter-item">
                                             <div className="custom-control custom-checkbox">
                                                 <input type="checkbox" className="custom-control-input" id="sale"
-                                                       onChange={() => setSale(!sale)}
+                                                       checked={sale}
+                                                       onChange={() => dispatch(setSaleValue(!sale))}
                                                 />
                                                 <label className="custom-control-label"
                                                        htmlFor="sale">{t("Sale.title")}</label>

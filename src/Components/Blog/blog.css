@@ -1,0 +1,30 @@
+.blogDate {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 15;
+    color: #1b1e21;
+}
+
+.blogTitle{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.blogDesc{
+    margin-top: 50px;
+}
+
+.prod_cke p {
+    color: #000000;
+}
+
+.prod_cke p strong{
+    font-weight: bold;
+}
+
+.prod_cke table tbody tr td {
+    border: 1px solid black !important;
+}
