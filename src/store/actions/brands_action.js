@@ -1,29 +1,19 @@
-import {FETCH_BRANDS, GET_SUM_OF_CART, RESET_BRANDS} from "./actionTypes";
-import {useSelector} from "react-redux";
+import {ADD_BRAND, REMOVE_BRAND, RESET_BRANDS} from "./actionTypes";
 
 
-export const fetchBrands = (id) => (dispatch) => {
-    const brands = useSelector(state => {
-        return state.brands
-    })
-    const index = brands.indexOf(id)
-    if(index !== -1){
-        brands.splice(index, 1)
-        dispatch({
-            type: FETCH_BRANDS,
-            brands: brands
-        })
-    }else{
-        dispatch({
-            type: FETCH_BRANDS,
-            brands: brands
-        })
-    }
-}
 
 
-export const resetBrands = (id) => (dispatch) =>  {
-    dispatch({
+export const removeBrands = (id)  => ({
+        type: REMOVE_BRAND,
+        payload: id
+})
+
+export const addBrands = (id)  => ({
+        type: ADD_BRAND,
+        payload: id
+})
+
+
+export const resetBrands = () => ( {
         type: RESET_BRANDS
-    })
-}
+})

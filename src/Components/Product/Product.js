@@ -10,6 +10,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import {NavLink} from "react-router-dom";
 import {setSaleValue} from "../../store/actions/sale";
+import {resetBrands} from "../../store/actions/brands_action";
 
 
 const Product = (props) => {
@@ -89,7 +90,9 @@ const Product = (props) => {
                                     productById.map((product, i) => (
                                         <ol className="breadcrumb">
                                             <li className="breadcrumb-item"><NavLink to="/"
-                                                                                     onClick={() => {dispatch(setSaleValue(false))}}
+                                                                                     onClick={() =>  { dispatch(setSaleValue(false));
+                                                                                         dispatch(resetBrands())
+                                                                                     }}
                                                                                      style={{
                                                                                          fontSize: 16,
                                                                                          fontWeight: "bold"
@@ -97,7 +100,9 @@ const Product = (props) => {
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/categories/" + product.category_id,
-                                            }}          onClick={() => {dispatch(setSaleValue(false))}}
+                                            }}           onClick={() =>  { dispatch(setSaleValue(false));
+                                                            dispatch(resetBrands())
+                                                        }}
                                                                                      style={{
                                                                                          fontSize: 16,
                                                                                          fontWeight: "bold"
@@ -105,8 +110,9 @@ const Product = (props) => {
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories/" + product.subcategory_id
-                                            }}
-                                                                                     onClick={() => {dispatch(setSaleValue(false))}}
+                                                        }}  onClick={() =>  { dispatch(setSaleValue(false));
+                                                            dispatch(resetBrands())
+                                                        }}
                                                                                      style={{
                                                                                          fontSize: 16,
                                                                                          fontWeight: "bold"
@@ -114,8 +120,9 @@ const Product = (props) => {
                                             </li>
                                             <li className="breadcrumb-item"><NavLink to={{
                                                 pathname: "/subcategories1/" + product.subcategory1_id
-                                            }}
-                                                                                     onClick={() => {dispatch(setSaleValue(false))}}
+                                                        }}  onClick={() =>  { dispatch(setSaleValue(false));
+                                                            dispatch(resetBrands())
+                                                        }}
                                                                                      style={{
                                                                                          fontSize: 16,
                                                                                          fontWeight: "bold"
@@ -126,7 +133,9 @@ const Product = (props) => {
                                                     pathname: "/subcategories2/" + product.subcategory2
 
                                                 }}
-                                                onClick={() => {dispatch(setSaleValue(false))}}
+                                                onClick={() =>  { dispatch(setSaleValue(false));
+                                                    dispatch(resetBrands())
+                                                }}
                                                 style={{
                                                     fontSize: 16,
                                                     fontWeight: "bold",
