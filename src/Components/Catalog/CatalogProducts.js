@@ -11,14 +11,12 @@ import {addProductToCart, getProductsFromCart} from "../../store/actions/cartPro
 import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {useTranslation} from "react-i18next";
 import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
+import GetData from "../../service/GetData";
 
 
 
 const CatalogProducts = (props) => {
-    console.log(props)
-
     const brandsId = props.brandsId
-
     const [filter, setFilter] = useState("lowestToHighest")
 
     const {t, i18n} = useTranslation();
@@ -32,7 +30,6 @@ const CatalogProducts = (props) => {
     }))
 
     const sale = useSelector(state => state.sale.sale)
-    console.log(sale)
 
     const dispatch = useDispatch()
     const cartProductsP = useSelector(state => {
@@ -64,7 +61,6 @@ const CatalogProducts = (props) => {
         return c
     }
 
-
     useEffect(() => {
         dispatch( getProducts())
     },[dispatch])
@@ -80,6 +76,7 @@ const CatalogProducts = (props) => {
                 sizeOfProd={c}
                 setFilter={setFilter}
             />
+
             <div className="cat-blocks-container">
                 <div className="row">
 

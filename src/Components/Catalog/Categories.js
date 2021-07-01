@@ -5,7 +5,7 @@ import {LengthOfProductsBySubCategory} from "./LengthOfProductsBySubCategory";
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import GetData from "../../service/GetData";
-import {fetchBrands} from "../../store/actions/brands_action";
+import {addBrands, fetchBrands, removeBrands, resetBrands} from "../../store/actions/brands_action";
 import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
 
 const Categories = (props) => {
@@ -21,35 +21,28 @@ const Categories = (props) => {
         }
     }))
 
-    const brands = useSelector(state => state.brands.brands)
 
     const sale = useSelector(state => state.sale.sale)
 
-
-    // const [brands, setBrands] = useState([])
+    const brands = useSelector(state => state.brands.brands)
     const [marka, setMarka] = useState([])
-
-    console.log(brands)
-
     function getBrands() {
         new GetData().getData("/markas/").then(res => {
             setMarka(res)
         })
     }
 
-    // const checkedBox = (id) => {
-    //     const index = brands.indexOf(id)
-    //     if(index !== -1){
-    //         brands.splice(index, 1)
-    //         setBrands(state => [...state])
-    //     }else{
-    //         setBrands(state => [...state,  id])
-    //     }
-    //
-    // }
+    const checkedBox = (id) => {
+        const index = brands.indexOf(id)
+        if(index !== -1){
+            dispatch(removeBrands(id))
+        }else{
+            dispatch(addBrands(id))
+        }
+
+    }
 
     useEffect(() => {
-        console.log(brands)
         getBrands()
         let loadScript = function (src) {
             let tag = document.createElement('script');
@@ -108,6 +101,9 @@ const Categories = (props) => {
                                                                 to={{
                                                                     pathname: '/subcategories/' + subItem.id
                                                                 }}
+                                                                onClick={() =>  { dispatch(setSaleValue(false));
+                                                                    dispatch(resetBrands())
+                                                                }}
                                                             >
 
                                                                 <li style={{
@@ -152,7 +148,7 @@ const Categories = (props) => {
                                                                     <input type="checkbox" className="custom-control-input"
                                                                            name="filter-price"
                                                                            id={marka.title}
-                                                                           onClick={() => dispatch(fetchBrands(marka.id))}
+                                                                           onClick={() => checkedBox(marka.id)}
                                                                     />
                                                                         <label className="custom-control-label"
                                                                                htmlFor={marka.title}>{marka.title}</label>

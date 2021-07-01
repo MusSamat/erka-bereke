@@ -10,6 +10,7 @@ import CatCarousel from "../Catalog/CatCarousel";
 import Toolbox from "../Catalog/Toolbox";
 
 const SubCatalogProducts = (props) => {
+    const brandsId = props.brandsId
     const [filter, setFilter] = useState("lowestToHighest")
     const sale = props.sale
     const {t, i18n} = useTranslation();
@@ -71,7 +72,11 @@ const SubCatalogProducts = (props) => {
 
                     {
 
-                        products.filter((prod, i) => sale ? prod.percent > 0 : true).sort((a,b) => (filter === "lowestToHighest") ? (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) ).map((prod, i)=> (
+                        products
+                            .filter((prod, i) => brandsId.length === 0 ? true : brandsId.includes(prod?.marka ))
+                            .filter((prod, i) => sale ? prod.percent > 0 : true)
+                            .sort((a,b) => (filter === "lowestToHighest") ? (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) )
+                            .map((prod, i)=> (
 
                             <div className="col-6 col-md-4 col-lg-3" key={i}>
                                 {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
