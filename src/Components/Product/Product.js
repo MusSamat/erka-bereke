@@ -245,7 +245,19 @@ const Product = (props) => {
                                                     <div className='product_Details'>
                                                         <div className='prod_name'>
                                                             <h3>{item.title}</h3>
-                                                            <h5>{item.marka}</h5>
+                                                        <NavLink
+                                                            to={{
+                                                                pathname: "/brands/"+item.marka,
+                                                                title: item.marka_title
+                                                            }}
+                                                        >
+                                                            <h6
+                                                                style={{
+                                                                    color: "#2e62ee"
+                                                                }}
+                                                            >{item.marka_title}</h6>
+
+                                                        </NavLink>
 
                                                             <div className='som'>
                                                                 {item.percent > 0 ? <>

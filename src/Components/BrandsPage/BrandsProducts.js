@@ -1,35 +1,54 @@
-import React from "react";
-import Carousel from "react-multi-carousel";
+import React, {useEffect, useState} from "react";
 
-import './Product.css'
+import '../Catalog/Catalog.css'
+
+import Toolbox from "../Catalog/Toolbox";
+import CatCarousel from "../Catalog/CatCarousel";
 import {useDispatch, useSelector} from "react-redux";
+import {getCartProducts, getProducts} from "../../store/actions/product";
 import {NavLink} from "react-router-dom";
-import {addProductToWishlist} from "../../../store/actions/wishlistProducts";
-import {addProductToCart} from "../../../store/actions/cartProducts";
+import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
+import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions/wishlistProducts";
 import {useTranslation} from "react-i18next";
+import GetData from "../../service/GetData";
 
-const CatBanner = (props) => {
+
+
+
+const BrandsProducts = (props) => {
+    console.log(props)
+    const [filter, setFilter] = useState("lowestToHighest")
+
     const {t, i18n} = useTranslation();
+    const id = props.id
+    const c = props.sizeOfProd
+    const sale = useSelector(state => state.sale.sale)
     const dispatch = useDispatch()
-    const products = useSelector(state => state.product.products.filter((item, index) => {
-        if (item.theme === props.id) {
-            return item
-        }
-    }))
+
+    const [product, setProduct] = useState([])
+
+    const getBrandsProducts = () => {
+        new GetData().getData("/product/?marka=" + id).then(res => {
+            setProduct(res)
+        })
+    }
+
+    console.log(product)
 
 
 
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
-    const wishlistProductsP = useSelector(state => {
+
+    const wishlistProductsP =  useSelector(state => {
         return state.wishlistProd
     })
 
     const checkWishlist = (id) => {
-        let c = 0
+        let  c = 0
         wishlistProductsP?.items?.map((item, i) => {
-            if (item.product.id === id) {
+            if(item.product.id === id){
                 c = 1
             }
         })
@@ -39,85 +58,46 @@ const CatBanner = (props) => {
     const checkCart = (id) => {
         let c = 0
         cartProductsP?.items?.map((item) => {
-            if (item.product.id === id) {
+            if(item.product.id === id){
                 c = 1
             }
         })
+
         return c
     }
 
+    useEffect(() => {
+        getBrandsProducts()
+        dispatch(getProducts())
+    },[dispatch])
 
-    const responsive = {
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 4,
-            slidesToSlide: 3 // optional, default to 1.
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 3,
-            slidesToSlide: 3 // optional, default to 1.
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1,
-            slidesToSlide: 3 // optional, default to 1.
-        }
-    };
+
 
     return (
-        <div className='container' style={{paddingTop: 80}}>
-            <div style={{borderBottom: "1px solid #ebebeb"}} className='CatBanner'>
-                <h2 className='title'
-                    style={{fontSize: 25, fontWeight: "bolder"}}
-                >{props.title}</h2>
+        <div className="col-lg-9 col-xl-4-5 col">
+            <CatCarousel/>
+            <Toolbox
+                id={id}
+                sizeOfProd={c}
+                setFilter={setFilter}
+            />
 
-                <NavLink to={{
-                    pathname: "/bytheme/"+ props.id
-                }}> <span>Посмотреть ещё</span> <i className='icon-angle-right'></i> </NavLink>
-            </div>
-
-            <div className="row cat-banner-row clothing" style={{paddingTop: 40}}>
-                <div className="col-xl-3 col-xxl-4">
-                    <div className="cat-banner row no-gutters">
-                        <div className="col-sm-12 col-xl-12 col-xxl-12">
-                            <div className="banner banner-overlay" style={{borderRadius: 10}}>
-                                <img src={props.image} alt={props.title}/>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+            <div className="cat-blocks-container">
+                <div className="row">
 
 
-                <div className="col-xl-9 col-xxl-8">
-                    <Carousel
-                        swipeable={false}
-                        draggable={false}
-                        showDots={false}
-                        responsive={responsive}
-                        ssr={true} // means to render carousel on server-side.
-                        infinite={true}
-                        autoPlaySpeed={1000}
-                        keyBoardControl={true}
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="carousel-container"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                    {
 
-                        dotListClass="custom-dot-list-style"
-                    >
-                        {
-                            products.map((prod,i) => {
-                                return (
-                                    <div className="product " key={i}
-                                         style={{border: "1px solid rgb(235, 235, 235)",
-                                             margin: 7,
-                                             borderRadius: 8
-                                         }}
-                                    >
+                        product
+                            ?.filter((prod, i) => sale ? prod.percent > 0 : true)
+                            .sort((a,b) => (filter === "lowestToHighest") ?
+                                (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) )
+                            .map((prod, i)=> (
+
+                                <div className="col-6 col-md-4 col-lg-3" key={i}>
+                                    <div className="product BorderPro"  >
+
+
                                         <figure className="product-media" id="ptr" >
                                             {
                                                 prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
@@ -168,11 +148,12 @@ const CatBanner = (props) => {
                                                         }} className="btn-product " title={t("Cart.AddToCart")}><img
                                                             src="/assets/svg_logo/addcar.png" alt=""/></button>
                                                 }
+
                                             </div>
                                         </figure>
 
 
-                                        <div className="product-body" >
+                                        <div className="product-body">
                                             <div className="product-cat">
                                                 <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
                                             </div>
@@ -184,7 +165,7 @@ const CatBanner = (props) => {
                                                 }
                                             </div>
 
-                                            <h3 className="product-title" style={{fontSize: 15, paddingBottom: 10, height: 100, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                                            <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
                                                 to={{
                                                     pathname: "/product/" + prod.id,
                                                     id: prod.id
@@ -192,20 +173,19 @@ const CatBanner = (props) => {
 
                                             >{prod.title}</NavLink></h3>
 
-                                        </div >
+                                        </div>
 
                                     </div>
 
-                                )
-                            })
-                        }
-                    </Carousel>
+                                </div>
+                            ))
+                    }
                 </div>
 
             </div>
-
         </div>
+
     )
 }
 
-export default CatBanner
+export default BrandsProducts

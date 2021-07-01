@@ -12,6 +12,7 @@ import {searchProductReducer} from "./searchProduct";
 import saleActions from "./sale";
 import sumOfCartProductsWreducer from "./sumOfCartProductsWithoutSale"
 import brandsreducer from "./brandsReducer"
+import loadreducer from "./load_reducer";
 export default combineReducers({
     product: productReducer,
     category: categoryReducer,
@@ -19,6 +20,7 @@ export default combineReducers({
     subcategory1: subcategory1Reducer,
     subcategory2: subcategoryReducer2,
     isLogin: isLoginreducer,
+    load: loadreducer,
     cartProd: cartProductsReducer,
     sumOfCart: sumOfCartProd,
     wishlistProd: wishlistProductsReducer,

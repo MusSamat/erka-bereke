@@ -22,4 +22,5 @@ export const RESET_PROD = "RESET_PROD"
 export const REMOVE_BRAND = "REMOVE_BRAND"
 export const ADD_BRAND = "ADD_BRAND"
 export const RESET_BRANDS = "RESET_BRANDS"
+export const LOAD = "LOAD"
 

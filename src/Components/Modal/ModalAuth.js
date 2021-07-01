@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIsLoginValue} from "../../store/actions/isLogin";
 import {getCartProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {setloading} from "../../store/actions/laod_action";
 
 const ModalAuth = () => {
 
@@ -26,13 +27,14 @@ const ModalAuth = () => {
         e.preventDefault()
 
         if(password === password2){
-
+            dispatch(setloading(true))
             Auth.login('/views/auth/register', {
                 username: userName,
                 password: password,
                 email: email
             })
                 .then(res => {
+                    dispatch(setloading(false))
                     if (res.token) {
                         toast.success(t("Reg.5"))
                         document.getElementById('closeModal').click()

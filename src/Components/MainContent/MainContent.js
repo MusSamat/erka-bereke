@@ -20,9 +20,11 @@ import SubCatalog1 from "../SubCategories1/SubCatalog1";
 import SubCatalog2 from "../SubCategories2/SubCatalog2";
 import Carousel2 from "./Carousel2";
 import SearchPage from "../SearchPage/SearchPage";
+import BrandsLeftTool from "../BrandsPage/BrandsLeftTool";
 
 import GetData from "../../service/GetData";
 import BlogById from "../Blog/BlogById";
+import ThemeLeftTool from "../ThemeProducts/ThemeLeftTool";
 
 
 const MainContent = () => {
@@ -65,6 +67,8 @@ const MainContent = () => {
             <Route  path='/subcategories/:id' component={SubCatalog}/>
             <Route  path='/subcategories1/:id' component={SubCatalog1}/>
             <Route  path='/subcategories2/:id' component={SubCatalog2}/>
+            <Route path="/brands/:id" component={BrandsLeftTool}/>
+            <Route path="/bytheme/:id" component={ThemeLeftTool}/>
             <Route  path='/product/:id' component={Product}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path='/wishlist' component={Wishlist}/>

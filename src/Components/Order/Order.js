@@ -13,6 +13,7 @@ import {getProductsFromCart, resetCart} from "../../store/actions/cartProducts";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import {getSumOfProducts, resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
+import {setloading} from "../../store/actions/laod_action";
 
 
 const Order = (props) => {
@@ -43,12 +44,13 @@ const Order = (props) => {
     function submitLoginO(e) {
         dispatch(getSumOfProducts())
         e.preventDefault()
+        dispatch(setloading(true))
         LogIn.login('/views/auth/login', {
             username: userNameO,
             password: passwordO
         })
             .then(res => {
-                console.log(res)
+                dispatch(setloading(false))
                 if (res.token) {
                     toast.success(t("Reg.4"))
                     document.getElementById('closeModal').click()
@@ -75,6 +77,7 @@ const Order = (props) => {
 
     function setOrderDet (e) {
         e.preventDefault()
+        dispatch(setloading(true))
         const order = new FormData()
 
         order.append("first_name", firstName )
@@ -84,6 +87,7 @@ const Order = (props) => {
         order.append("cart_id", cartProductsP?.id)
 
         new GetData().setOrder("/views/order/", order).then(() => {
+            dispatch(setloading(false))
             dispatch(resetCart())
             dispatch(resetSumOfCartProducts())
             Reset()
@@ -95,7 +99,7 @@ const Order = (props) => {
 
     function submitAuthO(e) {
         e.preventDefault()
-
+        dispatch(setloading(true))
         if (passwordO === passwordO2) {
 
             LogIn.login('/views/auth/register', {
@@ -104,6 +108,7 @@ const Order = (props) => {
                 email: email
             })
                 .then(res => {
+                    dispatch(setloading(false))
                     if (res.token) {
                         toast.success(t("Reg.5"))
                         document.getElementById('closeModal').click()

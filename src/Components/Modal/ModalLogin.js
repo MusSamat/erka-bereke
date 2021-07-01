@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {getCartProducts} from "../../store/actions/product";
 import {getProductsFromCart} from "../../store/actions/cartProducts";
 import {getProductsFromWishlist} from "../../store/actions/wishlistProducts";
+import {setloading} from "../../store/actions/laod_action";
 // import "./Modal.css"
 
 const ModalLogin = () => {
@@ -24,12 +25,13 @@ const ModalLogin = () => {
 
     function submitLogin(e) {
         e.preventDefault()
+        dispatch(setloading(true))
         LogIn.login('/views/auth/login', {
             username: userName,
             password: password
         })
             .then(res => {
-                console.log(res)
+                dispatch(setloading(false))
                 if (res.token) {
                     console.log(res)
                     toast.success(t("Reg.4"))

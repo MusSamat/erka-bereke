@@ -1,11 +1,12 @@
 import {GET_SEARCH_PRODUCT} from "./actionTypes";
 import GetData from "../../service/GetData";
+import {setloading} from "./laod_action";
 
 
 export const searchProduct = (title) => (dispatch) => {
-    console.log(title)
+    dispatch(setloading(true))
     new GetData().getData(`/product/?title__icontains=${title}`).then(res => {
-        console.log(res)
+        dispatch(setloading(false))
         dispatch({
             type: GET_SEARCH_PRODUCT,
             searchProd: res

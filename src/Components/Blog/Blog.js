@@ -5,15 +5,19 @@ import Nav from "../Nav/Nav";
 import {Link, NavLink} from "react-router-dom";
 import GetData from "../../service/GetData";
 import {useTranslation} from "react-i18next";
+import {setloading} from "../../store/actions/laod_action";
+import {useDispatch} from "react-redux";
 
 
 const Blog = () => {
     const {t, i18n} = useTranslation();
     const [blogs, setBlogs] = useState([])
-    console.log(blogs)
+    const dispatch = useDispatch()
 
     function GetBlog() {
+        dispatch(setloading(true))
         new GetData().getData("/views/blog").then((res) => {
+            dispatch(setloading(false))
             setBlogs(res)
         })
     }

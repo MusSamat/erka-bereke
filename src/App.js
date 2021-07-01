@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
@@ -7,6 +7,8 @@ import MainContent from "./Components/MainContent/MainContent";
 import Footer from "./Components/Footer/Footer";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {FullPageLoader} from "./Loader/FullPageLoader";
+import {useSelector} from "react-redux";
 
 // import {useEffect} from "react";
 // import Header2 from "./Components/Header/Header2/Header2";
@@ -14,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
     const {t, i18n} = useTranslation();
-
+    const load = useSelector(state => state.load.load)
     function handleClick(lang) {
         i18n.changeLanguage(lang);
 
@@ -36,6 +38,8 @@ function App() {
               <MainContent/>
               {/*<Whatsapps/>*/}
               <Footer/>
+
+              {load ? <FullPageLoader/> : null}
 
           </div>
       </BrowserRouter>

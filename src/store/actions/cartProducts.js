@@ -2,11 +2,14 @@ import GetData from "../../service/GetData";
 import {FETCH_CART_PRODUCT, GET_SUM_OF_CART, RESET_CART} from "./actionTypes";
 import {getProductsFromWishlist} from "./wishlistProducts";
 import {toast} from "react-toastify";
+import {setloading} from "./laod_action";
 
 export const getProductsFromCart = () => (dispatch) => {
+    dispatch(setloading(true))
     const token = JSON.parse(localStorage.getItem("token"))
     const userId = localStorage.getItem('userId')
     new GetData().getDataWithToken('/views/carts/' + userId, token).then(res => {
+        dispatch(setloading(false))
         dispatch({
             type: FETCH_CART_PRODUCT,
             cartProd: res
@@ -15,13 +18,14 @@ export const getProductsFromCart = () => (dispatch) => {
 }
 
 export const addProductToCart = (id, q ) => (dispatch) =>  {
-
     const token = JSON.parse(localStorage.getItem('token'))
     if(token){
         const cartProd = new FormData()
         cartProd.append("product", id)
         cartProd.append("quantity",q)
+        dispatch(setloading(true))
         new GetData().setDataPro(token,'/views/cart-item/', cartProd).then(() => {
+            dispatch(setloading(false))
             toast.success("Добавлено в карт")
             dispatch(getProductsFromCart())
         })
@@ -34,7 +38,9 @@ export const deleteProductFromCart = (id) => (dispatch) => {
     if(token){
         const wishlistProd = new FormData()
         wishlistProd.append("product", id)
+        dispatch(setloading(true))
         new GetData().setDataPro(token, '/views/destroy-cart/', wishlistProd).then(() => {
+            dispatch(setloading(false))
             dispatch(getProductsFromWishlist())
         })
     }
