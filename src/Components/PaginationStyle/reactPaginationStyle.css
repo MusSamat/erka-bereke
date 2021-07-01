@@ -1,0 +1,36 @@
+.paginateDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+}
+
+.paginationBttns {
+    font-size: 15px;
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.paginationBttns a {
+    padding: 15px;
+    margin: 8px;
+    border-radius: 15px;
+    border: none;
+    color: #585858;
+    background-color: #ccbc30;
+    cursor: pointer;
+}
+
+.paginationBttns a:hover{
+    color: white;
+    background-color: #585858;
+}
+
+.paginationActive a {
+    color: white;
+    background-color: #585858;
+}
