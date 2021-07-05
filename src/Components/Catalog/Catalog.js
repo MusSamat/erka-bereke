@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {resetSaleValue, setSaleValue} from "../../store/actions/sale";
 import {getProducts} from "../../store/actions/product";
+import {mobile_menu} from "../../service/accessFunctions";
 
 const Catalog = (props) => {
     const {t, i18n} = useTranslation();
@@ -17,7 +18,7 @@ const Catalog = (props) => {
     }))
 
     useEffect(() => {
-
+        mobile_menu()
         dispatch(getProducts())
     },[dispatch])
 

@@ -160,3 +160,27 @@
     }
 }
 
+.center-menu{
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    color: white;
+    font-size: 20px;
+}
+.center-menu-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.center-menu ul {
+    padding: 0;
+    margin: 0;
+}
+.center-menu ul li {
+    padding: 0;
+    margin: 0;
+}

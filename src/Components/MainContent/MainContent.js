@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Route} from "react-router";
+import {Route,Switch} from "react-router";
 import Slider from "./Slider/Slider";
 import MainSales from "./MainSales/MainSales";
 import ServiceSection from "./Slider/ServiceSection";
@@ -25,6 +25,7 @@ import BrandsLeftTool from "../BrandsPage/BrandsLeftTool";
 import GetData from "../../service/GetData";
 import BlogById from "../Blog/BlogById";
 import ThemeLeftTool from "../ThemeProducts/ThemeLeftTool";
+import MobileHeader from "../Header/MobileHeader/MobileHeader";
 
 
 const MainContent = () => {
@@ -43,44 +44,48 @@ const MainContent = () => {
 
     return (
         <div className='main'>
-            <Route exact path='/' exact render={() => {
-                return (
-                    <>
-                        <Slider/>
-                        <ServiceSection/>
-                        <MainSales/>
-                        <Carousel2/>
-                        {
-                            themeProducts?.map((item, i) => (
-                                <CatBanner
-                                    id={item.id}
-                                    image={item.image}
-                                    title={item.title}
-                                />
-                            ))
-                        }
-                    </>
-                )
-            }}/>
-            <Route path='/search/:searchInput' component={SearchPage}/>
-            <Route  path='/categories/:id' component={Catalog}/>
-            <Route  path='/subcategories/:id' component={SubCatalog}/>
-            <Route  path='/subcategories1/:id' component={SubCatalog1}/>
-            <Route  path='/subcategories2/:id' component={SubCatalog2}/>
-            <Route path="/brands/:id" component={BrandsLeftTool}/>
-            <Route path="/bytheme/:id" component={ThemeLeftTool}/>
-            <Route  path='/product/:id' component={Product}/>
-            <Route exact path="/cart" component={Cart}/>
-            <Route exact path='/wishlist' component={Wishlist}/>
-            <Route exact path='/news-blogs' component={Blog}/>
-            <Route exact path="/blog/:id" component={BlogById}/>
-            <Route exact path='/contact' component={Contact}/>
-            <Route exact path='/404' component={NotFound}/>
-            <Route exact path="/order" component={Order}/>
+            <Switch>
 
-            {
-               isLogin ? <Route path="/userpage" component={UserRoute}/> : ''
-            }
+                <Route exact path='/' render={() => {
+                    return (
+                        <>
+
+                            <Slider/>
+                            <ServiceSection/>
+                            <MainSales/>
+                            <Carousel2/>
+                            {
+                                themeProducts?.map((item, i) => (
+                                    <CatBanner
+                                        id={item.id}
+                                        image={item.image}
+                                        title={item.title}
+                                    />
+                                ))
+                            }
+                        </>
+                    )
+                }}/>
+                <Route exact={true} path='/search/:searchInput' component={SearchPage}/>
+                <Route  path='/categories/:id' component={Catalog}/>
+                <Route  path='/subcategories/:id' component={SubCatalog}/>
+                <Route  path='/subcategories1/:id' component={SubCatalog1}/>
+                <Route  path='/subcategories2/:id' component={SubCatalog2}/>
+                <Route path="/brands/:id" component={BrandsLeftTool}/>
+                <Route path="/bytheme/:id" component={ThemeLeftTool}/>
+                <Route  path='/product/:id' component={Product}/>
+                <Route exact path="/cart" component={Cart}/>
+                <Route exact path='/wishlist' component={Wishlist}/>
+                <Route exact path='/news-blogs' component={Blog}/>
+                <Route exact path="/blog/:id" component={BlogById}/>
+                <Route exact path='/contact' component={Contact}/>
+                <Route exact path='/404' component={NotFound}/>
+                <Route exact path="/order" component={Order}/>
+
+                {
+                    isLogin ? <Route path="/userpage" component={UserRoute}/> : ''
+                }
+            </Switch>
         </div>
     )
 }

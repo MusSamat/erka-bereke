@@ -11,7 +11,7 @@ const HeaderMiddle = () => {
                     </button>
 
                     <a href="/" className="logo">
-                        {/*<img src="assets/images/demos/demo-13/logo12.png" alt="Molla Logo" width="105" height="25"/>*/}
+                        <img src="assets/images/demos/demo-13/logo12.png" alt="Molla Logo" width="105" height="25"/>
                     </a>
                 </div>
 

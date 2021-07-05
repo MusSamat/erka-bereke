@@ -3,18 +3,29 @@ import {FETCH_CART_PRODUCT, GET_SUM_OF_CART, RESET_CART} from "./actionTypes";
 import {getProductsFromWishlist} from "./wishlistProducts";
 import {toast} from "react-toastify";
 import {setloading} from "./laod_action";
+import {CART, init} from "../../service/cartLocalStorage/storageFunctions";
 
 export const getProductsFromCart = () => (dispatch) => {
+    init()
+    console.log(CART.contents)
     dispatch(setloading(true))
     const token = JSON.parse(localStorage.getItem("token"))
     const userId = localStorage.getItem('userId')
-    new GetData().getDataWithToken('/views/carts/' + userId, token).then(res => {
+    if(token){
+        new GetData().getDataWithToken('/views/carts/' + userId, token).then(res => {
+            dispatch(setloading(false))
+            dispatch({
+                type: FETCH_CART_PRODUCT,
+                cartProd: res
+            })
+        })
+    }else{
         dispatch(setloading(false))
         dispatch({
             type: FETCH_CART_PRODUCT,
-            cartProd: res
+            cartProd: CART.contents
         })
-    })
+    }
 }
 
 export const addProductToCart = (id, q ) => (dispatch) =>  {
@@ -29,6 +40,8 @@ export const addProductToCart = (id, q ) => (dispatch) =>  {
             toast.success("Добавлено в карт")
             dispatch(getProductsFromCart())
         })
+
+    }else{
 
     }
 }

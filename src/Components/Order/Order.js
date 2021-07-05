@@ -22,12 +22,15 @@ const Order = (props) => {
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
+
     const [show, setShow] = useState(false)
     const {t, i18n} = useTranslation();
     const isLogin = useSelector(state => state.isLogin.isLogin)
 
     const LogIn = new GetData()
     const name = JSON.parse(localStorage.getItem("user"))
+    const userId = JSON.parse(localStorage.getItem("userId"))
+    const token = JSON.parse(localStorage.getItem("token"))
     const sum = useSelector(state => state.sumOfCart.sumOfProducts)
 
     const [userNameO, setUserNameO] = useState([])
@@ -35,7 +38,7 @@ const Order = (props) => {
     const [email, setEmail] = useState([])
     const [passwordO2, setPasswordO2] = useState([])
 
-    const [firstName, setFirstName] = useState([])
+    const [firstName, setFirstName] = useState(name)
     const [lastName, setLastName] = useState([])
     const [address, setAddress] = useState([])
     const [tel, setTel] = useState([])
@@ -77,17 +80,18 @@ const Order = (props) => {
 
     function setOrderDet (e) {
         e.preventDefault()
-        dispatch(setloading(true))
+        // dispatch(setloading(true))
         const order = new FormData()
 
         order.append("first_name", firstName )
         // order.append("last_name", lastName)
         order.append("address", address)
         order.append("phone_number", tel)
-        order.append("cart_id", cartProductsP?.id)
+        order.append("cart_id", cartProductsP.id)
+        order.append("user", userId)
 
-        new GetData().setOrder("/views/order/", order).then(() => {
-            dispatch(setloading(false))
+        new GetData().setDataPro(token,"/views/order/", order).then(() => {
+            // dispatch(setloading(false))
             dispatch(resetCart())
             dispatch(resetSumOfCartProducts())
             Reset()
@@ -347,8 +351,8 @@ const Order = (props) => {
 
                                         <input type="text" className="form-control" id="order-firstname"
                                                name="order-firstname" required
-                                               placeholder="Асан"
-                                               // value={isLogin ? name : null}
+                                               // placeholder={firstName}
+                                               value={isLogin ? firstName : null}
                                                onChange={e => setFirstName(e.target.value)}
                                         />
                                     </div>

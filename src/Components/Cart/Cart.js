@@ -8,18 +8,22 @@ import {useTranslation} from "react-i18next";
 import {addProductToCart, deleteProductFromCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {getSumOfProducts} from "../../store/actions/sumOfCartProducts";
 import {getSumOfProductsWithoutSale} from "../../store/actions/sumOfCartProductsWithoutSale";
+import {CART, init, sync, add, increase, reduce, remove} from "../../service/cartLocalStorage/storageFunctions";
 
 
 const Cart = () => {
     const [saleH, setSaleH] = useState(false)
-    const [sumWithoutSale, setSumWithoutSale] = useState([])
+    const token = JSON.parse(localStorage.getItem("token"))
+    // const [sumWithoutSale, setSumWithoutSale] = useState([])
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
-    const cartProductsP = useSelector(state => {
+    const  cartProductsP = useSelector(state => {
         return state.cartProd
     })
 
+    const [temp, setTemp] = useState([])
+    console.log(temp)
     const checkSale = () => {
         for (let i = 0; i< cartProductsP?.items?.length; i++){
             if(cartProductsP?.items[i]?.product.percent){
@@ -35,14 +39,14 @@ const Cart = () => {
     const sum = useSelector(state => state.sumOfCart.sumOfProducts)
     const sumW = useSelector(state =>state.cartProdW.sumProd)
 
-    console.log(sumW)
-
     dispatch(getSumOfProducts())
     dispatch(getSumOfProductsWithoutSale())
 
-
-
    useEffect(() => {
+       console.log(CART.contents)
+       init()
+       sync()
+       setTemp(CART.contents)
         checkSale()
     }, [])
 
@@ -76,87 +80,158 @@ const Cart = () => {
                                     <tbody>
 
                                     {
-                                        cartProductsP?.items?.map((item, i) => (
-                                            // item.product?.available ?
-                                                <tr key={i}>
-                                                    <td className="product-col">
-                                                        <div className="product">
-                                                            <figure className="product-media">
-                                                                <NavLink    to={{
-                                                                    pathname: "/product/" + item.product.id,
-                                                                    id: item.product.id
-                                                                }} >
-                                                                    <img src={item.product.image}
-                                                                         alt={item.product.title}/>
-                                                                </NavLink>
-                                                            </figure>
+                                        token ?
+                                            cartProductsP?.items?.map((item, i) => (
+                                            <tr key={i}>
+                                                <td className="product-col">
+                                                    <div className="product">
+                                                        <figure className="product-media">
+                                                            <NavLink    to={{
+                                                                pathname: "/product/" + item.product.id,
+                                                                id: item.product.id
+                                                            }} >
+                                                                <img src={item.product.image}
+                                                                     alt={item.product.title}/>
+                                                            </NavLink>
+                                                        </figure>
 
-                                                            <h3 className="product-title">
-                                                                <NavLink to={{
-                                                                    pathname: '/product/' + item.product.id,
-                                                                    id: item.product.id
-                                                                }}>{item.product.title}</NavLink>
-                                                            </h3>
-                                                        </div>
-                                                    </td>
-                                                    {
-                                                        item.product.percent > 0 ?
-                                                            <td className="price-col">{item.product.price -
-                                                            (item.product.price * item.product.percent /100)}
-                                                                <span className="old-price" style={{
-                                                                    textDecorationLine: "line-through",
-                                                                    color: "#ccbc30",
-                                                                    paddingLeft: "1rem"
-                                                                }}> {item.product.price}</span>
-                                                            </td>
-                                                            :
-                                                            <td className="price-col">{item.product.price}</td>
-                                                    }
-                                                    <td>
-                                                        <div className="counter">
-                                                            <button className="down"
-                                                                    onClick={() => {
-                                                                        if (isLogin) {
-                                                                            dispatch(addProductToCart(item.product.id, (item.quantity - 1)));
-                                                                            dispatch(getProductsFromCart())
-                                                                        }
-                                                                    }}>-
-                                                            </button>
-                                                            <input type="text" value={item.quantity}/>
-                                                            <button className="up"
-                                                                    onClick={() => {
-                                                                        if (isLogin) {
-                                                                            dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
-                                                                            dispatch(getProductsFromCart())
-                                                                        }
-                                                                    }}>+
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                    {
-                                                        item.product.percent > 0 ?
-                                                            <td className="total-col">{(item.product.price -
-                                                                (item.product.price * item.product.percent /100)) * item.quantity}
-                                                            </td>
-                                                            :
-                                                            <td className="total-col">{item.product.price * item.quantity}</td>
-                                                    }
-
-                                                    <td className="remove-col">
-                                                        <button onClick={() => {
-                                                            if (isLogin) {
-                                                                dispatch(deleteProductFromCart(item.product.id));
-                                                                checkSale()
-                                                                dispatch(getProductsFromCart())
-                                                            }
-                                                        }} className="btn-remove"><i className="icon-close"></i>
+                                                        <h3 className="product-title">
+                                                            <NavLink to={{
+                                                                pathname: '/product/' + item.product.id,
+                                                                id: item.product.id
+                                                            }}>{item.product.title}</NavLink>
+                                                        </h3>
+                                                    </div>
+                                                </td>
+                                                {
+                                                    item.product.percent > 0 ?
+                                                        <td className="price-col">{item.product.price -
+                                                        (item.product.price * item.product.percent /100)}
+                                                            <span className="old-price" style={{
+                                                                textDecorationLine: "line-through",
+                                                                color: "#ccbc30",
+                                                                paddingLeft: "1rem"
+                                                            }}> {item.product.price}</span>
+                                                        </td>
+                                                        :
+                                                        <td className="price-col">{item.product.price}</td>
+                                                }
+                                                <td>
+                                                    <div className="counter">
+                                                        <button className="down"
+                                                                onClick={() => {
+                                                                    if (isLogin) {
+                                                                        dispatch(addProductToCart(item.product.id, (item.quantity - 1)));
+                                                                        dispatch(getProductsFromCart())
+                                                                    }
+                                                                }}>-
                                                         </button>
-                                                    </td>
+                                                        <input type="text" value={item.quantity}/>
+                                                        <button className="up"
+                                                                onClick={() => {
+                                                                    if (isLogin) {
+                                                                        dispatch(addProductToCart(item.product.id, (item.quantity + 1)));
+                                                                        dispatch(getProductsFromCart())
+                                                                    }
+                                                                }}>+
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                {
+                                                    item.product.percent > 0 ?
+                                                        <td className="total-col">{(item.product.price -
+                                                            (item.product.price * item.product.percent /100)) * item.quantity}
+                                                        </td>
+                                                        :
+                                                        <td className="total-col">{item.product.price * item.quantity}</td>
+                                                }
 
-                                                </tr>
-                                                // : null
+                                                <td className="remove-col">
+                                                    <button onClick={() => {
+                                                        if (isLogin) {
+                                                            dispatch(deleteProductFromCart(item.product.id));
+                                                            checkSale()
+                                                            dispatch(getProductsFromCart())
+                                                        }
+                                                    }} className="btn-remove"><i className="icon-close"></i>
+                                                    </button>
+                                                </td>
+
+                                            </tr>
 
                                         ))
+                                            :
+                                          temp?.map((item, i) => (
+                                              <tr key={i}>
+                                                  <td className="product-col">
+                                                      <div className="product">
+                                                          <figure className="product-media">
+                                                              <NavLink    to={{
+                                                                  pathname: "/product/" + item.id,
+                                                                  id: item.id
+                                                              }} >
+                                                                  <img src={item.image}
+                                                                       alt={item.title}/>
+                                                              </NavLink>
+                                                          </figure>
+
+                                                          <h3 className="product-title">
+                                                              <NavLink to={{
+                                                                  pathname: '/product/' + item.id,
+                                                                  id: item.id
+                                                              }}>{item.title}</NavLink>
+                                                          </h3>
+                                                      </div>
+                                                  </td>
+                                                  {
+                                                      item.percent > 0 ?
+                                                          <td className="price-col">{item.price -
+                                                          (item.price * item.percent /100)}
+                                                              <span className="old-price" style={{
+                                                                  textDecorationLine: "line-through",
+                                                                  color: "#ccbc30",
+                                                                  paddingLeft: "1rem"
+                                                              }}> {item.price}</span>
+                                                          </td>
+                                                          :
+                                                          <td className="price-col">{item.price}</td>
+                                                  }
+                                                  <td>
+                                                      <div className="counter">
+                                                          <button className="down"
+                                                                  onClick={() => {
+                                                                      reduce(item.id, 1);
+                                                                      setTemp(CART.contents)
+                                                                  }}
+                                                          >-
+                                                          </button>
+                                                          <input type="text" value={item.quantity}/>
+                                                          <button className="up"
+                                                                  onClick={() => {
+                                                                      increase(item.id, 1);
+                                                                      setTemp(CART.contents)
+                                                                  }}
+
+                                                          >+
+                                                          </button>
+                                                      </div>
+                                                  </td>
+                                                  {
+                                                      item.percent > 0 ?
+                                                          <td className="total-col">{(item.price -
+                                                              (item.price * item.percent /100)) * item.quantity}
+                                                          </td>
+                                                          :
+                                                          <td className="total-col">{item.price * item.quantity}</td>
+                                                  }
+
+                                                  <td className="remove-col">
+                                                      <button onClick={() => {remove(item.id);setTemp(CART.contents)}} className="btn-remove"><i className="icon-close"></i>
+                                                      </button>
+                                                  </td>
+
+                                              </tr>
+                                          ))
                                     }
                                     </tbody>
                                 </table>

@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import {NavLink as Link, NavLink} from "react-router-dom";
 import {useTranslation} from 'react-i18next';
-import './Header.css'
-import AuthUser from "../../UsersInfo/AuthUser";
+import '../Header.css'
+import AuthUser from "../../../UsersInfo/AuthUser";
 import {useDispatch, useSelector} from "react-redux";
-import {getIsLoginValue} from "../../store/actions/isLogin";
-import {getCartProducts} from "../../store/actions/product";
-import {resetCart} from "../../store/actions/cartProducts";
-import {resetWishlist} from "../../store/actions/wishlistProducts";
+import {getIsLoginValue} from "../../../store/actions/isLogin";
+import {getCartProducts} from "../../../store/actions/product";
+import {resetCart} from "../../../store/actions/cartProducts";
+import {resetWishlist} from "../../../store/actions/wishlistProducts";
 
 const HeaderTop = () => {
 

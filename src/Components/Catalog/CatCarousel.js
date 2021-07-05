@@ -9,7 +9,7 @@ const CatCarousel = () => {
 
     const [catCarouselImage, setCatCarouselImage] = useState([])
     const getCatCarouselImage = () => {
-        new GetData().getData("/views/Page_Ad").then(res => {
+        new GetData().getData("/views/Page_ad").then(res => {
             setCatCarouselImage(res.filter((item => {
                 if(item.status){
                     return item
@@ -26,7 +26,7 @@ const CatCarousel = () => {
 
             {
                 catCarouselImage?.map((item, i) => (
-                    <div>
+                    <div key={i}>
                         <img src={item.image}/>
                         <div className="banner-content banner-content-right">
                             <h3 className="banner-subtitle"><a href="#">Amazing Value</a></h3>

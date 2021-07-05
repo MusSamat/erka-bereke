@@ -10,13 +10,14 @@ import {addProductToWishlist, getProductsFromWishlist} from "../../store/actions
 import {useTranslation} from "react-i18next";
 import ReactPaginate from 'react-paginate'
 import "../PaginationStyle/reactPaginationStyle.css"
+import {add, init} from "../../service/cartLocalStorage/storageFunctions";
 
 
 
 const CatalogProducts = (props) => {
     const brandsId = props.brandsId
     const [filter, setFilter] = useState("lowestToHighest")
-
+    const token = JSON.parse(localStorage.getItem("token"))
     const {t, i18n} = useTranslation();
     const id = parseInt(props.props.props.match.params.id)
     const c = props.sizeOfProd
@@ -73,7 +74,7 @@ const CatalogProducts = (props) => {
         <i className="icon icon-angle-left"></i>
     )
     const [pageNumber, setPageNumber] = useState([0])
-    const blogPerPage = 1
+    const blogPerPage = 24
     const pageVisited = pageNumber * blogPerPage
     const pageCount = Math.ceil(products?.length / blogPerPage)
 
@@ -131,7 +132,9 @@ const CatalogProducts = (props) => {
 
                         <div className="product-action">
                             {
-                                checkCart(prod.id)  || !prod.available ?
+                                token ?
+
+                                   (     checkCart(prod.id)  || !prod.available ?
                                     <button className="btn-product "
                                             title={t("Cart.CheckCart")}
                                             disabled style={{backgroundColor:"#3399ff" }}
@@ -139,10 +142,18 @@ const CatalogProducts = (props) => {
                                         src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
                                     :
                                     <button onClick={() => {
-                                        dispatch(addProductToCart(prod.id, 1))
+                                        dispatch(addProductToCart(prod.id, 1) )
+                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                        src="/assets/svg_logo/addcar.png" alt=""/></button>)
+                             :
+                                    <button onClick={() => {
+                                        add(prod.id, prod.image, prod.title, prod.price, prod.percent);
+                                        init()
                                     }} className="btn-product " title={t("Cart.AddToCart")}><img
                                         src="/assets/svg_logo/addcar.png" alt=""/></button>
+
                             }
+
 
                         </div>
                     </figure>

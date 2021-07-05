@@ -11,6 +11,7 @@ import 'react-tabs/style/react-tabs.css';
 import {NavLink} from "react-router-dom";
 import {setSaleValue} from "../../store/actions/sale";
 import {resetBrands} from "../../store/actions/brands_action";
+import {mobile_menu} from "../../service/accessFunctions";
 
 
 const Product = (props) => {
@@ -26,6 +27,7 @@ const Product = (props) => {
 
 
     useEffect(() => {
+        mobile_menu()
         let loadScript = function (src) {
             let tag = document.createElement('script');
             tag.async = false;
@@ -34,10 +36,6 @@ const Product = (props) => {
         }
         loadScript('/assets/js/jquery.elevateZoom.min.js')
         loadScript('/assets/js/bootstrap-input-spinner.js')
-        loadScript('/assets/js/main.js')
-        loadScript('/assets/js/jquery.magnific-popup.min.js')
-
-
         return () => {
             const elements = document.getElementsByClassName('zoomContainer')
             while (elements.length > 0) {
@@ -85,66 +83,68 @@ const Product = (props) => {
                 <div className="container d-flex align-items-center">
                     <nav aria-label="breadcrumb" className="breadcrumb-nav ">
                         <div className="container">
-                            <div>
-                                {
-                                    productById.map((product, i) => (
-                                        <ol className="breadcrumb">
-                                            <li className="breadcrumb-item"><NavLink to="/"
-                                                                                     onClick={() =>  { dispatch(setSaleValue(false));
-                                                                                         dispatch(resetBrands())
-                                                                                     }}
-                                                                                     style={{
-                                                                                         fontSize: 16,
-                                                                                         fontWeight: "bold"
-                                                                                     }}>{t("Main.Main")}</NavLink>
-                                            </li>
-                                            <li className="breadcrumb-item"><NavLink to={{
-                                                pathname: "/categories/" + product.category_id,
-                                            }}           onClick={() =>  { dispatch(setSaleValue(false));
-                                                            dispatch(resetBrands())
-                                                        }}
-                                                                                     style={{
-                                                                                         fontSize: 16,
-                                                                                         fontWeight: "bold"
-                                                                                     }}>{product.category_title}</NavLink>
-                                            </li>
-                                            <li className="breadcrumb-item"><NavLink to={{
-                                                pathname: "/subcategories/" + product.subcategory_id
-                                                        }}  onClick={() =>  { dispatch(setSaleValue(false));
-                                                            dispatch(resetBrands())
-                                                        }}
-                                                                                     style={{
-                                                                                         fontSize: 16,
-                                                                                         fontWeight: "bold"
-                                                                                     }}>{product.subcategory_title}</NavLink>
-                                            </li>
-                                            <li className="breadcrumb-item"><NavLink to={{
-                                                pathname: "/subcategories1/" + product.subcategory1_id
-                                                        }}  onClick={() =>  { dispatch(setSaleValue(false));
-                                                            dispatch(resetBrands())
-                                                        }}
-                                                                                     style={{
-                                                                                         fontSize: 16,
-                                                                                         fontWeight: "bold"
-                                                                                     }}>{product.subcategory1_title}</NavLink>
-                                            </li>
-                                            <li className="breadcrumb-item"><NavLink
-                                                to={{
-                                                    pathname: "/subcategories2/" + product.subcategory2
-
-                                                }}
-                                                onClick={() =>  { dispatch(setSaleValue(false));
+                            <div className="row">
+                                <div className="col-lg-12 col-sm-12">
+                                    {
+                                        productById.map((product, i) => (
+                                            <ol className="breadcrumb" key={i}>
+                                                <li className="breadcrumb-item"><NavLink to="/"
+                                                                                         onClick={() =>  { dispatch(setSaleValue(false));
+                                                                                             dispatch(resetBrands())
+                                                                                         }}
+                                                                                         style={{
+                                                                                             fontSize: 16,
+                                                                                             fontWeight: "bold"
+                                                                                         }}>{t("Main.Main")}</NavLink>
+                                                </li>
+                                                <li className="breadcrumb-item"><NavLink to={{
+                                                    pathname: "/categories/" + product.category_id,
+                                                }}           onClick={() =>  { dispatch(setSaleValue(false));
                                                     dispatch(resetBrands())
                                                 }}
-                                                style={{
-                                                    fontSize: 16,
-                                                    fontWeight: "bold",
-                                                    color: "#ccbc30"
-                                                }}>{product.subcategory2_title}</NavLink>
-                                            </li>
-                                        </ol>
-                                    ))
-                                }
+                                                                                         style={{
+                                                                                             fontSize: 16,
+                                                                                             fontWeight: "bold"
+                                                                                         }}>{product.category_title}</NavLink>
+                                                </li>
+                                                <li className="breadcrumb-item"><NavLink to={{
+                                                    pathname: "/subcategories/" + product.subcategory_id
+                                                }}  onClick={() =>  { dispatch(setSaleValue(false));
+                                                    dispatch(resetBrands())
+                                                }}
+                                                                                         style={{
+                                                                                             fontSize: 16,
+                                                                                             fontWeight: "bold"
+                                                                                         }}>{product.subcategory_title}</NavLink>
+                                                </li>
+                                                <li className="breadcrumb-item"><NavLink to={{
+                                                    pathname: "/subcategories1/" + product.subcategory1_id
+                                                }}  onClick={() =>  { dispatch(setSaleValue(false));
+                                                    dispatch(resetBrands())
+                                                }}
+                                                                                         style={{
+                                                                                             fontSize: 16,
+                                                                                             fontWeight: "bold"
+                                                                                         }}>{product.subcategory1_title}</NavLink>
+                                                </li>
+                                                <li className="breadcrumb-item"><NavLink
+                                                    to={{
+                                                        pathname: "/subcategories2/" + product.subcategory2
+
+                                                    }}
+                                                    onClick={() =>  { dispatch(setSaleValue(false));
+                                                        dispatch(resetBrands())
+                                                    }}
+                                                    style={{
+                                                        fontSize: 16,
+                                                        fontWeight: "bold",
+                                                        color: "#ccbc30"
+                                                    }}>{product.subcategory2_title}</NavLink>
+                                                </li>
+                                            </ol>
+                                        ))
+                                    }
+                                </div>
                             </div>
                         </div>
                     </nav>
@@ -159,7 +159,7 @@ const Product = (props) => {
                         {
                             productById.map((item, i) => (
                                 <>
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12" >
                                         <div className="product-details-top">
                                             <div className="row">
                                                 <div className="col-md-5">
@@ -328,7 +328,8 @@ const Product = (props) => {
                                             borderRadius: "8px",
                                             minHeight: "300px",
                                             width: "100%"
-                                        }}>
+                                        }}
+                                    >
                                         <Tabs>
                                             <TabList style={{
                                                 display: "flex",

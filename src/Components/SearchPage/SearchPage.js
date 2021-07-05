@@ -7,9 +7,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {toast} from "react-toastify";
 import Nav from "../Nav/Nav";
+import {mobile_menu} from "../../service/accessFunctions";
 
 
 const SearchPage = (props) => {
+
     const {t, i18n} = useTranslation();
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const dispatch = useDispatch()
@@ -27,7 +29,7 @@ const SearchPage = (props) => {
     const tf = false
 
     useEffect( () => {
-        console.log(title)
+       mobile_menu()
     },[])
     const checkCart = (id) => {
         let c = 0
