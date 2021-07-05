@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Order.css'
 import {useTranslation} from "react-i18next";
 import Nav from "../Nav/Nav";
@@ -14,14 +14,37 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import {getSumOfProducts, resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
 import {setloading} from "../../store/actions/laod_action";
+import {getSumOfProductsWithoutSale} from "../../store/actions/sumOfCartProductsWithoutSale";
 
 
 const Order = (props) => {
-
+    const [saleH, setSaleH] = useState(false)
     const dispatch = useDispatch()
     const cartProductsP = useSelector(state => {
         return state.cartProd
     })
+
+    const checkSale = () => {
+        if(token){
+            for (let i = 0; i< cartProductsP?.items?.length; i++){
+                if(cartProductsP?.items[i]?.product.percent){
+                    setSaleH(true)
+                    break;
+                }else{
+                    setSaleH(false)
+                }
+            }
+        }else{
+            for (let j = 0; j< cartProductsP?.length; j++){
+                if(cartProductsP[j]?.percent){
+                    setSaleH(true)
+                    break;
+                }else{
+                    setSaleH(false)
+                }
+            }
+        }
+    }
 
     const [show, setShow] = useState(false)
     const {t, i18n} = useTranslation();
@@ -32,6 +55,8 @@ const Order = (props) => {
     const userId = JSON.parse(localStorage.getItem("userId"))
     const token = JSON.parse(localStorage.getItem("token"))
     const sum = useSelector(state => state.sumOfCart.sumOfProducts)
+    const sumW = useSelector(state =>state.cartProdW.sumProd)
+
 
     const [userNameO, setUserNameO] = useState([])
     const [passwordO, setPasswordO] = useState([])
@@ -81,24 +106,66 @@ const Order = (props) => {
     function setOrderDet (e) {
         e.preventDefault()
         // dispatch(setloading(true))
-        const order = new FormData()
+        if(token){
+            const order = new FormData()
 
-        order.append("first_name", firstName )
-        // order.append("last_name", lastName)
-        order.append("address", address)
-        order.append("phone_number", tel)
-        order.append("cart_id", cartProductsP.id)
-        order.append("user", userId)
+            order.append("first_name", firstName )
+            // order.append("last_name", lastName)
+            order.append("address", address)
+            order.append("phone_number", tel)
+            order.append("cart_id", cartProductsP.id)
+            order.append("user", userId)
 
-        new GetData().setDataPro(token,"/views/order/", order).then(() => {
-            // dispatch(setloading(false))
-            dispatch(resetCart())
-            dispatch(resetSumOfCartProducts())
-            Reset()
-            document.getElementById("orderForm").reset()
-            toast.success(t("Modal.Log.setOrder"))
-        })
+            new GetData().setDataPro(token,"/views/order/", order).then(() => {
+                // dispatch(setloading(false))
+                dispatch(resetCart())
+                dispatch(resetSumOfCartProducts())
+                Reset()
+                document.getElementById("orderForm").reset()
+                toast.success(t("Modal.Log.setOrder"))
+            })
+        }else{
+            let items = []
+            cartProductsP?.map((item, i) => {
+                let obj =
+                    {
+                        product: item.id,
+                        quantity: item.quantity,
+                        price: item.percent > 0 ? (item.price -
+                            (item.price * item.percent /100)) * item.quantity:
+                            item.price * item.quantity
+                    }
+                items.push(obj)
+            })
+            console.log(items)
+
+            let order = JSON.stringify(
+                {
+                    first_name: firstName,
+                    address: address,
+                    phone_number: tel,
+                    items: items
+                }
+            )
+            // const order = new FormData()
+            // order.append("first_name", firstName )
+            // // order.append("last_name", lastName)
+            // order.append("address", address)
+            // order.append("phone_number", tel)
+            // order.append("items", items)
+
+            new GetData().setOrder("/views/order/", order).then(() => {
+                // dispatch(setloading(false))
+                dispatch(resetCart())
+                dispatch(resetSumOfCartProducts())
+                Reset()
+                document.getElementById("orderForm").reset()
+                toast.success(t("Modal.Log.setOrder"))
+            })
+
+        }
     }
+
 
 
     function submitAuthO(e) {
@@ -156,7 +223,9 @@ const Order = (props) => {
     const formBoxButton = document.getElementById("formBoxBtn")
     const iconAngle = document.getElementById('iconAngle')
 
-
+    useEffect(() => {
+        checkSale()
+    },[])
 
     const title = t("Order.title")
     return (
@@ -425,52 +494,87 @@ const Order = (props) => {
                             <tbody>
 
                             {
-                                cartProductsP?.items?.map((item, i) => (
+                                token ?
+                                    cartProductsP?.items?.map((item, i) => (
 
-                                    <tr key={i}>
-                                        <td className="product-col">
-                                            <div className="product" style={{
-                                                paddingLeft: 20
-                                            }}>
-                                                <figure className="product-media">
-                                                    <img src={item.product.image}
-                                                         alt={item.product.title}/>
-                                                </figure>
+                                        <tr key={i}>
+                                            <td className="product-col">
+                                                <div className="product" style={{
+                                                    paddingLeft: 20
+                                                }}>
+                                                    <figure className="product-media">
+                                                        <img src={item.product.image}
+                                                             alt={item.product.title}/>
+                                                    </figure>
 
-                                                <h3 className="product-title">
-                                                    <NavLink to={{
-                                                        pathname: '/product/' + item.product.id,
-                                                        id: item.product.id
-                                                    }}>{item.product.title}</NavLink>
-                                                </h3>
-                                            </div>
-                                        </td>
-                                        {/*{*/}
-                                        {/*    item.product.percent > 0 ?*/}
-                                        {/*        <td className="price-col" style={{*/}
-                                        {/*            marginLeft: 10*/}
-                                        {/*        }}>{item.product.price -*/}
-                                        {/*        (item.product.price * item.product.percent /100)}*/}
-                                        {/*            <span className="old-price" style={{*/}
-                                        {/*                textDecorationLine: "line-through",*/}
-                                        {/*                color: "#ccbc30",*/}
-                                        {/*                paddingLeft: "1rem"*/}
-                                        {/*            }}> {item.product.price}</span>*/}
-                                        {/*        </td>*/}
-                                        {/*        :*/}
-                                        {/*        <td className="price-col">{item.product.price}</td>*/}
-                                        {/*}*/}
-                                        <td className="quantity-col" style={{textAlign: "center"}}>x {item.quantity}</td>
-                                        {
-                                            item.product.percent > 0 ?
-                                                <td className="total-col">{(item.product.price -
-                                                    (item.product.price * item.product.percent /100)) * item.quantity}
-                                                </td>
-                                                :
-                                                <td className="total-col">{item.product.price * item.quantity}</td>
-                                        }
-                                    </tr>
-                                ))
+                                                    <h3 className="product-title">
+                                                        <NavLink to={{
+                                                            pathname: '/product/' + item.product.id,
+                                                            id: item.product.id
+                                                        }}>{item.product.title}</NavLink>
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            {/*{*/}
+                                            {/*    item.product.percent > 0 ?*/}
+                                            {/*        <td className="price-col" style={{*/}
+                                            {/*            marginLeft: 10*/}
+                                            {/*        }}>{item.product.price -*/}
+                                            {/*        (item.product.price * item.product.percent /100)}*/}
+                                            {/*            <span className="old-price" style={{*/}
+                                            {/*                textDecorationLine: "line-through",*/}
+                                            {/*                color: "#ccbc30",*/}
+                                            {/*                paddingLeft: "1rem"*/}
+                                            {/*            }}> {item.product.price}</span>*/}
+                                            {/*        </td>*/}
+                                            {/*        :*/}
+                                            {/*        <td className="price-col">{item.product.price}</td>*/}
+                                            {/*}*/}
+                                            <td className="quantity-col" style={{textAlign: "center"}}>x {item.quantity}</td>
+                                            {
+                                                item.product.percent > 0 ?
+                                                    <td className="total-col">{(item.product.price -
+                                                        (item.product.price * item.product.percent /100)) * item.quantity}
+                                                    </td>
+                                                    :
+                                                    <td className="total-col">{item.product.price * item.quantity}</td>
+                                            }
+                                        </tr>
+                                    ))
+
+                                    :
+
+                                    cartProductsP?.map((item, i) => (
+
+                                        <tr key={i}>
+                                            <td className="product-col">
+                                                <div className="product" style={{
+                                                    paddingLeft: 20
+                                                }}>
+                                                    <figure className="product-media">
+                                                        <img src={item.image}
+                                                             alt={item.title}/>
+                                                    </figure>
+
+                                                    <h3 className="product-title">
+                                                        <NavLink to={{
+                                                            pathname: '/product/' + item.id,
+                                                            id: item.id
+                                                        }}>{item.title}</NavLink>
+                                                    </h3>
+                                                </div>
+                                            </td>
+                                            <td className="quantity-col" style={{textAlign: "center"}}>x {item.quantity}</td>
+                                            {
+                                                item.percent > 0 ?
+                                                    <td className="total-col">{(item.price -
+                                                        (item.price * item.percent /100)) * item.quantity}
+                                                    </td>
+                                                    :
+                                                    <td className="total-col">{item.price * item.quantity}</td>
+                                            }
+                                        </tr>
+                                    ))
                             }
                             <td>
                                 <div style={{
@@ -481,7 +585,14 @@ const Order = (props) => {
                                     Итого: <span style={{
                                     fontWeight: 500,
                                     paddingLeft: 20
-                                }}>{sum}</span>
+                                }}>{sum} </span>
+                                    {saleH ? <span style={{
+                                        textDecorationLine: "line-through",
+                                        color: "#ccbc30",
+                                        paddingLeft: "1rem"
+                                    }}>{sumW}</span>
+                                    : null
+                                    }
                                 </div>
                             </td>
                             </tbody>

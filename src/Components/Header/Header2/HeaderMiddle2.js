@@ -18,7 +18,7 @@ import {CART} from "../../../service/cartLocalStorage/storageFunctions";
 const HeaderMiddle2 = (props) => {
     const {t, i18n} = useTranslation();
     const [searchInput, setSearchInput] = useState()
-
+    const token = JSON.parse(localStorage.getItem("token"))
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const dispatch = useDispatch()
     const [cartTemp, setCartTemp] = useState([])
@@ -37,6 +37,7 @@ const HeaderMiddle2 = (props) => {
         mobile_menu()
         setCartTemp(CART.contents)
         dispatch(getProducts())
+        dispatch(getProductsFromCart())
         CheckLogin()
     }, [])
 
@@ -120,9 +121,9 @@ const HeaderMiddle2 = (props) => {
                                 <i className="icon-shopping-cart" style={{fontSize: '3.2rem'}}></i>
                                 <span className="cart-count" style={{backgroundColor: "rgb(204, 188, 48)"}}>
                                         {
-                                             cartProductsById?.items ? <> {cartProductsById?.items?.length} </> : <> 0 </>
-                                                // :
-                                                // cartTemp ? <> {cartTemp?.length} </> : <> 0 </>
+                                            token ? cartProductsById?.items ? <> {cartProductsById?.items?.length} </> : <> 0 </>
+                                                :
+                                                cartProductsById ? <> {cartProductsById.length} </> : <> 0 </>
                                         }
                                  </span>
 
@@ -132,7 +133,7 @@ const HeaderMiddle2 = (props) => {
                             <div className="dropdown-menu dropdown-menu-right">
                                 <div className="dropdown-cart-products">
                                     {
-
+                                        token ?
                                             cartProductsById === null ?
                                             <div className="EmptyCart">
                                                 <img src="/assets/svg_logo/empty-cart.png" alt="cartEmpty"
@@ -174,46 +175,46 @@ const HeaderMiddle2 = (props) => {
                                                 )
                                             })
 
-                                           //  : cartTemp ?
-                                           // cartTemp?.filter((i, j) => j < 2).map((item, i) => {
-                                           //      return (
-                                           //          <div key={i}>
-                                           //              <div className="product" >
-                                           //                  <div className="product-cart-details">
-                                           //                      <h4 className="product-title">
-                                           //                          <NavLink to={{
-                                           //                              pathname: "/product/" + item.id,
-                                           //                              id: item.id
-                                           //                          }} style={{
-                                           //                              fontSize: 17,
-                                           //                              fontWeight: "600"
-                                           //                          }}>{item.title}</NavLink>
-                                           //                      </h4>
-                                           //
-                                           //                      <span className="cart-product-info"
-                                           //                            style={{color: "black"}}>
-                                           //          <span className="cart-product-qty">{item.quantity} </span>
-                                           //          x {Math.round(item.price)}</span>
-                                           //                  </div>
-                                           //
-                                           //                  <figure className="product-image-container">
-                                           //                      <img src={item.image}
-                                           //                           alt="Product image"/>
-                                           //                  </figure>
-                                           //                  <a href="#" className="btn-remove"
-                                           //                     title="Remove Product">
-                                           //                      <i
-                                           //                          className="icon-close"></i></a>
-                                           //              </div>
-                                           //          </div>
-                                           //      )})
-                                           //
-                                           //  :
-                                           //  <div className="EmptyCart">
-                                           //      <img src="/assets/svg_logo/empty-cart.png" alt="cartEmpty"
-                                           //           style={{margin: '0 auto', paddingTop: 30, marginBottom: 30}}/>
-                                           //      {t("Cart.Empty")}
-                                           //  </div>
+                                            : cartTemp ?
+                                           cartTemp?.filter((i, j) => j < 2).map((item, i) => {
+                                                return (
+                                                    <div key={i}>
+                                                        <div className="product" >
+                                                            <div className="product-cart-details">
+                                                                <h4 className="product-title">
+                                                                    <NavLink to={{
+                                                                        pathname: "/product/" + item.id,
+                                                                        id: item.id
+                                                                    }} style={{
+                                                                        fontSize: 17,
+                                                                        fontWeight: "600"
+                                                                    }}>{item.title}</NavLink>
+                                                                </h4>
+
+                                                                <span className="cart-product-info"
+                                                                      style={{color: "black"}}>
+                                                    <span className="cart-product-qty">{item.quantity} </span>
+                                                    x {Math.round(item.price)}</span>
+                                                            </div>
+
+                                                            <figure className="product-image-container">
+                                                                <img src={item.image}
+                                                                     alt="Product image"/>
+                                                            </figure>
+                                                            <a href="#" className="btn-remove"
+                                                               title="Remove Product">
+                                                                <i
+                                                                    className="icon-close"></i></a>
+                                                        </div>
+                                                    </div>
+                                                )})
+
+                                            :
+                                            <div className="EmptyCart">
+                                                <img src="/assets/svg_logo/empty-cart.png" alt="cartEmpty"
+                                                     style={{margin: '0 auto', paddingTop: 30, marginBottom: 30}}/>
+                                                {t("Cart.Empty")}
+                                            </div>
                                     }
                                 </div>
                                 {

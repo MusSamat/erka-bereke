@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import {addProductToCart, deleteProductFromCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {getSumOfProducts} from "../../store/actions/sumOfCartProducts";
 import {getSumOfProductsWithoutSale} from "../../store/actions/sumOfCartProductsWithoutSale";
-import {CART, init, sync, add, increase, reduce, remove} from "../../service/cartLocalStorage/storageFunctions";
+import {CART, init, Sync, add, increase, reduce, remove} from "../../service/cartLocalStorage/storageFunctions";
 
 
 const Cart = () => {
@@ -22,15 +22,24 @@ const Cart = () => {
         return state.cartProd
     })
 
-    const [temp, setTemp] = useState([])
-    console.log(temp)
     const checkSale = () => {
-        for (let i = 0; i< cartProductsP?.items?.length; i++){
-            if(cartProductsP?.items[i]?.product.percent){
-                setSaleH(true)
-                break;
-            }else{
-                setSaleH(false)
+        if(token){
+            for (let i = 0; i< cartProductsP?.items?.length; i++){
+                if(cartProductsP?.items[i]?.product.percent){
+                    setSaleH(true)
+                    break;
+                }else{
+                    setSaleH(false)
+                }
+            }
+        }else{
+            for (let j = 0; j< cartProductsP?.length; j++){
+                if(cartProductsP[j]?.percent){
+                    setSaleH(true)
+                    break;
+                }else{
+                    setSaleH(false)
+                }
             }
         }
     }
@@ -43,10 +52,7 @@ const Cart = () => {
     dispatch(getSumOfProductsWithoutSale())
 
    useEffect(() => {
-       console.log(CART.contents)
-       init()
-       sync()
-       setTemp(CART.contents)
+
         checkSale()
     }, [])
 
@@ -161,7 +167,7 @@ const Cart = () => {
 
                                         ))
                                             :
-                                          temp?.map((item, i) => (
+                                          cartProductsP?.map((item, i) => (
                                               <tr key={i}>
                                                   <td className="product-col">
                                                       <div className="product">
@@ -201,7 +207,7 @@ const Cart = () => {
                                                           <button className="down"
                                                                   onClick={() => {
                                                                       reduce(item.id, 1);
-                                                                      setTemp(CART.contents)
+                                                                      dispatch(getProductsFromCart())
                                                                   }}
                                                           >-
                                                           </button>
@@ -209,7 +215,7 @@ const Cart = () => {
                                                           <button className="up"
                                                                   onClick={() => {
                                                                       increase(item.id, 1);
-                                                                      setTemp(CART.contents)
+                                                                      dispatch(getProductsFromCart())
                                                                   }}
 
                                                           >+
@@ -226,7 +232,9 @@ const Cart = () => {
                                                   }
 
                                                   <td className="remove-col">
-                                                      <button onClick={() => {remove(item.id);setTemp(CART.contents)}} className="btn-remove"><i className="icon-close"></i>
+                                                      <button onClick={() => {remove(item.id);
+                                                          dispatch(getProductsFromCart())
+                                                      }} className="btn-remove"><i className="icon-close"></i>
                                                       </button>
                                                   </td>
 
@@ -311,19 +319,14 @@ const Cart = () => {
                                         </tr>
                                         <tr className="summary-total">
                                             {
-                                                saleH ?
                                                     <>
                                                         <td>{t("Cart.CartPage.AllWithSale")}</td>
-                                                        <td style={{
+                                                        {saleH ? <td style={{
                                                             textDecorationLine: "line-through",
                                                             color: "#ccbc30",
-                                                        }}>{sumW}</td>
+                                                        }}>{sumW}</td>:
+                                                        null }
                                                         <td>{sum }</td>
-                                                    </>
-                                                :
-                                                    <>
-                                                        <td>{t("Cart.CartPage.All")}:</td>
-                                                        <td>{sum+1}</td>
                                                     </>
                                             }
 

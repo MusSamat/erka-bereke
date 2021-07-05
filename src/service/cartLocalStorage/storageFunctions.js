@@ -1,4 +1,6 @@
 import {toast} from "react-toastify";
+import {getProductsFromCart} from "../../store/actions/cartProducts";
+import {useDispatch} from "react-redux";
 
 export const CART = {
     KEY: 'bkasjbdfkjasdkfjhaksdfjskd',
@@ -11,19 +13,11 @@ export let PRODUCTS = [];
        let _contents = localStorage.getItem(CART.KEY);
        if(_contents){
            CART.contents = JSON.parse(_contents);
-       }else{
-           //dummy test data
-           CART.contents = [
-                {id: 9, image: "http://127.0.0.1:8000/media/product/2_r0EP3DU.jpg", title: "Персики иранские"},
-                {id: 1, image: "http://127.0.0.1:8000/media/product/kap_ZX088R1.jpg", title: "Банан", price: "127.00"},
-                {id: 5, image: "http://127.0.0.1:8000/media/product/1_5fBWVlw.jpg", title: "Кандек", price: "232.00"}
-           ];
-           CART.sync();
        }
     }
 
-    export const sync = async () => {
-        console.log(CART.contents)
+    export const Sync = async ()  => {
+
         let _cart = JSON.stringify(CART.contents);
         await localStorage.setItem(CART.KEY, _cart);
         init()
@@ -58,13 +52,14 @@ export let PRODUCTS = [];
                     image: image,
                     title: title,
                     price: price,
-                    saleP: percent,
+                    percent: percent,
                     quantity: 1,
                 };
                 CART.contents.push(obj);
                 toast.success("Вы успешно добавили")
+                // dispatch(getProductsFromCart())
                 //update localStorage
-                sync();
+                Sync();
             }
         }
 
@@ -77,7 +72,7 @@ export let PRODUCTS = [];
             return item;
         });
         //update localStorage
-        sync()
+        Sync()
     }
 
     export const reduce = (id, qty=1) => {
@@ -92,7 +87,7 @@ export let PRODUCTS = [];
                 await CART.remove(id);
         });
         //update localStorage
-        sync()
+        Sync()
         init()
     }
 
@@ -104,14 +99,14 @@ export let PRODUCTS = [];
                 return true;
         });
         //update localStorage
-        sync()
+        Sync()
     }
 
     export const empty = () => {
         //empty whole cart
         CART.contents = [];
         //update localStorage
-        sync()
+        Sync()
     }
 
     // sort(field='title'){

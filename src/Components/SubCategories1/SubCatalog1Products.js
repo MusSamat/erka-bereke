@@ -10,8 +10,10 @@ import CatCarousel from "../Catalog/CatCarousel";
 import Toolbox from "../Catalog/Toolbox";
 import ReactPaginate from 'react-paginate'
 import "../PaginationStyle/reactPaginationStyle.css"
+import {add} from "../../service/cartLocalStorage/storageFunctions";
 
 const SubCatalog1Products = (props) => {
+    const token = JSON.parse(localStorage.getItem("token"))
     const brandsId = props.brandsId
     const [filter, setFilter] = useState("lowestToHighest")
     const sale = props.sale
@@ -20,7 +22,7 @@ const SubCatalog1Products = (props) => {
     const c = props.sizeOfProd
 
     const products = useSelector(state => state.product.products.filter((item, index) => {
-        if(item.subcategory1_id === id) {
+        if (item.subcategory1_id === id) {
             return item
         }
     }))
@@ -29,14 +31,14 @@ const SubCatalog1Products = (props) => {
         return state.cartProd
     })
 
-    const wishlistProductsP =  useSelector(state => {
+    const wishlistProductsP = useSelector(state => {
         return state.wishlistProd
     })
 
     const checkWishlist = (id) => {
-        let  c = 0
+        let c = 0
         wishlistProductsP?.items?.map((item, i) => {
-            if(item.product.id === id){
+            if (item.product.id === id) {
                 c = 1
             }
         })
@@ -46,7 +48,7 @@ const SubCatalog1Products = (props) => {
     const checkCart = (id) => {
         let c = 0
         cartProductsP?.items?.map((item) => {
-            if(item.product.id === id){
+            if (item.product.id === id) {
                 c = 1
             }
         })
@@ -55,9 +57,7 @@ const SubCatalog1Products = (props) => {
 
     useEffect(() => {
         // dispatch( getProducts())
-    },[dispatch])
-
-
+    }, [dispatch])
 
 
     //Pagination
@@ -77,40 +77,42 @@ const SubCatalog1Products = (props) => {
     }
 
     const displaySubCategory1Products = products.slice(pageVisited, pageVisited + blogPerPage)
-        .filter((prod, i) => brandsId.length === 0 ? true : brandsId.includes(prod?.marka ))
+        .filter((prod, i) => brandsId.length === 0 ? true : brandsId.includes(prod?.marka))
         .filter((prod, i) => sale ? prod.percent > 0 : true)
-        .sort((a,b) => (filter === "lowestToHighest") ?
-            (a.price > b.price ? 1: -1 ): (a.price < b.price ? 1: -1 ) )
-        .map((prod, i)=> (
+        .sort((a, b) => (filter === "lowestToHighest") ?
+            (a.price > b.price ? 1 : -1) : (a.price < b.price ? 1 : -1))
+        .map((prod, i) => (
 
             <div className="col-6 col-md-4 col-lg-3" key={i}>
                 {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
-                <div className="product BorderPro"  >
+                <div className="product BorderPro">
 
 
-                    <figure className="product-media" id="ptr" >
+                    <figure className="product-media" id="ptr">
                         {
-                            prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
+                            prod.percent > 0 ? <span className="product-label label-sale">- {prod.percent} %</span>
                                 : null
                         }
                         {
-                            prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
+                            prod.available ? null : <span className="product-label label-top">Нет в наличии</span>
                         }
-                        <NavLink  to={{
+                        <NavLink to={{
                             pathname: "/product/" + prod.id,
                             id: prod.id
                         }}
-                                  className="img-img"
+                                 className="img-img"
                         >
-                            <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
+                            <img className="d-block w-100 " src={prod.image} alt={prod.title}/>
                         </NavLink>
 
                         <div className="product-action-vertical">
                             {
-                                checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
-                                                                   title={t("Wishlist.CheckWishlist")}
-                                                                   style={{backgroundColor: "#3399ff",
-                                                                       color: "white"}} disabled>
+                                checkWishlist(prod.id) ? <button className="btn-product-icon btn-wishlist "
+                                                                 title={t("Wishlist.CheckWishlist")}
+                                                                 style={{
+                                                                     backgroundColor: "#3399ff",
+                                                                     color: "white"
+                                                                 }} disabled>
                                 </button> : <button onClick={() => {
                                     dispatch(addProductToWishlist(prod.id))
                                 }} className="btn-product-icon btn-wishlist "
@@ -126,18 +128,35 @@ const SubCatalog1Products = (props) => {
 
                         <div className="product-action">
                             {
-                                checkCart(prod.id)  || !prod.available ?
-                                    <button className="btn-product "
-                                            title={t("Cart.CheckCart")}
-                                            disabled style={{backgroundColor:"#3399ff" }}
-                                    ><img
-                                        src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                token ?
+
+                                    (checkCart(prod.id) || !prod.available ?
+                                        <button className="btn-product "
+                                                title={t("Cart.CheckCart")}
+                                                disabled style={{backgroundColor: "#3399ff"}}
+                                        ><img
+                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                        :
+                                        <button onClick={() => {
+                                            dispatch(addProductToCart(prod.id, 1))
+                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                            src="/assets/svg_logo/addcar.png" alt=""/></button>)
                                     :
-                                    <button onClick={() => {
-                                        dispatch(addProductToCart(prod.id, 1))
-                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
-                                        src="/assets/svg_logo/addcar.png" alt=""/></button>
+                                    (!prod.available ?
+                                        <button className="btn-product "
+                                                title={t("Cart.CheckCart")}
+                                                disabled style={{backgroundColor: "#3399ff"}}
+                                        ><img
+                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                        :
+                                        <button onClick={() => {
+                                            add(prod.id, prod.image, prod.title, prod.price, prod.percent);
+                                            dispatch(getProductsFromCart())
+                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                            src="/assets/svg_logo/addcar.png" alt=""/></button>)
+
                             }
+
 
                         </div>
                     </figure>
@@ -148,14 +167,23 @@ const SubCatalog1Products = (props) => {
                             <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
                         </div>
 
-                        <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                            {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
-                                    <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
-                                <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
+                        <div className="product-price" style={{display: "flex", justifyContent: "flex-end"}}>
+                            {prod.percent > 0 ? <><span className="new-price"
+                                                        style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                    <span className="old-price" style={{
+                                        textDecorationLine: "line-through",
+                                        color: "black"
+                                    }}> {prod.price}</span></> :
+                                <span className="new-price" style={{fontSize: 20}}>{prod.price}</span>
                             }
                         </div>
 
-                        <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                        <h3 className="product-title" style={{
+                            fontSize: 18,
+                            paddingBottom: 10,
+                            fontWeight: "bold",
+                            fontFamily: 'Lato, san-serif'
+                        }}><NavLink
                             to={{
                                 pathname: "/product/" + prod.id,
                                 id: prod.id
@@ -168,6 +196,7 @@ const SubCatalog1Products = (props) => {
                 </div>
 
             </div>
+
         ))
 
 
@@ -184,7 +213,7 @@ const SubCatalog1Products = (props) => {
             <div className="cat-blocks-container">
                 <div className="row">
                     {
-                       displaySubCategory1Products
+                        displaySubCategory1Products
                     }
                 </div>
 

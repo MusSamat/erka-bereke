@@ -1,7 +1,7 @@
 import {FETCH_CART_PRODUCT, RESET_CART} from "../actions/actionTypes";
 
 const initsialState = {
-    cartProd: null
+    cartProd: []
 }
 
 export default function  cartProductsReducer(state = initsialState, action){

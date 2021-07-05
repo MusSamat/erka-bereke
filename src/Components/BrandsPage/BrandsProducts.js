@@ -13,12 +13,13 @@ import {useTranslation} from "react-i18next";
 import GetData from "../../service/GetData";
 import ReactPaginate from 'react-paginate'
 import "../PaginationStyle/reactPaginationStyle.css"
+import {add} from "../../service/cartLocalStorage/storageFunctions";
 
 
 
 
 const BrandsProducts = (props) => {
-    console.log(props)
+    const token = JSON.parse(localStorage.getItem("token"))
     const [filter, setFilter] = useState("lowestToHighest")
 
     const {t, i18n} = useTranslation();
@@ -96,32 +97,34 @@ const BrandsProducts = (props) => {
 
             <div className="col-6 col-md-4 col-lg-3" key={i}>
                 {/*{prod.available ? document.getElementById("ptr").classList.remove("availableProduct"): document.getElementById("ptr").classList.add("availableProduct")}*/}
-                <div className="product BorderPro"  >
+                <div className="product BorderPro">
 
 
-                    <figure className="product-media" id="ptr" >
+                    <figure className="product-media" id="ptr">
                         {
-                            prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
+                            prod.percent > 0 ? <span className="product-label label-sale">- {prod.percent} %</span>
                                 : null
                         }
                         {
-                            prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
+                            prod.available ? null : <span className="product-label label-top">Нет в наличии</span>
                         }
-                        <NavLink  to={{
+                        <NavLink to={{
                             pathname: "/product/" + prod.id,
                             id: prod.id
                         }}
-                                  className="img-img"
+                                 className="img-img"
                         >
-                            <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
+                            <img className="d-block w-100 " src={prod.image} alt={prod.title}/>
                         </NavLink>
 
                         <div className="product-action-vertical">
                             {
-                                checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
-                                                                   title={t("Wishlist.CheckWishlist")}
-                                                                   style={{backgroundColor: "#3399ff",
-                                                                       color: "white"}} disabled>
+                                checkWishlist(prod.id) ? <button className="btn-product-icon btn-wishlist "
+                                                                 title={t("Wishlist.CheckWishlist")}
+                                                                 style={{
+                                                                     backgroundColor: "#3399ff",
+                                                                     color: "white"
+                                                                 }} disabled>
                                 </button> : <button onClick={() => {
                                     dispatch(addProductToWishlist(prod.id))
                                 }} className="btn-product-icon btn-wishlist "
@@ -129,26 +132,39 @@ const BrandsProducts = (props) => {
                                 >
                                 </button>
                             }
-
-
-                            {/*<a href="popup/quickView.html" className="btn-product-icon btn-quickview"*/}
-                            {/*   title="Чоңойтуу"><span>Чоңойтуу</span></a>*/}
                         </div>
 
                         <div className="product-action">
                             {
-                                checkCart(prod.id)  || !prod.available ?
-                                    <button className="btn-product "
-                                            title={t("Cart.CheckCart")}
-                                            disabled style={{backgroundColor:"#3399ff" }}
-                                    ><img
-                                        src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                token ?
+
+                                    (checkCart(prod.id) || !prod.available ?
+                                        <button className="btn-product "
+                                                title={t("Cart.CheckCart")}
+                                                disabled style={{backgroundColor: "#3399ff"}}
+                                        ><img
+                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                        :
+                                        <button onClick={() => {
+                                            dispatch(addProductToCart(prod.id, 1))
+                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                            src="/assets/svg_logo/addcar.png" alt=""/></button>)
                                     :
-                                    <button onClick={() => {
-                                        dispatch(addProductToCart(prod.id, 1))
-                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
-                                        src="/assets/svg_logo/addcar.png" alt=""/></button>
+                                    (!prod.available ?
+                                        <button className="btn-product "
+                                                title={t("Cart.CheckCart")}
+                                                disabled style={{backgroundColor: "#3399ff"}}
+                                        ><img
+                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                        :
+                                        <button onClick={() => {
+                                            add(prod.id, prod.image, prod.title, prod.price, prod.percent);
+                                            dispatch(getProductsFromCart())
+                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                            src="/assets/svg_logo/addcar.png" alt=""/></button>)
+
                             }
+
 
                         </div>
                     </figure>
@@ -159,14 +175,23 @@ const BrandsProducts = (props) => {
                             <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
                         </div>
 
-                        <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                            {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
-                                    <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
-                                <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
+                        <div className="product-price" style={{display: "flex", justifyContent: "flex-end"}}>
+                            {prod.percent > 0 ? <><span className="new-price"
+                                                        style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                    <span className="old-price" style={{
+                                        textDecorationLine: "line-through",
+                                        color: "black"
+                                    }}> {prod.price}</span></> :
+                                <span className="new-price" style={{fontSize: 20}}>{prod.price}</span>
                             }
                         </div>
 
-                        <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                        <h3 className="product-title" style={{
+                            fontSize: 18,
+                            paddingBottom: 10,
+                            fontWeight: "bold",
+                            fontFamily: 'Lato, san-serif'
+                        }}><NavLink
                             to={{
                                 pathname: "/product/" + prod.id,
                                 id: prod.id
@@ -179,6 +204,7 @@ const BrandsProducts = (props) => {
                 </div>
 
             </div>
+
         ))
 
 

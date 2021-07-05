@@ -5,10 +5,12 @@ import './Product.css'
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import {addProductToWishlist} from "../../../store/actions/wishlistProducts";
-import {addProductToCart} from "../../../store/actions/cartProducts";
+import {addProductToCart, getProductsFromCart} from "../../../store/actions/cartProducts";
 import {useTranslation} from "react-i18next";
+import {add} from "../../../service/cartLocalStorage/storageFunctions";
 
 const CatBanner = (props) => {
+    const token = JSON.parse(localStorage.getItem("token"))
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
     const products = useSelector(state => state.product.products.filter((item, index) => {
@@ -156,18 +158,36 @@ const CatBanner = (props) => {
 
                                             <div className="product-action">
                                                 {
-                                                    checkCart(prod.id)  || !prod.available ?
-                                                        <button className="btn-product "
-                                                                title={t("Cart.CheckCart")}
-                                                                disabled style={{backgroundColor:"#3399ff" }}
-                                                        ><img
-                                                            src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
-                                                        :
-                                                        <button onClick={() => {
-                                                            dispatch(addProductToCart(prod.id, 1))
-                                                        }} className="btn-product " title={t("Cart.AddToCart")}><img
-                                                            src="/assets/svg_logo/addcar.png" alt=""/></button>
-                                                }
+                                                        token ?
+
+                                                            (checkCart(prod.id) || !prod.available ?
+                                                                <button className="btn-product "
+                                                                        title={t("Cart.CheckCart")}
+                                                                        disabled style={{backgroundColor: "#3399ff"}}
+                                                                ><img
+                                                                    src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                                :
+                                                                <button onClick={() => {
+                                                                    dispatch(addProductToCart(prod.id, 1))
+                                                                }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                                    src="/assets/svg_logo/addcar.png" alt=""/></button>)
+                                                            :
+
+                                                            (!prod.available ?
+                                                                <button className="btn-product "
+                                                                        title={t("Cart.CheckCart")}
+                                                                        disabled style={{backgroundColor: "#3399ff"}}
+                                                                ><img
+                                                                    src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                                :
+                                                                <button onClick={() => {
+                                                                    add(prod.id, prod.image, prod.title, prod.price, prod.percent);
+                                                                    dispatch(getProductsFromCart())
+                                                                }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                                    src="/assets/svg_logo/addcar.png" alt=""/></button>)
+
+                                                    }
+
                                             </div>
                                         </figure>
 

@@ -10,7 +10,7 @@ import {NavLink as Link, NavLink} from "react-router-dom";
 const HeaderTop2 = () => {
 
     const dispatch = useDispatch()
-
+    const token = JSON.parse(localStorage.getItem("token"))
     const isLogin = useSelector(state => state.isLogin.isLogin)
 
     const {t, i18n} = useTranslation();
@@ -77,7 +77,7 @@ const HeaderTop2 = () => {
                                 </li>
                                 {/*<i className='icon-user' style={{fontSize: 20}}></i>*/}
                                 {
-                                    isLogin ?
+                                    token ?
                                         <li style={{display: "flex", flexDirection: "row", gap: 10}}
                                         >
                                             <NavLink to='/userpage'>

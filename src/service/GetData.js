@@ -38,6 +38,7 @@ class GetData extends React.Component {
 
     async setOrder( url, body){
         const res = await fetch(`${this._apiBase}${url}`, {
+            headers: {"Content-Type": "application/json"},
             method: "POST",
             body: body,
         })
