@@ -3,9 +3,7 @@ import {useSelector} from "react-redux";
 
 export const getSumOfProductsWithoutSale = () => (dispatch) => {
     const token = JSON.parse(localStorage.getItem("token"))
-    const cartProductsP = useSelector(state => {
-        return state.cartProd
-    })
+    const cartProductsP = useSelector(state => state.cartProd.cartProd)
 
     let sum = 0
     if(token){
@@ -24,7 +22,7 @@ export const getSumOfProductsWithoutSale = () => (dispatch) => {
     })
 }
 
-export const resetSumOfCartProducts = () => (dispatch) => {
+export const resetSumOfCartProductsWithoutSale = () => (dispatch) => {
     dispatch({
         type: RESET_PROD
     })

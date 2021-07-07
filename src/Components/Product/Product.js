@@ -266,7 +266,7 @@ const Product = (props) => {
                                                                         color: "black",
                                                                         fontSize: 20
                                                                     }}> {item.price}</span>
-                                                                        <span>{item.price - item.price * (item.percent / 100)}</span>
+                                                                        <span>{(item.price - item.price * (item.percent / 100)).toFixed(2)}</span>
                                                                     </> :
                                                                     <span>{item.price}</span>
                                                                 }
@@ -349,9 +349,6 @@ const Product = (props) => {
                                                 <Tab selectedClassName="is-selected">
                                                     {t("Product.Information")}
                                                 </Tab>
-                                                <Tab selectedClassName="is-selected">
-                                                    {t("Product.Comments")}
-                                                </Tab>
                                             </TabList>
 
                                             <TabPanel style={{width: "100%"}}>
@@ -362,24 +359,8 @@ const Product = (props) => {
                                             </TabPanel>
                                             <TabPanel>
                                                 <div className="tabPanel">
-                                                    Product Information
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                    Donec nec justo eget felis facilisis fermentum. Aliquam porttitor
-                                                    mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus
-                                                    ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer
-                                                    ligula vulputate sem tristique cursus.
                                                 </div>
 
-                                            </TabPanel>
-                                            <TabPanel>
-                                                <div className="tabPanel">
-                                                    Product Information
-                                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
-                                                    odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
-                                                    Suspendisse urna viverra non, semper suscipit, posuere a, pede.
-                                                </div>
                                             </TabPanel>
                                         </Tabs>
                                     </div>

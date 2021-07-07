@@ -7,7 +7,9 @@ const initsialState = {
 export default function  cartProductsReducer(state = initsialState, action){
     switch (action.type){
         case FETCH_CART_PRODUCT:
-            return action.cartProd
+            return {
+                ...state, cartProd: action.cartProd
+            }
         case RESET_CART:
             return initsialState
         default:

@@ -28,11 +28,6 @@ const CatCarousel = () => {
                 catCarouselImage?.map((item, i) => (
                     <div key={i}>
                         <img src={item.image}/>
-                        <div className="banner-content banner-content-right">
-                            <h3 className="banner-subtitle"><a href="#">Amazing Value</a></h3>
-                            <h2 className="banner-title"><a href="#">High Performance 4K TVs</a></h2>
-                            <a href="#" className="banner-link">Shop Now <i className="icon-long-arrow-right"></i></a>
-                        </div>
                     </div>
                     ))
             }

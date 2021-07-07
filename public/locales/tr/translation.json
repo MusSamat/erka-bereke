@@ -12,6 +12,9 @@
     "4": "Mağazamıza hoş geldiniz",
     "5": "Başarıyla kayıt oldunuz!!!"
   },
+  "Main": {
+    "Main": "Ana sayfa"
+  },
 
   "Menu": {
     "1": "Meyve, Sebze",
@@ -62,7 +65,7 @@
     },
     "FooterMenu": {
       "1": {
-        "1": "Информация",
+        "1": "Information",
         "2": "Biz",
         "3": "Online ödeme",
         "4": "Haberler",
@@ -205,5 +208,8 @@
     "Qtheme": "Konu",
     "Qmail": "Mesaj",
     "Submit": "Gönder"
+  },
+  "Blog": {
+    "proceed": "Ilerlemek"
   }
 }

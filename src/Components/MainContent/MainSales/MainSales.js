@@ -23,72 +23,69 @@ const MainSales = () => {
                         <div className="row" key={i}>
                             <div className="col-sm-6 col-lg-3">
                                 <div className="banner banner-overlay" style={{borderRadius: 20}}>
-                                    <a href="#">
-                                        <img src={stockImages?.image} alt="Banner"/>
-                                    </a>
+                                    <img src={stockImages?.image} alt="Banner"/>
 
-                                    <div className="banner-content">
-                                        <h4 className="banner-subtitle  text-white"><a href="#">Weekend Sale</a>
-                                        </h4>
-                                        <h3 className="banner-title text-white "><a href="#">Lighting {<br/>}& Accessories {
-                                            <br/>}<span>25% off</span></a>
-                                        </h3>
-                                        <a href="#" className="banner-link">Shop Now <i
-                                            className="icon-long-arrow-right"></i></a>
-                                    </div>
+                                    {/*<div className="banner-content">*/}
+                                    {/*    <h4 className="banner-subtitle  text-white"><a href="#">Weekend Sale</a>*/}
+                                    {/*    </h4>*/}
+                                    {/*    <h3 className="banner-title text-white "><a href="#">Lighting {<br/>}& Accessories {*/}
+                                    {/*        <br/>}<span>25% off</span></a>*/}
+                                    {/*    </h3>*/}
+                                    {/*    <a href="#" className="banner-link">Shop Now <i*/}
+                                    {/*        className="icon-long-arrow-right"></i></a>*/}
+                                    {/*</div>*/}
 
                                 </div>
                             </div>
 
                             <div className="col-sm-6 col-lg-3 order-lg-last">
                                 <div className="banner banner-overlay" style={{borderRadius: 20}}>
-                                    <a href="#">
-                                        <img src={stockImages?.image_1} alt="Banner"/>
-                                    </a>
 
-                                    <div className="banner-content">
-                                        <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>
-                                        </h4>
-                                        <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{
-                                            <br/>}<span>15% off</span></a>
-                                        </h3>
-                                        <a href="#" className="banner-link">Shop Now <i
-                                            className="icon-long-arrow-right"></i></a>
-                                    </div>
+                                    <img src={stockImages?.image_1} alt="Banner"/>
+
+
+                                    {/*<div className="banner-content">*/}
+                                    {/*    <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>*/}
+                                    {/*    </h4>*/}
+                                    {/*    <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{*/}
+                                    {/*        <br/>}<span>15% off</span></a>*/}
+                                    {/*    </h3>*/}
+                                    {/*    <a href="#" className="banner-link">Shop Now <i*/}
+                                    {/*        className="icon-long-arrow-right"></i></a>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                             <div className="col-sm-6 col-lg-3 order-lg-last">
                                 <div className="banner banner-overlay" style={{borderRadius: 20}}>
-                                    <a href="#">
+
                                         <img src={stockImages?.image_2} alt="Banner"/>
-                                    </a>
 
-                                    <div className="banner-content">
-                                        <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>
-                                        </h4>
-                                        <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{
-                                            <br/>}<span>15% off</span></a>
-                                        </h3>
-                                        <a href="#" className="banner-link">Shop Now <i
-                                            className="icon-long-arrow-right"></i></a>
-                                    </div>
+                                    {/*<div className="banner-content">*/}
+                                    {/*    <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>*/}
+                                    {/*    </h4>*/}
+                                    {/*    <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{*/}
+                                    {/*        <br/>}<span>15% off</span></a>*/}
+                                    {/*    </h3>*/}
+                                    {/*    <a href="#" className="banner-link">Shop Now <i*/}
+                                    {/*        className="icon-long-arrow-right"></i></a>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                             <div className="col-sm-6 col-lg-3 order-lg-last">
                                 <div className="banner banner-overlay" style={{borderRadius: 20}}>
-                                    <a href="#">
-                                        <img src={stockImages?.image_3} alt="Banner"/>
-                                    </a>
 
-                                    <div className="banner-content">
-                                        <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>
-                                        </h4>
-                                        <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{
-                                            <br/>}<span>15% off</span></a>
-                                        </h3>
-                                        <a href="#" className="banner-link">Shop Now <i
-                                            className="icon-long-arrow-right"></i></a>
-                                    </div>
+                                        <img src={stockImages?.image_3} alt="Banner"/>
+
+
+                                    {/*<div className="banner-content">*/}
+                                    {/*    <h4 className="banner-subtitle text-white"><a href="#">Smart Offer</a>*/}
+                                    {/*    </h4>*/}
+                                    {/*    <h3 className="banner-title text-white"><a href="#">Anniversary {<br/>}Special{*/}
+                                    {/*        <br/>}<span>15% off</span></a>*/}
+                                    {/*    </h3>*/}
+                                    {/*    <a href="#" className="banner-link">Shop Now <i*/}
+                                    {/*        className="icon-long-arrow-right"></i></a>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
 

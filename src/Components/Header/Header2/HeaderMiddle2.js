@@ -46,10 +46,7 @@ const HeaderMiddle2 = (props) => {
     // const subcategoreis1 = useSelector(state => state.subcategory1.subcategory1)
     // const subcategoreis2 = useSelector(state => state.subcategory2.subcategory2)
 
-    const cartProductsById = useSelector(state => {
-        return state.cartProd
-    })
-    console.log(cartProductsById)
+    const cartProductsById = useSelector(state => state.cartProd.cartProd)
     const wishlistProductsById = useSelector(state => {
         return state.wishlistProd
     })
@@ -175,8 +172,8 @@ const HeaderMiddle2 = (props) => {
                                                 )
                                             })
 
-                                            : cartTemp ?
-                                           cartTemp?.filter((i, j) => j < 2).map((item, i) => {
+                                            : cartProductsById ?
+                                           cartProductsById?.filter((i, j) => j < 2).map((item, i) => {
                                                 return (
                                                     <div key={i}>
                                                         <div className="product" >

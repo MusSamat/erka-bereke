@@ -18,9 +18,7 @@ const Cart = () => {
     const isLogin = useSelector(state => state.isLogin.isLogin)
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
-    const  cartProductsP = useSelector(state => {
-        return state.cartProd
-    })
+    const cartProductsP = useSelector(state => state.cartProd.cartProd)
 
     const checkSale = () => {
         if(token){
@@ -52,7 +50,6 @@ const Cart = () => {
     dispatch(getSumOfProductsWithoutSale())
 
    useEffect(() => {
-
         checkSale()
     }, [])
 

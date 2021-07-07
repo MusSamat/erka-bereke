@@ -64,7 +64,7 @@ const Blog = () => {
                         <NavLink to={{
                             pathname: "/blog/" + item.id,
                             id: item.id
-                        }} className="read-more" style={{fontSize: 17}}>Улантуу</NavLink>
+                        }} className="read-more" style={{fontSize: 17}}>{t("Blog.proceed")}</NavLink>
                     </div>
                 </NavLink>
             </div>

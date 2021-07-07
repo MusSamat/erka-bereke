@@ -69,14 +69,24 @@ const CatBanner = (props) => {
 
     return (
         <div className='container' style={{paddingTop: 80}}>
-            <div style={{borderBottom: "1px solid #ebebeb"}} className='CatBanner'>
+            <div style={{borderBottom: "1px solid rgb(191,191,191)"}} className='CatBanner'>
                 <h2 className='title'
                     style={{fontSize: 25, fontWeight: "bolder"}}
                 >{props.title}</h2>
 
                 <NavLink to={{
                     pathname: "/bytheme/"+ props.id
-                }}> <span>Посмотреть ещё</span> <i className='icon-angle-right'></i> </NavLink>
+                }}
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "flex-end",
+                        fontSize: "1.7rem",
+                        paddingBottom: 8,
+                        color: "#ccbc30"
+                    }}
+                > <span>Посмотреть ещё</span> <i className='icon-angle-right'></i> </NavLink>
             </div>
 
             <div className="row cat-banner-row clothing" style={{paddingTop: 40}}>
@@ -115,7 +125,7 @@ const CatBanner = (props) => {
                             products.map((prod,i) => {
                                 return (
                                     <div className="product " key={i}
-                                         style={{border: "1px solid rgb(235, 235, 235)",
+                                         style={{border: "1px solid rgb(191,191,191)",
                                              margin: 7,
                                              borderRadius: 8
                                          }}
@@ -198,7 +208,7 @@ const CatBanner = (props) => {
                                             </div>
 
                                             <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                                                {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                                {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{(prod.price - prod.price * (prod.percent / 100).toFixed(2))}</span>
                                                         <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
                                                     <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
                                                 }

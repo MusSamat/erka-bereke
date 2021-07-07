@@ -39,12 +39,12 @@ export let PRODUCTS = [];
     export const add = (id, image, title, price , percent) => {
        const found = CART.contents.find(items => {
            if(items.id === id){
-               return -1
+               return true
            }
        })
         //add a new item to the cart
         //check that it is not in the cart already
-        if(found === -1){
+        if(found){
             reduce(id, 1);
         }else{
                 let obj = {

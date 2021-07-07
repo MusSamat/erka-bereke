@@ -4,9 +4,9 @@ import {useSelector} from "react-redux";
 export const getSumOfProducts = () => (dispatch) => {
 
     const token = JSON.parse(localStorage.getItem("token"))
-    const cartProductsP = useSelector(state => {
-        return state.cartProd
-    })
+    const cartProductsP = useSelector(state => state.cartProd.cartProd)
+
+    console.log(cartProductsP)
 
     let sum = 0
 

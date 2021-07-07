@@ -170,7 +170,7 @@ const SubCatalogProducts = (props) => {
 
                         <div className="product-price" style={{display: "flex", justifyContent: "flex-end"}}>
                             {prod.percent > 0 ? <><span className="new-price"
-                                                        style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                                        style={{fontSize: 20}}>{(prod.price - prod.price * (prod.percent / 100)).toFixed(2)}</span>
                                     <span className="old-price" style={{
                                         textDecorationLine: "line-through",
                                         color: "black"

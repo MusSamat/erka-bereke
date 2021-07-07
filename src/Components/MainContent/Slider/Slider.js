@@ -43,27 +43,27 @@ const Slider = () => {
                                  style={{backgroundImage: `url(${item.image})`}}
                                 key={i}
                             >
-                                <div className="container intro-content">
-                                    <div className="row">
-                                        <div className="col-auto offset-lg-3 intro-col">
-                                            <h3 className="intro-subtitle"> 500 сомдон өйдө</h3>
-                                            <h1 className="intro-title" style={{color: 'white'}}> 10% арзандатуу {<br/>}менен
-                                                сатып ал
-                                                <span>
-                                            <span className="text-primary">$499<sup>,99</sup></span>
-                                            <sup className="font-weight-light">баштап</sup>
+                                {/*<div className="container intro-content">*/}
+                                {/*    <div className="row">*/}
+                                {/*        <div className="col-auto offset-lg-3 intro-col">*/}
+                                {/*            <h3 className="intro-subtitle"> 500 сомдон өйдө</h3>*/}
+                                {/*            <h1 className="intro-title" style={{color: 'white'}}> 10% арзандатуу {<br/>}менен*/}
+                                {/*                сатып ал*/}
+                                {/*                <span>*/}
+                                {/*            <span className="text-primary">$499<sup>,99</sup></span>*/}
+                                {/*            <sup className="font-weight-light">баштап</sup>*/}
 
-                                        </span>
-                                            </h1>
+                                {/*        </span>*/}
+                                {/*            </h1>*/}
 
-                                            <a href="category.html" className="btn btn-outline-primary-2">
-                                                <span style={{fontSize: 20}}>Тизмек</span>
-                                                <i className="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                {/*            <a href="category.html" className="btn btn-outline-primary-2">*/}
+                                {/*                <span style={{fontSize: 20}}>Тизмек</span>*/}
+                                {/*                <i className="icon-long-arrow-right"></i>*/}
+                                {/*            </a>*/}
+                                {/*        </div>*/}
+                                {/*    </div>*/}
 
-                                </div>
+                                {/*</div>*/}
                             </div>
                         ))
                     }

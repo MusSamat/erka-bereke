@@ -14,15 +14,16 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import {getSumOfProducts, resetSumOfCartProducts} from "../../store/actions/sumOfCartProducts";
 import {setloading} from "../../store/actions/laod_action";
-import {getSumOfProductsWithoutSale} from "../../store/actions/sumOfCartProductsWithoutSale";
+import {
+    getSumOfProductsWithoutSale,
+    resetSumOfCartProductsWithoutSale
+} from "../../store/actions/sumOfCartProductsWithoutSale";
 
 
 const Order = (props) => {
     const [saleH, setSaleH] = useState(false)
     const dispatch = useDispatch()
-    const cartProductsP = useSelector(state => {
-        return state.cartProd
-    })
+    const cartProductsP = useSelector(state =>  state.cartProd.cartProd)
 
     const checkSale = () => {
         if(token){
@@ -120,6 +121,7 @@ const Order = (props) => {
                 // dispatch(setloading(false))
                 dispatch(resetCart())
                 dispatch(resetSumOfCartProducts())
+                dispatch(resetSumOfCartProductsWithoutSale())
                 Reset()
                 document.getElementById("orderForm").reset()
                 toast.success(t("Modal.Log.setOrder"))

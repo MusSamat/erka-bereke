@@ -69,12 +69,10 @@ const Carousel2 = () => {
     return (
         <div className='container' style={{paddingTop: 40,
         }}>
-            <div style={{borderBottom: "1px solid #ebebeb",
+            <div style={{borderBottom: "1px solid rgb(191,191,191)",
                 marginBottom: 30
             }} className='CatBanner'>
                 <h2 className='title'>Товары со скидкой </h2>
-
-                <a href="#"> <span>Посмотреть ещё</span> <i className='icon-angle-right'></i> </a>
             </div>
             <Carousel
                 swipeable={false}
@@ -97,7 +95,7 @@ const Carousel2 = () => {
                     products.map((prod,i) => {
                         return (
                             <div className="product " key={i}
-                                style={{border: "1px solid rgb(235, 235, 235)",
+                                style={{border: "1px solid rgb(191,191,191)",
                                     margin: 7,
                                     borderRadius: 8
                                 }}
@@ -162,7 +160,7 @@ const Carousel2 = () => {
                                     </div>
 
                                     <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                                        {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{prod.price - prod.price * (prod.percent / 100)}</span>
+                                        {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{(prod.price - prod.price * (prod.percent / 100)).toFixed(2)}</span>
                                                 <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
                                             <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
                                         }
