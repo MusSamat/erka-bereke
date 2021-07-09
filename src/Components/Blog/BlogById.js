@@ -22,6 +22,7 @@ const BlogById = (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0,0)
         GetBlog()
     }, [])
 

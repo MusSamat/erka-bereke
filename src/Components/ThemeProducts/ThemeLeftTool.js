@@ -23,7 +23,7 @@ const ThemeLeftTool = (props) => {
             setTheme(res)
         })
     }
-    console.log(theme)
+
 
     const products = useSelector(state => state.product.products.filter((item, index) => {
         if(item.theme === id) {
@@ -35,6 +35,7 @@ const ThemeLeftTool = (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0,0)
         getTheme()
     }, [])
 

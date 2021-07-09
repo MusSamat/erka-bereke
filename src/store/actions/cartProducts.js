@@ -7,7 +7,6 @@ import {CART, init} from "../../service/cartLocalStorage/storageFunctions";
 
 export const getProductsFromCart = () => (dispatch) => {
     init()
-    console.log(CART.contents)
     dispatch(setloading(true))
     const token = JSON.parse(localStorage.getItem("token"))
     const userId = localStorage.getItem('userId')

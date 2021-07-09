@@ -32,7 +32,8 @@
 
   "Sale": {
     "1": "10% indirim...",
-    "title": "Indirim"
+    "title": "Indirim",
+    "SaleProducts": "Indirimler"
   },
 
   "Footer": {

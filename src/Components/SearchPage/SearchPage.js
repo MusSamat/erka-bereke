@@ -29,7 +29,8 @@ const SearchPage = (props) => {
     const tf = false
 
     useEffect( () => {
-       mobile_menu()
+        window.scrollTo(0,0)
+        mobile_menu()
     },[])
     const checkCart = (id) => {
         let c = 0
@@ -90,8 +91,8 @@ const SearchPage = (props) => {
                                                 </td>
                                                 {
                                                     item.percent > 0 ?
-                                                        <td className="price-col">{item.price -
-                                                        (item.price * item.percent /100)}
+                                                        <td className="price-col">{(item.price -
+                                                            (item.price * item.percent /100)).toFixed(2)}
                                                             <span className="old-price" style={{
                                                                 textDecorationLine: "line-through",
                                                                 color: "#ccbc30",

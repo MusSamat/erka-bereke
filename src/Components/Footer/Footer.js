@@ -125,7 +125,7 @@ const Footer = () => {
                                     <li><a href="#">{t("Footer.FooterMenu.1.3")} </a></li>
                                     <li><NavLink  to="/news-blogs">{t("Footer.FooterMenu.1.4")}</NavLink></li>
                                     <li><NavLink to="/contact" href="contact.html">{t("Footer.FooterMenu.1.5")}</NavLink></li>
-                                    <li><a href="login.html">{t("Footer.FooterMenu.1.6")}</a></li>
+                                    <li><a href="#signin-modal" data-toggle="modal">{t("Footer.FooterMenu.1.6")} </a></li>
                                 </ul>
 
                             </div>
@@ -176,7 +176,7 @@ const Footer = () => {
                 <div className="container">
                     <p className="footer-copyright">Copyright © 2021 <span style={{fontSize: 17, paddingLeft: 20, paddingRight: 100}}>SigmaSoft</span> </p>
                     <ul className="footer-menu">
-                        <li><a href="#"> &  WE ALWAYS CAN HELP</a></li>
+                        <li> &  WE ALWAYS CAN HELP</li>
                     </ul>
 
 

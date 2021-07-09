@@ -60,6 +60,7 @@ const CatalogProducts = (props) => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         dispatch(getProducts())
     }, [dispatch])
 
@@ -168,7 +169,9 @@ const CatalogProducts = (props) => {
 
                     <div className="product-body">
                         <div className="product-cat">
-                            <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
+                            <NavLink to={{
+                                pathname: "/subcategories/" + prod.category_id,
+                            }} style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</NavLink>
                         </div>
 
                         <div className="product-price" style={{display: "flex", justifyContent: "flex-end"}}>
@@ -183,7 +186,7 @@ const CatalogProducts = (props) => {
                         </div>
 
                         <h3 className="product-title" style={{
-                            fontSize: 18,
+                            fontSize: 15,
                             paddingBottom: 10,
                             fontWeight: "bold",
                             fontFamily: 'Lato, san-serif'
