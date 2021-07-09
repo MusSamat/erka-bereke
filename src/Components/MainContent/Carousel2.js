@@ -4,12 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import {addProductToWishlist} from "../../store/actions/wishlistProducts";
 import {toast} from "react-toastify";
-import {addProductToCart} from "../../store/actions/cartProducts";
+import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {getProducts} from "../../store/actions/product";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {add} from "../../service/cartLocalStorage/storageFunctions";
 
 const Carousel2 = () => {
+    const token = JSON.parse(localStorage.getItem("token"))
     const {t, i18n} = useTranslation();
     const products = useSelector(state => state.product.products.filter((item, index) => {
         if (item.percent > 0) {
@@ -50,79 +52,87 @@ const Carousel2 = () => {
 
     const responsive = {
         desktop: {
-            breakpoint: { max: 3000, min: 1024 },
+            breakpoint: {max: 3000, min: 1024},
             items: 5,
             slidesToSlide: 5 // optional, default to 1.
         },
         tablet: {
-            breakpoint: { max: 1024, min: 464 },
+            breakpoint: {max: 1024, min: 464},
             items: 3,
             slidesToSlide: 3 // optional, default to 1.
         },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: {max: 464, min: 0},
             items: 1,
-            slidesToSlide: 1 // optional, default to 1.
+            slidesToSlide: 1 ,// optional, default to 1.
+            showDots: true
         }
     };
 
     return (
-        <div className='container' style={{paddingTop: 40,
+        <div className='container' style={{
+            paddingTop: 40,
         }}>
-            <div style={{borderBottom: "1px solid rgb(191,191,191)",
+            <div style={{
+                borderBottom: "1px solid rgb(191,191,191)",
                 marginBottom: 30
             }} className='CatBanner'>
-                <h2 className='title'>Товары со скидкой </h2>
+                <h2 className='title'>{t("Sale.SaleProducts")}</h2>
             </div>
             <Carousel
-                swipeable={false}
+                swipeable={true}
                 draggable={false}
-                showDots={true}
+                focusOnSelect={true}
                 responsive={responsive}
                 ssr={true} // means to render carousel on server-side.
                 infinite={true}
-                autoPlaySpeed={1000}
+                autoPlay={true}
+                autoPlaySpeed={3000}
                 keyBoardControl={true}
                 customTransition="all .5"
                 transitionDuration={500}
                 containerClass="carousel-container"
                 removeArrowOnDeviceType={["tablet", "mobile"]}
-
-                dotListClass="custom-dot-list-style"
+                dotListClass={"dots-style"}
                 itemClass="carousel-item-padding-40-px"
             >
                 {
-                    products.map((prod,i) => {
+                    products.map((prod, i) => {
                         return (
                             <div className="product " key={i}
-                                style={{border: "1px solid rgb(191,191,191)",
-                                    margin: 7,
-                                    borderRadius: 8
-                                }}
+                                 style={{
+                                     border: "1px solid rgb(191,191,191)",
+                                     margin: 7,
+                                     borderRadius: 8
+                                 }}
                             >
-                                <figure className="product-media" id="ptr" >
+                                <figure className="product-media" id="ptr">
                                     {
-                                        prod.percent > 0  ? <span className="product-label label-sale">- { prod.percent} %</span>
+                                        prod.percent > 0 ?
+                                            <span className="product-label label-sale">- {prod.percent} %</span>
                                             : null
                                     }
                                     {
-                                        prod.available ?  null : <span className="product-label label-top">Нет в наличии</span>
+                                        prod.available ? null :
+                                            <span className="product-label label-top">Нет в наличии</span>
                                     }
-                                    <NavLink  to={{
+                                    <NavLink to={{
                                         pathname: "/product/" + prod.id,
                                         id: prod.id
                                     }}
-                                              className="img-img"
+                                             className="img-img"
                                     >
-                                        <img className="d-block w-100 "  src={prod.image} alt={prod.title}/>
+                                        <img className="d-block w-100 " src={prod.image} alt={prod.title}/>
                                     </NavLink>
 
                                     <div className="product-action-vertical">
                                         {
-                                            checkWishlist(prod.id) ?  <button  className="btn-product-icon btn-wishlist "
-                                                                               title={t("Wishlist.CheckWishlist")}
-                                                                               style={{backgroundColor: "#3399ff",
-                                                                                   color: "white"}} disabled>
+                                            checkWishlist(prod.id) ? <button className="btn-product-icon btn-wishlist "
+                                                                             title={t("Wishlist.CheckWishlist")}
+                                                                             style={{
+                                                                                 backgroundColor: "#3399ff",
+                                                                                 color: "white"
+                                                                             }} disabled>
                                             </button> : <button onClick={() => {
                                                 dispatch(addProductToWishlist(prod.id))
                                             }} className="btn-product-icon btn-wishlist "
@@ -138,35 +148,65 @@ const Carousel2 = () => {
 
                                     <div className="product-action">
                                         {
-                                            checkCart(prod.id)  || !prod.available ?
-                                                <button className="btn-product "
-                                                        title={t("Cart.CheckCart")}
-                                                        disabled style={{backgroundColor:"#3399ff" }}
-                                                ><img
-                                                    src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                            token ?
+
+                                                (checkCart(prod.id) || !prod.available ?
+                                                    <button className="btn-product "
+                                                            title={t("Cart.CheckCart")}
+                                                            disabled style={{backgroundColor: "#3399ff"}}
+                                                    ><img
+                                                        src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                    :
+                                                    <button onClick={() => {
+                                                        dispatch(addProductToCart(prod.id, 1))
+                                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                        src="/assets/svg_logo/addcar.png" alt=""/></button>)
                                                 :
-                                                <button onClick={() => {
-                                                    dispatch(addProductToCart(prod.id, 1))
-                                                }} className="btn-product " title={t("Cart.AddToCart")}><img
-                                                    src="/assets/svg_logo/addcar.png" alt=""/></button>
+                                                (!prod.available ?
+                                                    <button className="btn-product "
+                                                            title={t("Cart.CheckCart")}
+                                                            disabled style={{backgroundColor: "#3399ff"}}
+                                                    ><img
+                                                        src="/assets/svg_logo/addcar.png" alt={prod.title}/></button>
+                                                    :
+                                                    <button onClick={() => {
+                                                        add(prod.id, prod.image, prod.title, prod.price, prod.percent);
+                                                        dispatch(getProductsFromCart())
+                                                    }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                        src="/assets/svg_logo/addcar.png" alt=""/></button>)
+
                                         }
+
                                     </div>
                                 </figure>
 
 
                                 <div className="product-body">
                                     <div className="product-cat">
-                                        <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
+                                        <NavLink to={{
+                                            pathname: "/subcategories/" + prod.category_id,
+                                        }} style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</NavLink>
                                     </div>
 
-                                    <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>
-                                        {prod.percent > 0 ? <><span className="new-price"  style={{fontSize: 20}}>{(prod.price - prod.price * (prod.percent / 100)).toFixed(2)}</span>
-                                                <span className="old-price" style={{textDecorationLine: "line-through", color: "black"}}> {prod.price}</span></>:
-                                            <span className="new-price"  style={{fontSize: 20}}>{prod.price}</span>
+                                    <div className="product-price"
+                                         style={{display: "flex", justifyContent: "flex-end"}}>
+                                        {prod.percent > 0 ? <><span className="new-price"
+                                                                    style={{fontSize: 20}}>{(prod.price - prod.price * (prod.percent / 100)).toFixed(2)}</span>
+                                                <span className="old-price" style={{
+                                                    textDecorationLine: "line-through",
+                                                    color: "black"
+                                                }}> {prod.price}</span></> :
+                                            <span className="new-price" style={{fontSize: 20}}>{prod.price}</span>
                                         }
                                     </div>
 
-                                    <h3 className="product-title" style={{fontSize: 18, paddingBottom: 10, height: 100, fontWeight: "bold", fontFamily: 'Lato, san-serif'}}><NavLink
+                                    <h3 className="product-title" style={{
+                                        fontSize: 15,
+                                        paddingBottom: 10,
+                                        height: 100,
+                                        fontWeight: "bold",
+                                        fontFamily: 'Lato, san-serif'
+                                    }}><NavLink
                                         to={{
                                             pathname: "/product/" + prod.id,
                                             id: prod.id

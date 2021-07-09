@@ -77,7 +77,7 @@ const ThemeProducts = (props) => {
     //Pagination
 
     const [pageNumber, setPageNumber] = useState([0])
-    const blogPerPage = 5
+    const blogPerPage = 24
     const pageVisited = pageNumber * blogPerPage
     const pageCount = Math.ceil(products?.length / blogPerPage)
 

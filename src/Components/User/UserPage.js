@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Nav from "../Nav/Nav";
 import NavBanner from "../Nav/NavBanner";
 import './User.css'
@@ -14,6 +14,9 @@ import {resetWishlist} from "../../store/actions/wishlistProducts";
 const UserPage = () => {
 
     const dispatch = useDispatch()
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, [])
 
     const logOutHandler = () => {
         dispatch(getIsLoginValue(false))

@@ -13,6 +13,7 @@ import saleActions from "./sale";
 import sumOfCartProductsWreducer from "./sumOfCartProductsWithoutSale"
 import brandsreducer from "./brandsReducer"
 import loadreducer from "./load_reducer";
+import {deliveryReducer} from "./delivery_reducer";
 export default combineReducers({
     product: productReducer,
     category: categoryReducer,
@@ -27,5 +28,6 @@ export default combineReducers({
     searchProd: searchProductReducer,
     sale: saleActions,
     cartProdW: sumOfCartProductsWreducer,
-    brands: brandsreducer
+    brands: brandsreducer,
+    del_cost: deliveryReducer
 })

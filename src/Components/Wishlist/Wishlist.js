@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Nav from "../Nav/Nav";
 import NavBanner from "../Nav/NavBanner";
 import {useTranslation} from "react-i18next";
@@ -31,6 +31,10 @@ const Wishlist = () => {
         })
         return c
     }
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, [])
 
     return(
         <div>
@@ -78,8 +82,8 @@ const Wishlist = () => {
                                     </td>
                                     {
                                         item.product.percent > 0 ?
-                                            <td className="price-col">{item.product.price -
-                                            (item.product.price * item.product.percent /100)}
+                                            <td className="price-col">{(item.product.price -
+                                                (item.product.price * item.product.percent /100)).toFixed(2)}
                                                 <span className="old-price" style={{
                                                     textDecorationLine: "line-through",
                                                     color: "#ccbc30",
@@ -122,21 +126,21 @@ const Wishlist = () => {
                         }
                         </tbody>
                     </table>
-                    <div className="wishlist-share">
-                        <div className="social-icons social-icons-sm mb-2">
-                            <label className="social-label">{t("Wishlist.WishlistPage.Sharing")}</label>
-                            <a href="#" className="social-icon" title="Facebook" target="_blank"><i
-                                className="icon-facebook-f"></i></a>
-                            <a href="#" className="social-icon" title="Twitter" target="_blank"><i
-                                className="icon-twitter"></i></a>
-                            <a href="#" className="social-icon" title="Instagram" target="_blank"><i
-                                className="icon-instagram"></i></a>
-                            <a href="#" className="social-icon" title="Youtube" target="_blank"><i
-                                className="icon-youtube"></i></a>
-                            <a href="#" className="social-icon" title="Pinterest" target="_blank"><i
-                                className="icon-pinterest"></i></a>
-                        </div>
-                    </div>
+                    {/*<div className="wishlist-share">*/}
+                    {/*    <div className="social-icons social-icons-sm mb-2">*/}
+                    {/*        <label className="social-label">{t("Wishlist.WishlistPage.Sharing")}</label>*/}
+                    {/*        <a href="#" className="social-icon" title="Facebook" target="_blank"><i*/}
+                    {/*            className="icon-facebook-f"></i></a>*/}
+                    {/*        <a href="#" className="social-icon" title="Twitter" target="_blank"><i*/}
+                    {/*            className="icon-twitter"></i></a>*/}
+                    {/*        <a href="#" className="social-icon" title="Instagram" target="_blank"><i*/}
+                    {/*            className="icon-instagram"></i></a>*/}
+                    {/*        <a href="#" className="social-icon" title="Youtube" target="_blank"><i*/}
+                    {/*            className="icon-youtube"></i></a>*/}
+                    {/*        <a href="#" className="social-icon" title="Pinterest" target="_blank"><i*/}
+                    {/*            className="icon-pinterest"></i></a>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

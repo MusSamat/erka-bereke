@@ -25,4 +25,6 @@ export const REMOVE_BRAND = "REMOVE_BRAND"
 export const ADD_BRAND = "ADD_BRAND"
 export const RESET_BRANDS = "RESET_BRANDS"
 export const LOAD = "LOAD"
+export const DELIVERYCOST = "DELIVERYCOST"
+export const RESET_DELIVERYCOST = "RESET_DELIVERYCOST"
 

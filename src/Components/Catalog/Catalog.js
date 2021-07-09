@@ -18,6 +18,7 @@ const Catalog = (props) => {
     }))
 
     useEffect(() => {
+        window.scrollTo(0,0)
         mobile_menu()
         dispatch(getProducts())
     },[dispatch])

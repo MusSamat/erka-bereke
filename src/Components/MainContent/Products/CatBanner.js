@@ -93,9 +93,13 @@ const CatBanner = (props) => {
                 <div className="col-xl-3 col-xxl-4">
                     <div className="cat-banner row no-gutters">
                         <div className="col-sm-12 col-xl-12 col-xxl-12">
-                            <div className="banner banner-overlay" style={{borderRadius: 10}}>
-                                <img src={props.image} alt={props.title}/>
-                            </div>
+                         <NavLink to={{
+                             pathname: "/bytheme/"+ props.id
+                         }}>
+                             <div className="banner banner-overlay" style={{borderRadius: 10}}>
+                                 <img src={props.image} alt={props.title}/>
+                             </div>
+                         </NavLink>
 
                         </div>
 
@@ -112,7 +116,8 @@ const CatBanner = (props) => {
                         responsive={responsive}
                         ssr={true} // means to render carousel on server-side.
                         infinite={true}
-                        autoPlaySpeed={1000}
+                        autoPlay={true}
+                        autoPlaySpeed={3000}
                         keyBoardControl={true}
                         customTransition="all .5"
                         transitionDuration={500}
@@ -204,7 +209,9 @@ const CatBanner = (props) => {
 
                                         <div className="product-body" >
                                             <div className="product-cat">
-                                                <a href="#" style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</a>
+                                                <NavLink to={{
+                                                    pathname: "/subcategories/" + prod.category_id,
+                                                }}  style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</NavLink>
                                             </div>
 
                                             <div className="product-price" style={{display: "flex",  justifyContent: "flex-end"}}>

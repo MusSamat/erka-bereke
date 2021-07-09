@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Nav from "../Nav/Nav";
 import './ProductDet.css'
 import {useDispatch, useSelector} from "react-redux";
-import {addProductToCart} from "../../store/actions/cartProducts";
+import {addProductToCart, getProductsFromCart} from "../../store/actions/cartProducts";
 import {toast} from "react-toastify";
 import {useTranslation} from "react-i18next";
 import {addProductToWishlist} from "../../store/actions/wishlistProducts";
@@ -12,9 +12,11 @@ import {NavLink} from "react-router-dom";
 import {setSaleValue} from "../../store/actions/sale";
 import {resetBrands} from "../../store/actions/brands_action";
 import {mobile_menu} from "../../service/accessFunctions";
+import {add} from "../../service/cartLocalStorage/storageFunctions";
 
 
 const Product = (props) => {
+    const token = JSON.parse(localStorage.getItem("token"))
     const id = parseInt(props.match.params.id)
     const {t, i18n} = useTranslation();
     const dispatch = useDispatch()
@@ -27,6 +29,7 @@ const Product = (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0,0)
         mobile_menu()
         let loadScript = function (src) {
             let tag = document.createElement('script');
@@ -281,20 +284,32 @@ const Product = (props) => {
                                                             <p>Даана</p>
                                                             <div className='prod_det_buttons'>
                                                                 {
-                                                                    checkCart(item.id) || !item.available ?
-                                                                        <button className="carT"
-                                                                                title={t("Cart.CheckCart")}
-                                                                                disabled
-                                                                            // style={{ backgroundColor: "#3399ff"}}
-                                                                        ><img
-                                                                            src="/assets/svg_logo/addcar.png"
-                                                                            alt={item.title}/></button>
+                                                                    token ?
+
+                                                                        (checkCart(item.id) || !item.available ?
+                                                                            <button className="btn-product "
+                                                                                    title={t("Cart.CheckCart")}
+                                                                                    disabled style={{backgroundColor: "#3399ff"}}
+                                                                            ><img
+                                                                                src="/assets/svg_logo/addcar.png" alt={item.title}/></button>
+                                                                            :
+                                                                            <button onClick={() => {
+                                                                                dispatch(addProductToCart(item.id, 1))
+                                                                            }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                                                src="/assets/svg_logo/addcar.png" alt=""/></button>)
                                                                         :
-                                                                        <button onClick={() => {
-                                                                            dispatch(addProductToCart(item.id, 1))
-                                                                        }} className="carT " title="AddToCart"><img
-                                                                            src="/assets/svg_logo/addcar.png" alt=""/>
-                                                                        </button>
+                                                                        (!item.available ?
+                                                                            <button className="btn-product "
+                                                                                    title={t("Cart.CheckCart")}
+                                                                                    disabled style={{backgroundColor: "#3399ff"}}
+                                                                            ><img
+                                                                                src="/assets/svg_logo/addcar.png" alt={item.title}/></button>
+                                                                            :
+                                                                            <button onClick={() => {
+                                                                                add(item.id, item.image, item.title, item.price, item.percent);
+                                                                                dispatch(getProductsFromCart())
+                                                                            }} className="btn-product " title={t("Cart.AddToCart")}><img
+                                                                                src="/assets/svg_logo/addcar.png" alt=""/></button>)
                                                                 }
 
                                                                 {

@@ -18,6 +18,7 @@ const Contact = () => {
 
     const postMail = (e) => {
         e.preventDefault()
+
         const fd = new FormData()
         fd.append("name", name)
         fd.append("phone", tel)
@@ -27,11 +28,13 @@ const Contact = () => {
 
         new GetData().setOrder('/views/backcall', fd).then(() => {
             toast.success("Успешно отправлено")
+            document.getElementById("contactForm").reset()
         })
     }
 
 
     useEffect(() => {
+        window.scrollTo(0,0)
     }, [])
 
 
@@ -99,7 +102,7 @@ const Contact = () => {
                         <div className="col-lg-12" style={{marginTop: 40}}>
                             <h2 className="title mb-1" style={{fontSize: 20}}>{t("Contact.Questions")} ?</h2>
                             <p className="mb-2" style={{fontSize: 20}}>{t("Contact.Qtitle")}</p>
-                            <form className="contact-form mb-3" onSubmit={postMail}>
+                            <form className="contact-form mb-3" id="contactForm" onSubmit={postMail}>
                                 <div className="row">
                                     <div className="col-sm-6">
                                         <label htmlFor="cname" className="sr-only">{t("Contact.Qname")}</label>
@@ -150,7 +153,8 @@ const Contact = () => {
                                           }}
                                           placeholder={t("Contact.Qmail")}></textarea>
 
-                                <button type="submit" className="btn btn-outline-primary-2 btn-minwidth-sm">
+                                <button type="submit" className="btn btn-outline-primary-2 btn-minwidth-sm"
+                                >
                                     <span style={{fontWeight: "bold"}}>{t("Contact.Submit")}</span>
                                     <i className="icon-long-arrow-right"></i>
                                 </button>

@@ -43,6 +43,7 @@ const BrandsLeftTool = (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0,0)
         getBrands()
         getBrandsProducts()
         let loadScript = function (src) {
