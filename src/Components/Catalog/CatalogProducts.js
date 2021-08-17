@@ -60,11 +60,7 @@ const CatalogProducts = (props) => {
     }
 
     useEffect(() => {
-<<<<<<< HEAD
-        window.scrollTo(0, 0)
-=======
         window.scrollTo(0,0)
->>>>>>> origin/main
         dispatch(getProducts())
     }, [dispatch])
 
@@ -175,11 +171,7 @@ const CatalogProducts = (props) => {
                         <div className="product-cat">
                             <NavLink to={{
                                 pathname: "/subcategories/" + prod.category_id,
-<<<<<<< HEAD
-                            }} style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</NavLink>
-=======
                             }}  style={{fontSize: 17, fontWeight: "bold"}}>{prod.subcategory_title}</NavLink>
->>>>>>> origin/main
                         </div>
 
                         <div className="product-price" style={{display: "flex", justifyContent: "flex-end"}}>
