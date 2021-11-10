@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "../Header.css"
 import {NavLink} from "react-router-dom";
+
 import {setSaleValue} from "../../../store/actions/sale";
 import {resetBrands} from "../../../store/actions/brands_action";
 import {useTranslation} from "react-i18next";
@@ -59,7 +60,7 @@ const HeaderBottom2 = (props) => {
                             <span>  <span style={{color: "white"}}>Категории</span></span>
                         </a>
 
-                        <div className="dropdown-menu">
+                        <div className="dropdown-menu" style={{width: 350}}>
                             <nav className="side-nav">
                                 <ul className="menu-vertical sf-arrows">
                                     {
@@ -82,7 +83,7 @@ const HeaderBottom2 = (props) => {
                                                             className='menuLinkDiv'
                                                         >
                                                             <div className='menuLink'
-                                                                 style={{fontWeight: 600, fontSize: 17}}>
+                                                                 style={{fontWeight: 600, fontSize: 17, width: 400}}>
                                                                 <img src={item.image}
                                                                      alt={item.title}/>
                                                                 {item.title}
@@ -203,34 +204,36 @@ const HeaderBottom2 = (props) => {
                     }}>
                         <div style={{
                             margin: 0,
-                        }}><NavLink to="/"
-                            activeStyle={{
-                                color: "#ccbc30",
-                            }}
-                            style={{
-                                color: "#FFFFFF"
-                            }}
+                        }}><NavLink
+                                exact={true}
+                            to="/"
+                                    style={{
+                                        color: "#FFFFFF"
+                                    }}
+                                    activeStyle={{
+                                        color: "#ccbc30"
+                                    }}
                         >{t("Main.Main")}</NavLink></div>
                         <div style={{
                             margin: 0,
-                        }}><NavLink  to="/news-blogs"
-                                 activeStyle={{
-                                     color: "#ccbc30"
-                                 }}
-                                 style={{
-                                     color: "#FFFFFF"
-                                 }}
+                        }}><NavLink to="/news-blogs"
+                                    style={{
+                                        color: "#FFFFFF"
+                                    }}
+                                    activeStyle={{
+                                        color: "#ccbc30"
+                                    }}
                         >{t("Footer.FooterMenu.1.4")}</NavLink>
                         </div>
                         <div style={{
                             margin: 0,
-                        }}><NavLink  to="/contact"
-                                     style={{
-                                         color: "#FFFFFF"
-                                     }}
-                                     activeStyle={{
-                                         color: "#ccbc30"
-                                     }}
+                        }}><NavLink to="/contact"
+                                    style={{
+                                        color: "#FFFFFF"
+                                    }}
+                                    activeStyle={{
+                                        color: "#ccbc30"
+                                    }}
                         >{t("Footer.FooterMenu.1.5")}</NavLink>
                         </div>
                     </div>

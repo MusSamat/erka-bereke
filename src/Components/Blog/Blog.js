@@ -34,7 +34,7 @@ const Blog = () => {
 
     //Pagination
     const [pageNumber, setPageNumber] = useState([0])
-    const blogPerPage = 3
+    const blogPerPage = 6
     const pageVisited = pageNumber * blogPerPage
     const pageCount = Math.ceil(blogs?.length / blogPerPage)
 
@@ -51,7 +51,7 @@ const Blog = () => {
                 }}>
                     <div style={{marginBottom: 20, height: 250}}>
                         <img src={item.image} alt="новости"
-                             style={{height: "100%", weight: "100%"}}/>
+                             style={{height: "100%", weight: "100%", margin: "0 auto"}}/>
                     </div>
                     <div className="entry-meta">
                         {moment(item.created_at).format('YYYY-MM-DD')}

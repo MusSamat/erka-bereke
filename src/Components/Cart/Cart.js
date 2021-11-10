@@ -112,8 +112,8 @@ const Cart = () => {
                                                     </td>
                                                     {
                                                         item.product.percent > 0 ?
-                                                            <td className="price-col">{(item.product.price -
-                                                                (item.product.price * item.product.percent / 100)).toFixed(2)}
+                                                            <td className="price-col">{parseFloat((item.product.price -
+                                                                (item.product.price * item.product.percent / 100)) * item.quantity).toFixed(2)}
                                                                 <span className="old-price" style={{
                                                                     textDecorationLine: "line-through",
                                                                     color: "#ccbc30",

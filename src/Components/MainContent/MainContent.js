@@ -45,7 +45,6 @@ const MainContent = () => {
     return (
         <div className='main'>
             <Switch>
-
                 <Route exact path='/' render={() => {
                     return (
                         <>
@@ -67,13 +66,13 @@ const MainContent = () => {
                     )
                 }}/>
                 <Route exact={true} path='/search/:searchInput' component={SearchPage}/>
-                <Route  path='/categories/:id' component={Catalog}/>
-                <Route  path='/subcategories/:id' component={SubCatalog}/>
-                <Route  path='/subcategories1/:id' component={SubCatalog1}/>
-                <Route  path='/subcategories2/:id' component={SubCatalog2}/>
-                <Route path="/brands/:id" component={BrandsLeftTool}/>
-                <Route path="/bytheme/:id" component={ThemeLeftTool}/>
-                <Route  path='/product/:id' component={Product}/>
+                <Route exact={true} path='/categories/:id' component={Catalog}/>
+                <Route exact={true} path='/subcategories/:id' component={SubCatalog}/>
+                <Route  exact={true} path='/subcategories1/:id' component={SubCatalog1}/>
+                <Route exact={true}  path='/subcategories2/:id' component={SubCatalog2}/>
+                <Route exact={true} path="/brands/:id" component={BrandsLeftTool}/>
+                <Route exact={true}  path="/bytheme/:id" component={ThemeLeftTool}/>
+                <Route  exact={true} path='/product/:id' component={Product}/>
                 <Route exact path="/cart" component={Cart}/>
                 <Route exact path='/wishlist' component={Wishlist}/>
                 <Route exact path='/news-blogs' component={Blog}/>

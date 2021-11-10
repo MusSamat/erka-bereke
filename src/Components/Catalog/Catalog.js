@@ -28,7 +28,7 @@ const Catalog = (props) => {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><NavLink  exact to='/' style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>
+                        <li className="breadcrumb-item"><NavLink  exact to='/' style={{fontSize: 11, fontWeight: "bold", textTransform: "uppercase"}}>
                             {t("Main.Main")}
                         </NavLink></li>
                         <li className="breadcrumb-item"><NavLink
@@ -38,7 +38,7 @@ const Catalog = (props) => {
                             }}
                             to={{
                             pathname: '/categories/'+ id  ,
-                        }} style={{fontSize: 13, fontWeight: "bold", textTransform: "uppercase"}}>{
+                        }} style={{fontSize: 11, fontWeight: "bold", textTransform: "uppercase"}}>{
                             category?.title
                         }</NavLink></li>
                     </ol>

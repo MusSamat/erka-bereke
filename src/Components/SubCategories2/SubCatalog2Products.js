@@ -71,7 +71,7 @@ const SubCatalog2Products = (props) => {
         <i className="icon icon-angle-left"></i>
     )
     const [pageNumber, setPageNumber] = useState([0])
-    const blogPerPage = 5
+    const blogPerPage = 30
     const pageVisited = pageNumber * blogPerPage
     const pageCount = Math.ceil(products?.length / blogPerPage)
 

@@ -64,7 +64,7 @@ const HeaderMiddle2 = (props) => {
                         <i className="icon-bars"></i>
                     </button>
 
-                    <NavLink to="/" className="logo">
+                    <NavLink to="/" className="logo" activeStyle={{ color: "rgb(204, 188, 48)"}}>
                         <span style={{
                             color: "#ccbc30",
                             fontSize: 30,
