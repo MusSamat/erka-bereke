@@ -19,6 +19,12 @@
     color: black;
 
 }
+
+.menuLink img {
+    width: 26px;
+    height: auto;
+}
+
 .menuLink:hover{
     color: #ccbc30;
 }
